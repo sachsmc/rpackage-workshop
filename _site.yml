@@ -1,4 +1,5 @@
 name: "r-pack-work-ki"
+output_dir: docs
 navbar:
   title: "R Package Development Workshop"
   left:
