@@ -1,0 +1,8 @@
+name: "r-pack-work-ki"
+navbar:
+  title: "R Package Development Workshop"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Resources"
+      href: resources.html
