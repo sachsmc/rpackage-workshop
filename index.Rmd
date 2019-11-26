@@ -21,29 +21,12 @@ https://support.rstudio.com/hc/en-us/articles/200486498-Package-Development-Prer
 
 #### Wednesday 27th November to Friday 29th November 2019 
 
-### Daily Schedule (Tentative)
+![](schedule.png)
 
-```{r}
-Time <- seq(9, 16, by = .5)
-Y <- -Time + 16
-names(Y) <- Time
-Day <- c("Wednesday", "Thursday", "Friday")
-sched <- expand.grid(Time, Day)
-colnames(sched) <- c("Time", "Day")
-sched$What <- "Hands on"
-sched$What[sched$Time %in% c(11.5, 14)] <- "Lecture"
-sched$What[sched$Time %in% c(9, 14.5)] <- "Fika"
-sched$What[sched$Time %in% c(12, 12.5)] <- "Lunch (provided)"
-
-sched$Y <- Y[as.character(sched$Time)]
-ggplot(sched, aes(x = Day, y = Y, fill = What)) + geom_tile(color = "grey80") + theme_minimal() + 
-    scale_y_continuous("Time", breaks = Y + .25, labels = Time) + scale_fill_brewer(type = "qual") + 
-    theme(legend.position = "bottom")
-```
 
 ## Location
 
-#### Nobels väg 12A, Campus Solna
+#### Nobels väg 12A, Campus Solna, Room North 3
 
 ```{r}
 library(leaflet)

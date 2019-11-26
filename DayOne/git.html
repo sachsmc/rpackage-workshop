@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>git and github</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+  <meta name="date" content="2019-11-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'git and github',
+                        useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            {
+        name:  'Michael Sachs' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
+            ]
+    };
+  </script>
+
+  <link href="git_files/ioslides-13.5.1/fonts/fonts.css" rel="stylesheet" />
+  <link href="git_files/ioslides-13.5.1/theme/css/default.css" rel="stylesheet" />
+  <link href="git_files/ioslides-13.5.1/theme/css/phone.css" rel="stylesheet" />
+  <script src="git_files/ioslides-13.5.1/js/modernizr.custom.45394.js"></script>
+  <script src="git_files/ioslides-13.5.1/js/prettify/prettify.js"></script>
+  <script src="git_files/ioslides-13.5.1/js/prettify/lang-r.js"></script>
+  <script src="git_files/ioslides-13.5.1/js/prettify/lang-yaml.js"></script>
+  <script src="git_files/ioslides-13.5.1/js/hammer.js"></script>
+  <script src="git_files/ioslides-13.5.1/js/slide-controller.js"></script>
+  <script src="git_files/ioslides-13.5.1/js/slide-deck.js"></script>
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    summary {
+      display: list-item;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition: opacity 0.6s ease-in 0.4s;
+      -o-transition: opacity 0.6s ease-in 0.4s;
+      transition: opacity 0.6s ease-in 0.4s;
+      opacity: 0;
+    }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
+
+  </style>
+
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+            <p style="margin-top: 6px; margin-left: -2px;">2019-11-27</p>
+          </hgroup>
+  </slide>
+
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>git</h2></hgroup><article  id="git">
+
+<q> Your closest collaborator is you six months ago, but you don’t reply to emails. </q>
+
+<div class="author">
+<pre >    -Paul Wilson</pre></div>
+
+</article></slide><slide class=""><hgroup><h2><code>git</code> and Github</h2></hgroup><article  id="git-and-github">
+
+<ul>
+<li><code>git</code> and <a href='http://github.com' title=''>http://github.com</a> make version control and collaboration easier</li>
+<li>Package development requires iteration and maybe input from multiple sources</li>
+<li><em>Ad hoc</em> approaches suffer and can have disastrous consequences</li>
+<li>Here are some examples</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Example 1: Reverting changes</h2></hgroup><article  id="example-1-reverting-changes">
+
+<ul>
+<li>In an attempt to speed up computation time, I tried reimplementing a MLE function.</li>
+<li>Turns out it broke the method entirely and didn’t end up speeding things up.</li>
+<li>How to go back to what it was originally?</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Example 2: Incorporating feature requests or edits</h2></hgroup><article  id="example-2-incorporating-feature-requests-or-edits">
+
+<ul>
+<li>A package gets popular on github, and I occasionally get feature requests or contributions</li>
+<li>How to keep track of the requests?</li>
+<li>How to keep track of contributions from other people?</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Example 3: Sharing content</h2></hgroup><article  id="example-3-sharing-content">
+
+<p>Once a paper gets published, occasionally people want to use or extend the method.</p>
+
+<div class="blue2 center">
+<p>&ldquo;I would be very grateful if you are able to help me implement this tool in my dataset as well.&rdquo;</p>
+
+<p>&ldquo;Could you please send me your code so that I can try to apply it to my example?&rdquo;</p>
+
+<p>&ldquo;Would you please kindly e-mail me your article and other works in that field promptly.?&rdquo;</p></div>
+
+<p><strong>Email is an ineffective tool for sharing code, data, documents</strong></p>
+
+</article></slide><slide class=""><hgroup><h2>What is it?</h2></hgroup><article  id="what-is-it">
+
+<p><code>git</code></p>
+
+<ul>
+<li>&ldquo;The stupid content tracker&rdquo;, developed to manage Linux source code
+
+<ul>
+<li>Files organized into <strong>repositories</strong></li>
+<li>Users <strong>commit</strong> changes, additions, deletions</li>
+<li>Entire history of <strong>commits</strong> saved</li>
+<li>Only successive <strong>diffs</strong> are saved, not full copies</li>
+</ul></li>
+</ul>
+
+<p><a href='http://github.com' title=''>Github</a></p>
+
+<ul>
+<li>A web interface and host for repositories
+
+<ul>
+<li>Explore repositories</li>
+<li>View code, documents, etc.</li>
+<li>Interact with collaborators</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Why use it?</h2></hgroup><article  id="why-use-it">
+
+<ul>
+<li>Add structure to the iterative process of package development
+
+<ul>
+<li>are you sensing a trend?</li>
+</ul></li>
+<li>Creates a record of all the steps you took</li>
+<li>Gives structure to collaboration, with benefits for asynchronous work</li>
+<li>Github adds the benefit of creating a web-presence
+
+<ul>
+<li>Not everyone agrees that this is a benefit</li>
+</ul></li>
+</ul>
+
+<h3>Open up Rstudio</h3>
+
+</article></slide><slide class=""><hgroup><h2>How often should I commit?</h2></hgroup><article  id="how-often-should-i-commit">
+
+<p><strong>git is not dropbox!</strong></p>
+
+<p>Each commit should be <em>minimally complete</em></p>
+
+<p><strong>Minimal</strong></p>
+
+<ul>
+<li>Relates to a single problem</li>
+<li>Makes it easier to describe and understand</li>
+<li>Reduces risk of conflicts (if collaborating)</li>
+</ul>
+
+<p><strong>Complete</strong></p>
+
+<ul>
+<li>Solves the problem in the code</li>
+<li>Is documented</li>
+<li>Has tests</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Common problems</h2></hgroup><article  id="common-problems">
+
+<h3>Oops I forgot to document</h3>
+
+<ul>
+<li>use &ldquo;Amend previous commit&rdquo; before pushing to github</li>
+</ul>
+
+<h3>I broke someting</h3>
+
+<ul>
+<li>do a &ldquo;hard reset&rdquo; back to the previous commit (Discard all in Rstudio)</li>
+</ul>
+
+<h3>A collaborator is working on something else at the same time</h3>
+
+<ul>
+<li>use branches and merge later</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Writing good commit messages</h2></hgroup><article  id="writing-good-commit-messages">
+
+<ul>
+<li>The diff shows you exactly what changed</li>
+<li>The commit message should communicate the context</li>
+</ul>
+
+<h3>Basic guidelines</h3>
+
+<ol>
+<li>Write a concise subject heading (about 50 characters)
+
+<ul>
+<li>Complete the following sentence: &ldquo;If applied, this commit will …&rdquo;</li>
+</ul></li>
+<li><em>If</em> more explanation needed, write a body to explain <em>why</em> and <em>how</em></li>
+<li>Reference any relevant issue tracking ids, or links</li>
+</ol>
+
+</article></slide><slide class=""><hgroup><h2>Examples</h2></hgroup><article  id="examples">
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Bad</th>
+<th align="left">Better</th>
+</tr>
+<tr class="odd">
+<td align="left">Fix bug</td>
+<td align="left">Ensure that sampling function works for small datasets</td>
+</tr>
+<tr class="even">
+<td align="left">changing documentation</td>
+<td align="left">Improve documentation with a vignette tutorial</td>
+</tr>
+<tr class="odd">
+<td align="left">typo</td>
+<td align="left">Add a comma to README</td>
+</tr>
+</table>
+
+<ul>
+<li>Use the imperative tense (like you’re telling someone what to do)</li>
+<li>Be concise, but detailed enough to trigger your memory</li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Collaborating with Github</h2></hgroup><article  id="collaborating-with-github">
+
+</article></slide><slide class=""><hgroup><h2>The lifecycle of a paper</h2></hgroup><article  id="the-lifecycle-of-a-paper">
+
+<ul>
+<li>I’m working on a paper with my friend Sue</li>
+<li>Statistical analysis + simulation studies + discussion</li>
+<li>I decide to take the lead and create an initial repository</li>
+<li>Add a draft <code>.tex</code> file, some analyses in <code>.R</code> with data and output</li>
+<li>Commit at appropriate stopping points</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Branching and merging</h2></hgroup><article  id="branching-and-merging">
+
+<div class="green">
+Main branch is called <em>master</em></div>
+
+<div class="blue">
+Sue creates a new branch called <em>sues-working</em>. Adding, editing, commiting</div>
+
+<p>Commits do not affect the other branch</p>
+
+<img src='git/img/branch1.png' title='fig:'/><p class='caption'>branch</p>
+
+<p>Push all of her changes to github, then <strong>submit a pull request</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Pull request</h2></hgroup><article  id="pull-request">
+
+<img src='git/img/pull-req.png' title='fig:'/><p class='caption'>pull</p>
+
+<aside class='note'><section><p>A <strong>pull request</strong> is a request to incorporate changes from one branch into another. It doesn’t merge them automatically, but rather opens a discussion about possible changes. The repo owner can review the changes, make comments, and suggest edits before merging. Here we can fully harness the power of <code>git</code> and <code>diff</code>. You can see that every addition, deletion, and change is highlighted in the window. You can make general comments on the request, add comments to specific lines of code, and create <strong>issues</strong>. You can see that <strong>conflicts</strong> are highlighted in yellow. Conflicts arise when the same line is edited in different ways. To resolve a conflict, the file must be edited on one of the branches and committed. Changes that can be merged without conflict are in green.</p></section></aside>
+
+</article></slide><slide class=""><hgroup><h2>Changes</h2></hgroup><article  id="changes">
+
+<img src='git/img/diff.png' title='fig:'/><p class='caption'>pull2</p>
+
+<aside class='note'><section><p>The github desktop application will prompt you to resolve any merge conflicts. It will open up a text editor, showing each conflicting line. You can remove the conflict by choosing from the two options or combining the two in some way. Commit all the changes and the branches can be merged. Again, the entire commit history is saved along with any discussion of issues!</p>
+
+<p>See <a href='https://help.github.com/articles/resolving-merge-conflicts' title=''>https://help.github.com/articles/resolving-merge-conflicts</a> for more information about conflicts.</p></section></aside>
+
+<img src='git/img/merge.png' title='fig:'/><p class='caption'>merge</p>
+
+</article></slide><slide class=""><hgroup><h2>Smaller contributions</h2></hgroup><article  id="smaller-contributions">
+
+<img src='git/img/filechange.png' title='fig:'/><p class='caption'>propose</p>
+
+</article></slide><slide class=""><hgroup><h2>Issues</h2></hgroup><article  id="issues">
+
+<aside class='note'><section><p>More expansive or general suggestions can be submitted as <strong>issues</strong>. Many options exist for issues. You can label them, drag and drop images as support, assign specific collaborators to resolve them, and more. <strong>Milestones</strong> are a way to schedule and track big steps, such as journal submission. Once you create a milestone with a due date, you can attach specific issues that need to be achieved to reach that milestone.</p></section></aside>
+
+<img src='git/img/issue.png' title='fig:'/><p class='caption'>issue</p>
+
+</article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary">
+
+<ul>
+<li><code>git</code> is a structured approach to tracking content
+
+<ul>
+<li>Small committment to learn and use</li>
+<li>But benefits are enormous</li>
+<li>… especially if using plain text files</li>
+</ul></li>
+<li><a href='http://github.com' title=''>github</a> is a web interface and repository host
+
+<ul>
+<li>Adds value to <code>git</code></li>
+<li>It’s not Dropbox, formal and structure commits + discussion</li>
+<li>Everything is public</li>
+<li>Alternatives: <a href='http://bitbucket.org' title=''>bitbucket</a>, gitlab, self-hosting, local-only</li>
+</ul></li>
+</ul></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
