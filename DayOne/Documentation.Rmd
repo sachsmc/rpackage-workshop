@@ -6,28 +6,29 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, prompt = TRUE, comment = NA, collapse = TRUE)
+knitr::opts_chunk$set(echo = TRUE, comment = NA, 
+                      collapse = TRUE, eval = FALSE)
 ```
 
 # The R help system
 
 ## First line support: `?`
 
-One of the central differences between scripts and packages is the availability of structured documentation integrated into the R commandline. Let's look at the help for a small function via `?abs` or `help(abs)`.
+A central difference between scripts and packages is structured documentation integrated into the R commandline.
 
-This gives you a detailed description of two straightforward arithmetic functions, with a reference, links to related subjects, and some examples that can be run at the command line via `example(abs)`.
+Example: `?abs` or `help(abs)` gives a detailed description of two arithmetic functions, with a reference, links to related subjects, and examples (to be run as `example(abs)`)
 
-Writing this documentation is (mostly) your responsibility. The standard format for writing help is the _R documentation_ format. These `.Rd`-files live in the `man`-folder of the source package directory, and R builds boths its interactive HTML help and the package reference files in `.pdf` format as seen on CRAN.
+Writing  documentation is your responsibility. The standard format is the _R documentation_ format. `.Rd`-files live in the `man`-folder of the source package. R builds boths interactive HTML and static PDF from the source.
 
-This is what the `.Rd` file for `abs` looks like: `MathFun.Rd`
+This is what the `.Rd` file for `abs` looks like: [MathFun.Rd](./MathFun.Rd)
 
-The `.Rd`-format uses markup similar to LaTeX to define fields (`name`, `title`) and sections (`description`), and allows for lists, links and some formatting. 
+`.Rd`-format uses markup similar to LaTeX to define fields (`name`, `title`) and sections (`description`); it allows lists, links and some formatting, see [Hadley's R package book](http://r-pkgs.had.co.nz/man.html#text-formatting).
 
 ## Building help from `.Rd` 
 
 Let's start with a stupid function:
 
-```{r}
+```{r, eval = TRUE}
 say_hello = function(name = "my little friend", punct = ".")
 {
   cat( paste0("Hello, ", name, punct), "\n", sep="")
@@ -36,31 +37,31 @@ say_hello()
 ```
 
 Let's build a simple package in the working directory:
-```{r, eval = FALSE}
+```{r}
 library(devtools)
 create("say")
 wd("say")
-dump("say_hello", file = "R/say.R")
+dump("say_hello", file = "R/say_hello.R")
 rm(say_hello)  ## remove local copy
 load_all()     ## load the package
 say_hello()    ## this is the package-version
 ```
 
-We can use a standard R function to generate a template for a `.Rd` file:
+We can use a standard R function to generate a template `.Rd` file:
 
-```{r, eval = FALSE}
+```{r}
 dir.create("man")
 prompt(say_hello, filename = "man/say_hello.Rd")
 ```
 
-This is what the template thus generated looks like: `say_hello_template.Rd`
+This is what the template thus generated looks like: [say_hello_template.Rd](./say_hello_template.Rd).
 
-We can now edit the template to fit our needs. This is what the edited template could look like: `say.Rd`.
+We can now edit the template to fit our needs. This is what the edited template could look like: [say_hello.Rd](./say_hello.Rd).
 
 Note: while editing a `.Rd`file in RStudio, the usual _Compile report_ shortcut (`Ctrl-Shift-K`) will show a preview of the help page.
 
 Once we are happy with the documentation (for now, at least), we can build the package again and check what it looks like:
-```{r, eval = FALSE}
+```{r}
 load_all()
 ?say_hello
 ```
@@ -68,7 +69,7 @@ load_all()
 Note: `%` is a comment character and can break the build. Here in the URL, the `%` is escaped by a backslash `\`
 
 Note: links to other functions from the _See Also_ section do not work when the package is only loaded for development - the links will work when the package is installed:
-```{r, eval = FALSE}
+```{r}
 install()
 ?say_hello   ## link to paste should be active
 ```
@@ -76,104 +77,111 @@ install()
 
 ## Easier: building help with roxygen2
 
-Problems with writing `.Rd` files:
+Problems with `.Rd` files:
 
-1. The markup is heavy, ugly and not very intuitive 
-2. Documentation separate from code, hard to keep synced
+1. Markup is heavy, ugly and not very intuitive 
+2. Documentation separate from code, hard to keep synchronized
 
 Solution: package `roxygen2`
 
-* use special comments + tags directly in source `.R` file
-* write documentation right on top of function
+* use special comments + tags with `\@` directly in source `.R` file
+* write documentation block right on top of function
 * use `document()` to translate to `.Rd` file(s) during building
 
-This what this could look like for the example: `say_hello.R` 
+This what our example could look like: [say_hello.R](./say_hello.R)
 
-Support for `roxygen2` is built into `devtools`, so we can simply update the documentation from the command line like this:
-```{r, eval = FALSE}
+`roxygen2` support is built into `devtools`, so we simply update the documentation like this:
+
+```{r}
 document()
 load_all()
 ?say_hello
 ```
 
-Note: text formatting, links, lists etc. work exactly as in `.Rd`, see \url{http://r-pkgs.had.co.nz/man.html#text-formatting}
+Note: text formatting, links, lists etc. work exactly as in `.Rd`
+
 
 ### The `@export` tag
 
-`roxygen2` solves the problem of maintaining separate `.Rd` files for documentation. 
+`roxygen2` solves the problem of having separate `.Rd` files for documentation. 
 
-`roxygen2` also solves the problem of keeping track of a separate NAMESPACE file: 
+`roxygen2` also solves the problem of having a separate NAMESPACE file: 
 
 * only functions exported in NAMESPACE are directly avaiable when the package is loaded 
 * by default, all functions defined in the package are exported via a call to `exportPattern`
 * `document()` will add all functions with the `@export` tag to NAMESPACE
-* functions without the tag will stay private (access through `:::`)
+* functions without the tag will stay private (accessable through `:::`)
 
 ### Tips
 
-Error messages like this are not uncommon when installing from `devtools`:
+Error messages like this are common when installing from `devtools`:
 
 ```
 Error in fetch(key) : lazy-load database 'C:/Users/aleplo/Documents/R/R-3.6.1/library/say/help/say.rdb' is corrupt
 ```
 
-Restart the R session to get rid of it. 
+Restart R to get rid of them. 
 
-A `roxygen2`-style comment / documentation header is often useful when writing functions in scripts:
+A `roxygen2`-style documentation header is often useful for functions in scripts:
 
-* Structured specification of what the function is supposed to do
-* Easy upgrade to package down the road
+* Structured specification of what the function does
+* Easy upgrade to package later
+
 
 ## Writing good help
 
-These are frequent recommendation for writing good documentation for R:
+Frequent recommendation for writing good documentation:
 
-* Make the introduction short (1-5 lines)
-* Avoid wordy argument descriptions, move extra material to Details section
-* Describe the return value; make use of the list environment for structured return values (e.g. data frames)
-* Use examples to demonstrate common use cases; make examples self-contained, using built-in datasets or simulated data; consider vignettes for complex use cases.
+* Make the introduction short (1-5 lines).
+
+* Avoid long argument descriptions move extra material to Details.
+
+* Describe the return value; make use of `itemize`/`describe` for structured return values (e.g. data frames).
+
+* Use examples to demonstrate common use cases; examples should self-contained, using built-in datasets or simulated data.
+
+* Consider vignettes for complex use cases.
 
 If you find it very hard to document your function(s), you may want to re-think your function- or package design. 
 	
+	
 ## Limitations of help
 
-R-style documentation mixes reference and tutorial, but skews towards reference. It is often awkward for describing
+R documentation mixes reference and tutorial, but is closer to a reference. It is often awkward for describing
 
 * background and motivation, 
-* multiple or complex use cases,
-* use cases involving multiple functions 
 
-Package-level documentation can help somewhat (see below), but generally these things are better handled via a vignette (or two).
+* multiple or complex use cases,
+
+* use cases involving multiple functions.
+
+Package-level documentation can help (see below), but these things are generally better in a vignette.
+
 
 # Vignettes
 
 ## Complement to `help`
 
-* Generally: extra material in inst/doc in source package, copied over to install - could be anything (.pdf, .html, .docx (not recommended), paper, book chapter....)
+Any files in `inst/doc` in the source package will be copied to `doc` in the built/installed package: any format, any source.
 
-* More specifically: a _package vignette_ is .pdf .HTML document in the built package obtained from plain text literate source files (.Rmd, .Rnw) in the source package (in inst/doc)
+A _package vignette_ is a PDF or HTML document in `doc` in the built package generated from plain text literate source files (`.Rmd`, `.Rnw`) folder `vignettes` in the source package.
 
-* Multiple vignettes possible, any content - but main idea: tutorial (as opposed to reference)
+Multiple vignettes are possible, any content, but the main idea is tutorial or background rather than reference, e.g. `browseVignettes(package = "survival")`.
 
-A good example (not format, but multiple vignettes with different use cases):
-```{r, eval = FALSE}
-browseVignettes(package = "survival")
-```
-
-* Unless it's literally a one-function package, have a vignette
+Unless a package is extremely simple (a one-function package), write a vignette.
 
 
 ## How to vignette
 
-We can easily generate a vignette template for our silly example:
+Generate a vignette template for our silly example:
 
-```{r, eval = FALSE}
+```{r}
 use_vignette("SayingThings")
 ```
 
 This creates a new sub-directory in the package folder called `vignettes` and puts a template `.Rmd` file there. 
 
-You can edit this file as you see fit, though the current example may be a bit thin. This is what a an example could look like: `SayingThings.Rmd`
+You can edit this file as you see fit, though the current example may be a bit thin. This is what a an example could look like: [SayingThings.Rmd](./SayingThings.Rmd)
 
 Vignettes are NOT built by default when using `install`, you need to insist:
 ```{r, eval = FALSE}
@@ -181,43 +189,52 @@ install(build_vignettes = TRUE)
 browseVignettes(package = "say")
 ```
 
-* Control output format by modifying the metadata of the vignette itself, i.e., use `rmarkdown::html_vignette` or `rmarkdown::pdf_document` as the output field (or anything else).
+
 
 # Other 
 
 ## Adding package-level help
 
-It can be helpful to have a central help page for the whole package. This can serve as a simple mini-vignette. E.g.:
+It can be helpful to have a central help page for the package as a whole. E.g.
+
 ```{r, eval = FALSE}
 package?devtools
 ```
 
-roxygen works for this, too:
+roxygen can do this, too:
 
 1. Write documentation block for object `NULL`
-2. Add tag `\@docType package` to the block
-3. There is no step 3.
+2. Add tags `\@docType package` and `\@name <pkgname>` to the block
 
-Common practice is to put this header into a separate `.R` file called `<package-name>.R.`, but any R file will do. 
+Commonly this header is put into a separate `.R` file called `<package-name>.R.`, but any R file will do. 
 
-This is what a package documentation for our package could look like: `say.R`
+This is what a package documentation for our package could look like: [say.R](./say.R)
+
 
 ## Adding & documenting data sets
 
 ### Ready-made
 
-If your package cannot use a standard data set for examples, include your own. 
+If your package cannot use a standard data set, include your own. 
 
-Data sets live in directory `data` of the package folder. Technically, data can be stored as a text file, R code that will generate data, or an `.rda` file. The latter is most common and well supported by devtools:
+Data sets live in directory `data` of the package. Technically, data can be stored as a text file, R code that will generate data, or an `.rda` file. The latter is most common, recommended and well supported by devtools:
 
-```{r, eval = FALSE}
+```{r}
 names = c("Ronald", "Herbert", "Bill", "George")
 use_data( names )
 ```
 
-generates file `data/names.rda` containing the single vector `names`. 
+generates file `data/names.rda` with the single vector `names`. A local copy can be generated via 
 
-Data objects, too, need to be documented. This is again simplest using roxygen, by including the data name with a roxygen header in one of the package `.R` files. Here, it could be something like
+```{r}
+rm( names )     ## delete local copy
+load_all()
+data( names )
+names
+```
+
+Data sets also need to be documented. This is again simple using roxygen, by including the data name with a roxygen header in one of the package `.R` files:
+
 ```r
 #' First names
 #' 
@@ -238,44 +255,47 @@ Comments:
 
 1. Command from Hadley: _Never \@export a data set._
 
-2. You can use `\example`, too.
+2. You can use \@example, too.
 
 
 ### Pre-processing files
 
-Sometimes, you have an external data set that needs some clean up for inclusion in a package.
+Sometimes an external data set needs clean-up for inclusion in a package.
 
-You could do this only once, at the command line, and  call `use_data`. However, for reasons of 
+You can do this at the command line, and  call `use_data`. However, for reasons of 
 
 * documentation,
 * replicability,
 * maintenance
 
-you really should do it in an R file & keep the R-file around. 
+you really should do it in an R script.
 
-You could keep the .R file in `data`, in which case it will be run every time you load, built or install the package: that is a bit much.
+You could keep the script in `data`, in which case it will be run every time you load, build or install: that is probably overkill, and may be slow.
 
-His Hadleyness recommends an alternative workflow:
+His Hadleyness recommends instead:
 
-* Add a directory `data-raw` to the source package folder with code and raw data
+* Add a directory `data-raw` to the source package with code and raw data
 * Exclude this directory from the build (`.Rbuildignore`)
 * Run the code manually whenever the data needs updating
 
-This is set up by calling `use_data_raw`. For our example:
-```{r, eval = FALSE}
+This is set up by calling `use_data_raw`:
+
+```{r}
 use_data_raw("corenames")
 ```
 
-which sets up the directory, puts a script template with the given name there, updates `.Rbuildignore`, milks the cows and fixes the tractor. Your job is to copy the file name into the `data-raw` directory, write the preprocessing code, and run the script once to build the `.rda` file.
+which sets up the directory, puts a script template with the given name there, updates `.Rbuildignore`, milks the cows and fixes the tractor. 
 
-This is what a preprocessing script for data file `corenames.txt` could look like: `corenames.R`.
+Your job is to copy the data file into `data-raw`, write the pre-processing code, and run the script once to build the `.rda` file.
 
-Of course, you still have to document the data...
+This is what data file and script could like here: [corenames.txt](./corenames.txt)  [corenames.R](./corenames.R)
+
+Of course, you still have to document the data, e.g. [data.R](./data.R).
 
 
 # Exercises
 
-1. Take the function `nestedCC` and add a roxygen header for documentation. Re-build the package, and check the help you have generated.
+1. Take function `nestedCC` and add a roxygen header for documentation. Re-build the package, and check the help you have generated.
 
 2. Add a simple vignette to the package with `nestedCC`.
 
@@ -284,7 +304,7 @@ Of course, you still have to document the data...
     a. using `use_data`;
     b. using `use_data_raw`: clean up the data somewhat, e.g. define factors;
     c. write a short documentation of the data file.
-
+   
 4. Add documentation for the package itself.
     
 

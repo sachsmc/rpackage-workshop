@@ -374,207 +374,203 @@ summary {
 <h1>The R help system</h1>
 <div id="first-line-support" class="section level2">
 <h2>First line support: <code>?</code></h2>
-<p>One of the central differences between scripts and packages is the availability of structured documentation integrated into the R commandline. Let’s look at the help for a small function via <code>?abs</code> or <code>help(abs)</code>.</p>
-<p>This gives you a detailed description of two straightforward arithmetic functions, with a reference, links to related subjects, and some examples that can be run at the command line via <code>example(abs)</code>.</p>
-<p>Writing this documentation is (mostly) your responsibility. The standard format for writing help is the <em>R documentation</em> format. These <code>.Rd</code>-files live in the <code>man</code>-folder of the source package directory, and R builds boths its interactive HTML help and the package reference files in <code>.pdf</code> format as seen on CRAN.</p>
-<p>This is what the <code>.Rd</code> file for <code>abs</code> looks like: <code>MathFun.Rd</code></p>
-<p>The <code>.Rd</code>-format uses markup similar to LaTeX to define fields (<code>name</code>, <code>title</code>) and sections (<code>description</code>), and allows for lists, links and some formatting.</p>
+<p>A central difference between scripts and packages is structured documentation integrated into the R commandline.</p>
+<p>Example: <code>?abs</code> or <code>help(abs)</code> gives a detailed description of two arithmetic functions, with a reference, links to related subjects, and examples (to be run as <code>example(abs)</code>)</p>
+<p>Writing documentation is your responsibility. The standard format is the <em>R documentation</em> format. <code>.Rd</code>-files live in the <code>man</code>-folder of the source package. R builds boths interactive HTML and static PDF from the source.</p>
+<p>This is what the <code>.Rd</code> file for <code>abs</code> looks like: <a href="./MathFun.Rd">MathFun.Rd</a></p>
+<p><code>.Rd</code>-format uses markup similar to LaTeX to define fields (<code>name</code>, <code>title</code>) and sections (<code>description</code>); it allows lists, links and some formatting, see <a href="http://r-pkgs.had.co.nz/man.html#text-formatting">Hadley’s R package book</a>.</p>
 </div>
 <div id="building-help-from-.rd" class="section level2">
 <h2>Building help from <code>.Rd</code></h2>
 <p>Let’s start with a stupid function:</p>
-<pre class="r"><code>&gt; say_hello = function(name = &quot;my little friend&quot;, punct = &quot;.&quot;)
-+ {
-+   cat( paste0(&quot;Hello, &quot;, name, punct), &quot;\n&quot;, sep=&quot;&quot;)
-+ }
-&gt; say_hello()
+<pre class="r"><code>say_hello = function(name = &quot;my little friend&quot;, punct = &quot;.&quot;)
+{
+  cat( paste0(&quot;Hello, &quot;, name, punct), &quot;\n&quot;, sep=&quot;&quot;)
+}
+say_hello()
 Hello, my little friend.</code></pre>
 <p>Let’s build a simple package in the working directory:</p>
-<pre class="r"><code>&gt; library(devtools)
-&gt; create(&quot;say&quot;)
-&gt; wd(&quot;say&quot;)
-&gt; dump(&quot;say_hello&quot;, file = &quot;R/say.R&quot;)
-&gt; rm(say_hello)  ## remove local copy
-&gt; load_all()     ## load the package
-&gt; say_hello()    ## this is the package-version</code></pre>
-<p>We can use a standard R function to generate a template for a <code>.Rd</code> file:</p>
-<pre class="r"><code>&gt; dir.create(&quot;man&quot;)
-&gt; prompt(say_hello, filename = &quot;man/say_hello.Rd&quot;)</code></pre>
-<p>This is what the template thus generated looks like: <code>say_hello_template.Rd</code></p>
-<p>We can now edit the template to fit our needs. This is what the edited template could look like: <code>say.Rd</code>.</p>
+<pre class="r"><code>library(devtools)
+create(&quot;say&quot;)
+wd(&quot;say&quot;)
+dump(&quot;say_hello&quot;, file = &quot;R/say_hello.R&quot;)
+rm(say_hello)  ## remove local copy
+load_all()     ## load the package
+say_hello()    ## this is the package-version</code></pre>
+<p>We can use a standard R function to generate a template <code>.Rd</code> file:</p>
+<pre class="r"><code>dir.create(&quot;man&quot;)
+prompt(say_hello, filename = &quot;man/say_hello.Rd&quot;)</code></pre>
+<p>This is what the template thus generated looks like: <a href="./say_hello_template.Rd">say_hello_template.Rd</a>.</p>
+<p>We can now edit the template to fit our needs. This is what the edited template could look like: <a href="./say_hello.Rd">say_hello.Rd</a>.</p>
 <p>Note: while editing a <code>.Rd</code>file in RStudio, the usual <em>Compile report</em> shortcut (<code>Ctrl-Shift-K</code>) will show a preview of the help page.</p>
 <p>Once we are happy with the documentation (for now, at least), we can build the package again and check what it looks like:</p>
-<pre class="r"><code>&gt; load_all()
-&gt; ?say_hello</code></pre>
+<pre class="r"><code>load_all()
+?say_hello</code></pre>
 <p>Note: <code>%</code> is a comment character and can break the build. Here in the URL, the <code>%</code> is escaped by a backslash <code>\</code></p>
 <p>Note: links to other functions from the <em>See Also</em> section do not work when the package is only loaded for development - the links will work when the package is installed:</p>
-<pre class="r"><code>&gt; install()
-&gt; ?say_hello   ## link to paste should be active</code></pre>
+<pre class="r"><code>install()
+?say_hello   ## link to paste should be active</code></pre>
 </div>
 <div id="easier-building-help-with-roxygen2" class="section level2">
 <h2>Easier: building help with roxygen2</h2>
-<p>Problems with writing <code>.Rd</code> files:</p>
+<p>Problems with <code>.Rd</code> files:</p>
 <ol style="list-style-type: decimal">
-<li>The markup is heavy, ugly and not very intuitive</li>
-<li>Documentation separate from code, hard to keep synced</li>
+<li>Markup is heavy, ugly and not very intuitive</li>
+<li>Documentation separate from code, hard to keep synchronized</li>
 </ol>
 <p>Solution: package <code>roxygen2</code></p>
 <ul>
-<li>use special comments + tags directly in source <code>.R</code> file</li>
-<li>write documentation right on top of function</li>
+<li>use special comments + tags with <code>\@</code> directly in source <code>.R</code> file</li>
+<li>write documentation block right on top of function</li>
 <li>use <code>document()</code> to translate to <code>.Rd</code> file(s) during building</li>
 </ul>
-<p>This what this could look like for the example: <code>say_hello.R</code></p>
-<p>Support for <code>roxygen2</code> is built into <code>devtools</code>, so we can simply update the documentation from the command line like this:</p>
-<pre class="r"><code>&gt; document()
-&gt; load_all()
-&gt; ?say_hello</code></pre>
-<p>Note: text formatting, links, lists etc. work exactly as in <code>.Rd</code>, see </p>
+<p>This what our example could look like: <a href="./say_hello.R">say_hello.R</a></p>
+<p><code>roxygen2</code> support is built into <code>devtools</code>, so we simply update the documentation like this:</p>
+<pre class="r"><code>document()
+load_all()
+?say_hello</code></pre>
+<p>Note: text formatting, links, lists etc. work exactly as in <code>.Rd</code></p>
 <div id="the-export-tag" class="section level3">
 <h3>The <code>@export</code> tag</h3>
-<p><code>roxygen2</code> solves the problem of maintaining separate <code>.Rd</code> files for documentation.</p>
-<p><code>roxygen2</code> also solves the problem of keeping track of a separate NAMESPACE file:</p>
+<p><code>roxygen2</code> solves the problem of having separate <code>.Rd</code> files for documentation.</p>
+<p><code>roxygen2</code> also solves the problem of having a separate NAMESPACE file:</p>
 <ul>
 <li>only functions exported in NAMESPACE are directly avaiable when the package is loaded</li>
 <li>by default, all functions defined in the package are exported via a call to <code>exportPattern</code></li>
 <li><code>document()</code> will add all functions with the <code>@export</code> tag to NAMESPACE</li>
-<li>functions without the tag will stay private (access through <code>:::</code>)</li>
+<li>functions without the tag will stay private (accessable through <code>:::</code>)</li>
 </ul>
 </div>
 <div id="tips" class="section level3">
 <h3>Tips</h3>
-<p>Error messages like this are not uncommon when installing from <code>devtools</code>:</p>
-<pre><code>Error in fetch(key) : lazy-load database &#39;C:/Users/aleplo/Documents/R/R-3.6.1/library/say/help/say.rdb&#39; is corrupt</code></pre>
-<p>Restart the R session to get rid of it.</p>
-<p>A <code>roxygen2</code>-style comment / documentation header is often useful when writing functions in scripts:</p>
+<p>Error messages like this are common when installing from <code>devtools</code>:</p>
+<pre><code>Error in fetch(key) : lazy-load database 'C:/Users/aleplo/Documents/R/R-3.6.1/library/say/help/say.rdb' is corrupt</code></pre>
+<p>Restart R to get rid of them.</p>
+<p>A <code>roxygen2</code>-style documentation header is often useful for functions in scripts:</p>
 <ul>
-<li>Structured specification of what the function is supposed to do</li>
-<li>Easy upgrade to package down the road</li>
+<li>Structured specification of what the function does</li>
+<li>Easy upgrade to package later</li>
 </ul>
 </div>
 </div>
 <div id="writing-good-help" class="section level2">
 <h2>Writing good help</h2>
-<p>These are frequent recommendation for writing good documentation for R:</p>
+<p>Frequent recommendation for writing good documentation:</p>
 <ul>
-<li>Make the introduction short (1-5 lines)</li>
-<li>Avoid wordy argument descriptions, move extra material to Details section</li>
-<li>Describe the return value; make use of the list environment for structured return values (e.g. data frames)</li>
-<li>Use examples to demonstrate common use cases; make examples self-contained, using built-in datasets or simulated data; consider vignettes for complex use cases.</li>
+<li><p>Make the introduction short (1-5 lines).</p></li>
+<li><p>Avoid long argument descriptions move extra material to Details.</p></li>
+<li><p>Describe the return value; make use of <code>itemize</code>/<code>describe</code> for structured return values (e.g. data frames).</p></li>
+<li><p>Use examples to demonstrate common use cases; examples should self-contained, using built-in datasets or simulated data.</p></li>
+<li><p>Consider vignettes for complex use cases.</p></li>
 </ul>
 <p>If you find it very hard to document your function(s), you may want to re-think your function- or package design.</p>
 </div>
 <div id="limitations-of-help" class="section level2">
 <h2>Limitations of help</h2>
-<p>R-style documentation mixes reference and tutorial, but skews towards reference. It is often awkward for describing</p>
+<p>R documentation mixes reference and tutorial, but is closer to a reference. It is often awkward for describing</p>
 <ul>
-<li>background and motivation,</li>
-<li>multiple or complex use cases,</li>
-<li>use cases involving multiple functions</li>
+<li><p>background and motivation,</p></li>
+<li><p>multiple or complex use cases,</p></li>
+<li><p>use cases involving multiple functions.</p></li>
 </ul>
-<p>Package-level documentation can help somewhat (see below), but generally these things are better handled via a vignette (or two).</p>
+<p>Package-level documentation can help (see below), but these things are generally better in a vignette.</p>
 </div>
 </div>
 <div id="vignettes" class="section level1">
 <h1>Vignettes</h1>
 <div id="complement-to-help" class="section level2">
 <h2>Complement to <code>help</code></h2>
-<ul>
-<li><p>Generally: extra material in inst/doc in source package, copied over to install - could be anything (.pdf, .html, .docx (not recommended), paper, book chapter….)</p></li>
-<li><p>More specifically: a <em>package vignette</em> is .pdf .HTML document in the built package obtained from plain text literate source files (.Rmd, .Rnw) in the source package (in inst/doc)</p></li>
-<li><p>Multiple vignettes possible, any content - but main idea: tutorial (as opposed to reference)</p></li>
-</ul>
-<p>A good example (not format, but multiple vignettes with different use cases):</p>
-<pre class="r"><code>&gt; browseVignettes(package = &quot;survival&quot;)</code></pre>
-<ul>
-<li>Unless it’s literally a one-function package, have a vignette</li>
-</ul>
+<p>Any files in <code>inst/doc</code> in the source package will be copied to <code>doc</code> in the built/installed package: any format, any source.</p>
+<p>A <em>package vignette</em> is a PDF or HTML document in <code>doc</code> in the built package generated from plain text literate source files (<code>.Rmd</code>, <code>.Rnw</code>) folder <code>vignettes</code> in the source package.</p>
+<p>Multiple vignettes are possible, any content, but the main idea is tutorial or background rather than reference, e.g. <code>browseVignettes(package = &quot;survival&quot;)</code>.</p>
+<p>Unless a package is extremely simple (a one-function package), write a vignette.</p>
 </div>
 <div id="how-to-vignette" class="section level2">
 <h2>How to vignette</h2>
-<p>We can easily generate a vignette template for our silly example:</p>
-<pre class="r"><code>&gt; use_vignette(&quot;SayingThings&quot;)</code></pre>
+<p>Generate a vignette template for our silly example:</p>
+<pre class="r"><code>use_vignette(&quot;SayingThings&quot;)</code></pre>
 <p>This creates a new sub-directory in the package folder called <code>vignettes</code> and puts a template <code>.Rmd</code> file there.</p>
-<p>You can edit this file as you see fit, though the current example may be a bit thin. This is what a an example could look like: <code>SayingThings.Rmd</code></p>
+<p>You can edit this file as you see fit, though the current example may be a bit thin. This is what a an example could look like: <a href="./SayingThings.Rmd">SayingThings.Rmd</a></p>
 <p>Vignettes are NOT built by default when using <code>install</code>, you need to insist:</p>
-<pre class="r"><code>&gt; install(build_vignettes = TRUE)
-&gt; browseVignettes(package = &quot;say&quot;)</code></pre>
-<ul>
-<li>Control output format by modifying the metadata of the vignette itself, i.e., use <code>rmarkdown::html_vignette</code> or <code>rmarkdown::pdf_document</code> as the output field (or anything else).</li>
-</ul>
+<pre class="r"><code>install(build_vignettes = TRUE)
+browseVignettes(package = &quot;say&quot;)</code></pre>
 </div>
 </div>
 <div id="other" class="section level1">
 <h1>Other</h1>
 <div id="adding-package-level-help" class="section level2">
 <h2>Adding package-level help</h2>
-<p>It can be helpful to have a central help page for the whole package. This can serve as a simple mini-vignette. E.g.:</p>
-<pre class="r"><code>&gt; package?devtools</code></pre>
-<p>roxygen works for this, too:</p>
+<p>It can be helpful to have a central help page for the package as a whole. E.g.</p>
+<pre class="r"><code>package?devtools</code></pre>
+<p>roxygen can do this, too:</p>
 <ol style="list-style-type: decimal">
 <li>Write documentation block for object <code>NULL</code></li>
-<li>Add tag <code>\@docType package</code> to the block</li>
-<li>There is no step 3.</li>
+<li>Add tags <code>\@docType package</code> and <code>\@name &lt;pkgname&gt;</code> to the block</li>
 </ol>
-<p>Common practice is to put this header into a separate <code>.R</code> file called <code>&lt;package-name&gt;.R.</code>, but any R file will do.</p>
-<p>This is what a package documentation for our package could look like: <code>say.R</code></p>
+<p>Commonly this header is put into a separate <code>.R</code> file called <code>&lt;package-name&gt;.R.</code>, but any R file will do.</p>
+<p>This is what a package documentation for our package could look like: <a href="./say.R">say.R</a></p>
 </div>
 <div id="adding-documenting-data-sets" class="section level2">
 <h2>Adding &amp; documenting data sets</h2>
 <div id="ready-made" class="section level3">
 <h3>Ready-made</h3>
-<p>If your package cannot use a standard data set for examples, include your own.</p>
-<p>Data sets live in directory <code>data</code> of the package folder. Technically, data can be stored as a text file, R code that will generate data, or an <code>.rda</code> file. The latter is most common and well supported by devtools:</p>
-<pre class="r"><code>&gt; names = c(&quot;Ronald&quot;, &quot;Herbert&quot;, &quot;Bill&quot;, &quot;George&quot;)
-&gt; use_data( names )</code></pre>
-<p>generates file <code>data/names.rda</code> containing the single vector <code>names</code>.</p>
-<p>Data objects, too, need to be documented. This is again simplest using roxygen, by including the data name with a roxygen header in one of the package <code>.R</code> files. Here, it could be something like</p>
-<pre class="r"><code>#&#39; First names
-#&#39; 
-#&#39; A vector with four common English first names.
-#&#39; 
-#&#39; @format A character vector of length four. 
-#&#39; @source Synthetic data set
+<p>If your package cannot use a standard data set, include your own.</p>
+<p>Data sets live in directory <code>data</code> of the package. Technically, data can be stored as a text file, R code that will generate data, or an <code>.rda</code> file. The latter is most common, recommended and well supported by devtools:</p>
+<pre class="r"><code>names = c(&quot;Ronald&quot;, &quot;Herbert&quot;, &quot;Bill&quot;, &quot;George&quot;)
+use_data( names )</code></pre>
+<p>generates file <code>data/names.rda</code> with the single vector <code>names</code>. A local copy can be generated via</p>
+<pre class="r"><code>rm( names )     ## delete local copy
+load_all()
+data( names )
+names</code></pre>
+<p>Data sets also need to be documented. This is again simple using roxygen, by including the data name with a roxygen header in one of the package <code>.R</code> files:</p>
+<pre class="r"><code>#' First names
+#' 
+#' A vector with four common English first names.
+#' 
+#' @format A character vector of length four. 
+#' @source Synthetic data set
 &quot;names&quot;</code></pre>
 <p>Documentation for data sets is built as before:</p>
-<pre class="r"><code>&gt; document()
-&gt; load_all()
-&gt; ?names</code></pre>
+<pre class="r"><code>document()
+load_all()
+?names</code></pre>
 <p>Comments:</p>
 <ol style="list-style-type: decimal">
 <li><p>Command from Hadley: <em>Never @export a data set.</em></p></li>
-<li><p>You can use <code>\example</code>, too.</p></li>
+<li><p>You can use @example, too.</p></li>
 </ol>
 </div>
 <div id="pre-processing-files" class="section level3">
 <h3>Pre-processing files</h3>
-<p>Sometimes, you have an external data set that needs some clean up for inclusion in a package.</p>
-<p>You could do this only once, at the command line, and call <code>use_data</code>. However, for reasons of</p>
+<p>Sometimes an external data set needs clean-up for inclusion in a package.</p>
+<p>You can do this at the command line, and call <code>use_data</code>. However, for reasons of</p>
 <ul>
 <li>documentation,</li>
 <li>replicability,</li>
 <li>maintenance</li>
 </ul>
-<p>you really should do it in an R file &amp; keep the R-file around.</p>
-<p>You could keep the .R file in <code>data</code>, in which case it will be run every time you load, built or install the package: that is a bit much.</p>
-<p>His Hadleyness recommends an alternative workflow:</p>
+<p>you really should do it in an R script.</p>
+<p>You could keep the script in <code>data</code>, in which case it will be run every time you load, build or install: that is probably overkill, and may be slow.</p>
+<p>His Hadleyness recommends instead:</p>
 <ul>
-<li>Add a directory <code>data-raw</code> to the source package folder with code and raw data</li>
+<li>Add a directory <code>data-raw</code> to the source package with code and raw data</li>
 <li>Exclude this directory from the build (<code>.Rbuildignore</code>)</li>
 <li>Run the code manually whenever the data needs updating</li>
 </ul>
-<p>This is set up by calling <code>use_data_raw</code>. For our example:</p>
-<pre class="r"><code>&gt; use_data_raw(&quot;corenames&quot;)</code></pre>
-<p>which sets up the directory, puts a script template with the given name there, updates <code>.Rbuildignore</code>, milks the cows and fixes the tractor. Your job is to copy the file name into the <code>data-raw</code> directory, write the preprocessing code, and run the script once to build the <code>.rda</code> file.</p>
-<p>This is what a preprocessing script for data file <code>corenames.txt</code> could look like: <code>corenames.R</code>.</p>
-<p>Of course, you still have to document the data…</p>
+<p>This is set up by calling <code>use_data_raw</code>:</p>
+<pre class="r"><code>use_data_raw(&quot;corenames&quot;)</code></pre>
+<p>which sets up the directory, puts a script template with the given name there, updates <code>.Rbuildignore</code>, milks the cows and fixes the tractor.</p>
+<p>Your job is to copy the data file into <code>data-raw</code>, write the pre-processing code, and run the script once to build the <code>.rda</code> file.</p>
+<p>This is what data file and script could like here: <a href="./corenames.txt">corenames.txt</a> <a href="./corenames.R">corenames.R</a></p>
+<p>Of course, you still have to document the data, e.g. <a href="./data.R">data.R</a>.</p>
 </div>
 </div>
 </div>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
 <ol style="list-style-type: decimal">
-<li><p>Take the function <code>nestedCC</code> and add a roxygen header for documentation. Re-build the package, and check the help you have generated.</p></li>
+<li><p>Take function <code>nestedCC</code> and add a roxygen header for documentation. Re-build the package, and check the help you have generated.</p></li>
 <li><p>Add a simple vignette to the package with <code>nestedCC</code>.</p></li>
 <li><p>Add the example file <code>cohort.txt</code> to the package:</p>
 <ol style="list-style-type: lower-alpha">

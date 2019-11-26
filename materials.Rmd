@@ -9,13 +9,13 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Wednesday Morning
 
 1. Lesson: Getting Started
-2. Lecture: [Introduction](DayOne/introduction.html)
-3. Lesson: Functions Part I ([.Rmd](DayOne/Functions-part1.Rmd) / [.html](DayOne/Functions-part1.html))
+2. Lecture: [Introduction](DayOne/introduction.html){target="_blank"}
+3. Lesson: Functions Part I ([.Rmd](DayOne/Functions-part1.Rmd){target="_blank"} / [.html](DayOne/Functions-part1.html){target="_blank"})
 
 ## Lunch
 
 ## Wednesday Afternoon
 
-1. Documentation ([.Rmd](DayOne/Documentation.Rmd) / [.html](DayOne/Documentation.html))
-2. Functions Part II ([.Rmd](DayOne/Functions-part2.Rmd) / [.html](DayOne/Functions-part2.html))
-3. Version control ([Slides](DayOne/git.html))
+1. Documentation ([.Rmd](DayOne/Documentation.Rmd){target="_blank"} / [.html](DayOne/Documentation.html){target="_blank"})
+2. Functions Part II ([.Rmd](DayOne/Functions-part2.Rmd){target="_blank"} / [.html](DayOne/Functions-part2.html){target="_blank"})
+3. Version control ([Slides](DayOne/git.html){target="_blank"})

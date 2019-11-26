@@ -1,0 +1,20 @@
+    Douglas Bates
+    John Chambers
+    Peter Dalgaard
+    Robert Gentleman
+    Kurt Hornik
+    Ross Ihaka
+    Tomas Kalibera
+    Michael Lawrence
+    Friedrich Leisch
+    Uwe Ligges
+    Thomas Lumley
+    Martin Maechler
+    Martin Morgan
+    Paul Murrell
+    Martyn Plummer
+    Brian Ripley
+    Deepayan Sarkar
+    Duncan Temple Lang
+    Luke Tierney
+    Simon Urbanek
