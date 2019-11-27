@@ -1,0 +1,194 @@
+---
+title: 'Example: nested case-control study'
+author: "Alexander Ploner <Alexander.Ploner@ki.se>"
+date: '2019-11-18'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Background
+
+To recap: a nested case control study is drawn from a cohort which has been followed up longitudinally. For each case in the cohort, a specified number of controls is drawn from the subjects in the cohort that are still at risk for the outcome of interest at the time when the case experiences their event; specifically, controls can become later during follow-up. This design can be useful when we have a large cohort, but only few cases, e.g. an uncommon disease followed up in the full Swedish population: by matching each case to say 5 controls, we can reduce the size of the analysis data set considerably, without suffering any noticeable loss of power. It is also straightforward to include extra matching between cases and controls in the process.
+
+## Example and linear code
+
+We have a simple synthetic cohort of a 1,000 subjects, with CVD as outcome and alcohol as exposure (either continuous or binary).
+```{r, echo = FALSE}
+DATADIR = "Z:/@ownCloudKI/Rpack_2019/Data/"
+fn = file.path(DATADIR, "cohort.txt")
+cohort = read.table(fn, header=TRUE)
+summary(cohort)
+```
+Time to either CVD diagnosis (`cvd==1`) or censoring (`cvd==0`) is saved in variable `time`.
+
+The code below takes the existing dataframe and create a new one, with matched cases and controls indicated by new variable `matchSet`:
+```r
+## Generate vector with row numbers of cases in cohort,
+## extract number of cases in data
+ndx_case = which(cohort$cvd == 1)
+ncase = length(ndx_case)
+
+## Set up matrix for storing the matched sets of cases
+## and controls: 2 controls/case, matrix has cases as 
+## columns and case/control row indices as rows
+k = 2
+sets = matrix(NA, nrow = k+1, ncol = ncase)
+## Save case numbers as first row
+sets[1, ] = ndx_case
+
+## Set seed and loop over cases
+set.seed(5236)
+for (i in 1:ncase) 
+{
+  ## Find row numbers of subjects that are still at risk when current case
+  ## happens, and have the same sex as the current case
+  tmp = with(cohort, which(time > time[ndx_case[i]] & sex == sex[ndx_case[i]]) )
+  ## Sample k controls from the eligible subjects
+  sets[2:(k+1), i] = sample(tmp, size = k)
+}
+
+## Matched sets are consecutive blocks of case + k controls 
+matchSet = rep(1:ncase, rep(k+1, ncase))
+## Use the row numbers in matrix sets to extract the rows from
+## the cohort data, add matched set variable
+match_ndx = as.vector(sets)
+nested_cc = cbind(cohort[match_ndx, ], matchSet = set_var)
+```
+
+## Tasks
+
+### Getting off the ground
+
+1. Wrap the linear code above into a function `nestedCC` that accepts a cohort data frame, and returns a nested case-control sampled from the data. The user has to specify the variables in the input data containing event times as well as event status (event vs censoring); variables can be specified by name (character) or position (integer). Bonus: optionally allow the user to add the name of a matching variable in the input data.
+2. Add a roxygen-comment header to the function that describes the function, its parameters and return value.
+3. Initialize an R package called e.g. `epiDesign` (ambitious!) and add the R function from above to the `R` directory. Build, document and load the package, and run some informal tests at the command line: can you replicate the example above? How does the documentation look? 
+4. Add the synthetic data as example data to the package you have generated. Add some documentation for the data, re-build and load the package, and check that the new data is available and correctly documented. 
+
+### Getting it right
+
+The original code works well for the original data, but it does not deal with the general situation where we may not be able to find as many controls as specified for some cases (undermatched cases), or even no control at all (unmatched case).
+
+1. Add two cases to the example data with event times after the last observed time (censored or event): these will be undermatched and unmatched, respectively, when sampling with `k=2` (why?). Use the new expanded data set to test (informally, at the command line) how `nestedCC` behaves in this situation; if necessary, fix the function so it deals correctly with these situations.
+2. Construct a small cohort data frame of no more than six rows, which includes a potential matching variable, and which can be used to test similar situations of un(der)matching. What happens if there is only one possible match for a case? Fix your function.    
+3. Use the data frame from the previous point to write a number of unit tests for `nestedCC`.
+
+### Putting out more
+
+1. Modify function `nestedCC` so that it returns a more informative object, including a random seed (if specified) and the row numbers of the under- and unmatched cases in the original data. 
+
+2. Turn the more complicated output of the modified function into an object of (S3) class `nestedCC`. Provide simple print- and summary methods for this class, and document them using roxygen. Bonus: write a new generic function `getData` that takes an object of class `nestedCC` and returns the sample case control data only.
+
+### Bonus material for the easily bored
+
+1. Allow multiple matching variables (hint: use `interaction`)
+2. Allow specification of variable names without quotation marks (hint: look at the code for `subset`)
+3. Sketch a more ambitious class design for package `epiDesign`, where multiple different designs (e.g. matched cohort design, case-cohort design) can be generated from cohort data via different constructor functions. What kind of methods could be useful? What common data elements would make sense?
+4. Think about a pure `dplyr`-implementation, and re-implement the linear example code. Bonus: write a `dplyr`-based function analogous to `nestedCC`. Melior: allow non-standard evaluation in the new function (i.e. no quotation marks around variable names); you may want to have a look at the `dplyr`-programming vignette. 
+5. Compare the performance of your function with `Epi::ccwc`
+
+## Solutions
+
+This is a fairly complete implementation (except for S3) which tries to deal with unmatched and undermatched cases in the data.
+```{r}
+#' Generate a nested case-control design 
+#' 
+#' Given a data frame with cohort data, this function will
+#' return a a randomly sampled nested case-control design
+#' 
+#' @param cohort Data frame with cohort data
+#' @param exit Variable in data frame with event/censoring times,
+#'             specified as position (integer) or name (character)
+#' @param event Integer variable in cohort indicating censoring (0) 
+#'              or event (>0)
+#' @param match Optional vector of variables in cohort that cases 
+#'              and controls will be matched on
+#' @param k Number of controls per case; default 1
+#' @param seed Optional seed for random number generation
+#' 
+#' @return A data frame with rows from the input data (possibly 
+#'         sampled repeatedly) and an extra column `matchSet` 
+#'         indicating matched sets of cases and controls.
+nestedCC = function(cohort, exit, event, match, k=1, seed)
+{
+    ## Generate vector with row numbers of cases in cohort,
+    ## extract number of cases in data
+    ndx_case = which(cohort[, event] == 1)
+    ncase = length(ndx_case)
+
+    ## Set up matrix for storing the matched sets of cases
+    ## and controls: 2 controls/case, matrix has cases as 
+    ## columns and case/control row indices as rows
+    sets = matrix(NA, nrow = k+1, ncol = ncase)
+    ## Save case numbers as first row
+    sets[1, ] = ndx_case
+
+    ## Define a matching variable: match can be a vector of
+    ## variable names or positions
+    ## If not specified, set a dummy variable that always matches
+    if (!missing(match)) {
+      grp = interaction(cohort[, match])
+    } else {
+      grp = rep(TRUE, nrow(cohort))
+    }
+
+    ## If specified: set the random seed; otherwise set to NA
+    if (!missing(seed)) {
+      set.seed(seed)
+    } else {
+      seed = NA
+    }
+
+    ## Loop over cases
+    for (i in 1:ncase) 
+    {
+      ## Find row numbers of subjects that are still at risk when current case
+      ## happens, and have the same sex as the current case
+      tmp = which( ( cohort[, exit] > cohort[ndx_case[i], exit] ) &
+                   ( grp == grp[ndx_case[i]] ) )
+      ## I have to deal with the special case of only one eligible
+      ## control because the UI for sample is CRAP; see ?sample
+      n_match_control = length(tmp)
+      if (n_match_control > 1) {
+        nsamp = min(k, n_match_control)
+        sets[2:(1+nsamp), i] = sample(tmp, size = nsamp)
+      } else if (n_match_control == 1) { ## Only one control: we gotta take it
+        sets[2:2, i] = tmp
+      } ## Note: we skip the case where no matching control was found, see below
+    }
+
+    ## Calculate number of missing values per column (matched set)
+    ## If all control indices are NA, no match was found, and we 
+    ## dump the case
+    n_controls = colSums(!is.na(sets)) - 1
+    sets = sets[, n_controls > 0, drop = FALSE]
+    ## We can use the same information to define the match indicator
+    matchSet = rep(1:ncol(sets), n_controls[n_controls > 0] + 1)
+    
+    ## Use the row numbers in matrix sets to extract the rows from
+    ## the cohort data, dropping unmatched cells
+    match_ndx = as.vector(sets)
+    match_ndx = match_ndx[!is.na(match_ndx)]
+    ## Join  the sample data and the matched set indicator
+    ret = cbind(cohort[match_ndx, ], matchSet = matchSet)
+
+    ## Add some extra information
+    list(data = ret, seed = seed, k = k, 
+         ndx_unmatched    = ndx_case[n_controls == 0],
+         ndx_undermatched = ndx_case[n_controls < k & n_controls > 0])
+}
+```
+
+This is a data frame that has both unmatched and undermatched cases:
+```{r}
+test_coh = data.frame(time  = c(1, 2, 3, 4, 5, 6),
+                      event = c(0, 1, 0, 1, 0, 1), 
+                      sex   = c(1, 1, 2, 2, 2, 1 ))
+test_coh
+```
+
+
+
+

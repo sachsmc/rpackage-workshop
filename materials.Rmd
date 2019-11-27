@@ -6,6 +6,13 @@ title: "Materials"
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## Example
+
+- [html](nestedCC/exNestedCC.html)
+- [Rmd](nestedCC/exNestedCC.Rmd)
+- [cohort.txt](nestedCC/cohort.txt)
+
+
 ## Wednesday Morning
 
 1. Lesson: Getting Started
