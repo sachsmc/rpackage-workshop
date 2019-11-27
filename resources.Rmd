@@ -6,6 +6,7 @@ title: "Resources"
 
 - [Base R](base-r.pdf)
 - [Advanced R](advancedR.pdf)
+- [Package dev](package-development.pdf)
 - [Rstudio IDE](rstudio-ide.pdf)
 - [git](git-cheat-sheet-education.pdf)
 
