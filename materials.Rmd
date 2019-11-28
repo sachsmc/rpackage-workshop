@@ -26,3 +26,18 @@ knitr::opts_chunk$set(echo = FALSE)
 1. Documentation ([.Rmd](DayOne/Documentation.Rmd){target="_blank"} / [.html](DayOne/Documentation.html){target="_blank"})
 2. Functions Part II ([.Rmd](DayOne/Functions-part2.Rmd){target="_blank"} / [.html](DayOne/Functions-part2.html){target="_blank"})
 3. Version control ([Slides](DayOne/git.html){target="_blank"})
+
+## Thursday Morning
+
+1. Lesson: Object oriented programming([.Rmd](DayTwo/OOP.Rmd) / [.html](DayTwo/OOP.html))
+2. Lesson: Functional Programming ([.Rmd](DayTwo/functional.Rmd) / [.html](DayTwo/functional.html))
+3. Lecture: R package ecosystem overview
+
+## Lunch
+
+## Thursday Afternoon
+
+1. Debugging 
+2. Approaches to software development ([Slides](DayTwo/software-dev-lecture.pdf))
+3. Testing and CRAN checks
+
