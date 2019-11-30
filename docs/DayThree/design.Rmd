@@ -1,0 +1,253 @@
+---
+title: "Designing a package"
+author: "Michael C Sachs"
+date: "11/29/2019"
+output: 
+  ioslides_presentation: 
+    highlight: pygments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Using code from other packages
+
+In your code `/R`, you have these options: 
+
+1. Prefix with the package name `package::object`
+2. Import the entire package `@import package`
+3. Import specific functions `@importFrom package object`
+
+You absolutely cannot use `library(package)` or `require(package)` anywhere in `/R`. 
+
+It is OK to use `library(package)` in vignettes and tests
+
+## Imports and Depends in DESCRIPTION
+
+These fields determine what happens at installation and `library` ing your package. 
+
+- If a package appears in `Imports:` it will be installed along with your package (if needed). 
+- If a package appears in `Depends:` it will be installed, *and* loaded into the namespace with `library` when *your* package is loaded.
+
+Thus,
+
+- If you are using external functions in your code, but users will not need to call them directly, use `Imports`
+- If users will likely be calling functions from another package while using yours, use `Depends`
+
+## Outline
+
+1. General principles
+2. Naming things is hard
+3. Designing user interfaces
+4. Appealing to users
+
+## General Prinicples
+
+- Consider your audience
+    - Yourself
+    - Colleagues
+    - Experienced statisticians
+    - "General public"
+- Reduce cognitive burden (users and developers)
+- Be internally consistent
+- Get input early and often
+
+## About cognitive burden
+
+It is difficult to keep a large number of objects in working memory
+
+- Large number of arguments
+- Different naming conventions
+- Varying code patterns/data structures
+- Distinct mental models
+
+All contribute to the cognitive load
+
+# Consistency
+
+## Examples
+
+```{r, eval = FALSE}
+stats::t.test(mpg ~ vs, data = mtcars)
+stats::cor(mpg, hp, data = mtcars)
+```
+
+```{r, eval = FALSE}
+names; colnames
+row.names; rownames
+rowSums; rowsum
+```
+
+## Examples
+
+[charlatan](https://docs.ropensci.org/charlatan/reference/index.html)
+
+## Naming things is hard
+
+```{r, eval = FALSE}
+camelCase
+snake_case
+dot.case
+lowercase
+```
+
+[Tidyverse style guide](https://style.tidyverse.org/)
+
+## Function and object names
+
+- Functions are generally verbs or adverbs
+- Tidyverse follow the `object_verb` convention for functions
+- If appropriate, functions and arguments should match standard mathematical notation
+- Avoid using dots in object names (do as I say not as R does)
+
+
+## File names
+
+- Organize objects into different files
+- Filenames should be descriptive, and machine readable
+- Reduce your own cognitive burden
+
+[Example](https://github.com/aronlindberg/generic_oss_functions/tree/master/R)
+
+[Example 2](https://github.com/yihui/knitr/tree/master/R)
+
+## What to call your package
+
+> The mandatory ‘Package’ field gives the name of the package. This should contain only (ASCII) letters, numbers and dot, have at least two characters and start with a letter and not end in a dot.
+
+Recommendation:
+
+- One word, all lower case
+- Clever or memorable
+- Clear connection to the usage of the package
+- Use abbreviations
+- Use an R pun
+
+```{r, eval = FALSE}
+ggplot2, foreign, Rcpp, plyr, knitr, tourr, tinytex
+```
+
+
+## Semantic versioning
+
+What to number your package? Package numbers conveys information about differences between versions. There are different systems, your should use one: 
+
+1. `major.minor.patch`
+2. `api-change.feature-addition.bugfixes`
+
+- Only release `major.minor` versions to CRAN, and keep patches tracked on github. 
+- Two digits are fine, e.g., `1.11`. 
+- `1.0.0` to me signifies maturity, I would not rely on a package until it reaches `1.0`
+
+
+## User interfaces
+
+- Design for the end-to-end user workflow
+- Vignette-driven development
+- The workflow should match the domain-specific application you aim to solve
+
+## Examples
+
+[Clinicaltrials.gov](https://clinicaltrials.gov/)
+
+```{r, eval = FALSE}
+library(rclinicaltrials)
+
+z <- clinicaltrials_search(query = 'lime+disease')
+clinicaltrials_count(query = "myeloma")
+y <- clinicaltrials_download(z, count = 10, 
+                             include_results = TRUE)
+```
+
+## Examples
+
+Principal surrogate evaluation with `pseval`
+
+```{r, eval = FALSE}
+surv.fit <- psdesign(fakedata, Z = Z, Y = Surv(time.obs, event.obs), 
+                     S = S.obs, BIP = BIP, CPV = CPV) + 
+  integrate_semiparametric(formula.location = S.1 ~ BIP, 
+                           formula.scale = S.1 ~ 1) + 
+  risk_exponential(D = 10) + ps_estimate(method = "BFGS") +
+    ps_bootstrap(n.boots = 20)
+surv.fit
+plot(surv.fit)
+calc_risk(surv.fit, contrast = "TE")
+
+```
+
+## Examples
+
+[Surrogate](https://cran.r-project.org/web/packages/Surrogate/Surrogate.pdf)
+
+
+## Communicating with the user
+
+Be consistent across multiple entry points
+
+- CRAN homepage (Description)
+- Vignettes
+- Github homepage (Readme)
+- Package documentation
+
+## Communicating in functions
+
+- Catch errors early
+- Write helpful error messages
+- Address common errors via messages/documentation
+- Design out common errors if possible
+
+## Message
+
+![dc](dc.png)
+
+## Design away
+
+![ams](ams.png)
+
+## Don't get too ambitious
+
+- Make your package compatible with the workflow
+    - If survival related, use `Surv`
+    - If graph related, use `igraph`
+    - ...
+- Focus on creating sensible/tidy data output
+    - Allows you to farm out plotting, e.g.
+
+## The `/inst` subdirectory
+
+Anything in the `/inst` directory of your package will be copied as-is to the top level directory when the package is installed. It is useful for including things like
+
+- Shiny apps
+- Rmarkdown templates or other templates
+- External code
+
+Within R you refer to such files with 
+
+`system.file("path-to-file", package = "packagename")`
+
+# Appealing to users
+
+## Criteria
+
+Should the package exist? 
+
+1. Does it solve a problem that other people have?
+2. Is it unique? 
+3. Is it more useful/usable than alternatives? 
+
+## Do you appear trustworthy?
+
+1. Have a big peer network
+2. Forced competence
+3. Peer review if possible
+4. Demonstrate competence through vignettes, tests, documentation, etc.
+
+# Summary
+
+## 
+
+1. Think about your target audience
+2. Manage their/your cognitive burden through better code design
+3. Remember there are multiple points of entry/exposure for your package, ensure that they all lead to success.

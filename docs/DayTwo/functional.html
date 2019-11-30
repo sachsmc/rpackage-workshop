@@ -405,7 +405,7 @@ summary {
 + }
 &gt; 
 &gt; random_stat(mean)
-[1] 0.4862616</code></pre>
+[1] 0.5001716</code></pre>
 <p>The data structure here is a single variable (<code>runif(100)</code>). Functionals are useful for iterating over more complex data structures as well.</p>
 <p><code>lapply</code> iterates over a list, applying the same function to each element. How can you achieve the same result using a <code>for</code> loop?</p>
 <pre class="r"><code>&gt; random_stats &lt;- function(fun) {
@@ -417,56 +417,56 @@ summary {
 &gt; 
 &gt; random_stats(mean)
 $uniform
-[1] 0.5045817
+[1] 0.5107888
 
 $normal
-[1] -0.09954243
+[1] 0.1364124
 
 $t
-[1] 0.1172167
+[1] -0.004655624
 
 $exponential
-[1] 0.9408473
+[1] 0.9776181
 &gt; random_stats(sd)
 $uniform
-[1] 0.2928383
+[1] 0.3128442
 
 $normal
-[1] 0.934802
+[1] 1.041357
 
 $t
-[1] 1.327604
+[1] 1.33664
 
 $exponential
-[1] 0.8615336
+[1] 0.9067396
 &gt; 
 &gt; lapply(list(mean = mean, sd = sd), random_stats)
 $mean
 $mean$uniform
-[1] 0.4809716
+[1] 0.5078511
 
 $mean$normal
-[1] 0.09497564
+[1] 0.186606
 
 $mean$t
-[1] -0.1015659
+[1] 0.1041629
 
 $mean$exponential
-[1] 0.8130114
+[1] 1.025738
 
 
 $sd
 $sd$uniform
-[1] 0.2938257
+[1] 0.274014
 
 $sd$normal
-[1] 0.916392
+[1] 1.006277
 
 $sd$t
-[1] 1.604222
+[1] 1.376337
 
 $sd$exponential
-[1] 1.004096</code></pre>
+[1] 1.161874</code></pre>
 <p><code>mapply</code> iterates over a series of lists. Same question?</p>
 <p>All of these iteration problems can be solved with loops. What are the advantages/disadvantages of using loops?</p>
 </div>
@@ -539,18 +539,18 @@ $Species
 &gt; 
 &gt; 
 &gt; mse_loss(cbind(1, x), y)(c(0, 0))
-[1] 6.219279
+[1] 4.938843
 &gt; 
 &gt; optim(par = c(0, 0), mse_loss(cbind(1, x), y))
 $par
-[1] 0.9989797 1.7512023
+[1] 1.066395 1.440556
 
 $value
-[1] 1.076954
+[1] 0.8810061
 
 $counts
 function gradient 
-      93       NA 
+      75       NA 
 
 $convergence
 [1] 0
@@ -558,6 +558,42 @@ $convergence
 $message
 NULL</code></pre>
 <p>What are some ways we could make this function more general? Multivariate, different loss functions?</p>
+<pre class="r"><code>&gt; 
+&gt; general_loss &lt;- function(xmat, outcome, fun) {
++     
++     function(beta) {
++         
++         linpred &lt;- xmat %*% beta
++         fun(linpred, outcome)
++         
++     }
++     
++ }
+&gt; 
+&gt; mad &lt;- function(x1, x2) {
++   
++   median(abs(x1 - x2))
++   
++ }
+&gt; mad_loss &lt;- general_loss(cbind(1, x), y, mad)
+&gt; 
+&gt; 
+&gt; optim(par = c(0, 0), mad_loss)
+$par
+[1] -0.06130709  0.29488930
+
+$value
+[1] 1.491382
+
+$counts
+function gradient 
+      83       NA 
+
+$convergence
+[1] 0
+
+$message
+NULL</code></pre>
 </div>
 <div id="recursive-functions" class="section level1">
 <h1>Recursive functions</h1>

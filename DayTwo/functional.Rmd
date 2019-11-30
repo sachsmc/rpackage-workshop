@@ -130,6 +130,30 @@ optim(par = c(0, 0), mse_loss(cbind(1, x), y))
 
 What are some ways we could make this function more general? Multivariate, different loss functions? 
 
+```{r}
+
+general_loss <- function(xmat, outcome, fun) {
+    
+    function(beta) {
+        
+        linpred <- xmat %*% beta
+        fun(linpred, outcome)
+        
+    }
+    
+}
+
+mad <- function(x1, x2) {
+  
+  median(abs(x1 - x2))
+  
+}
+mad_loss <- general_loss(cbind(1, x), y, mad)
+
+
+optim(par = c(0, 0), mad_loss)
+```
+
 # Recursive functions
 
 Recursive functions are functions that call themselves. It is critical that they have an exit condition. The basic example is computing the Fibonacci numbers: 

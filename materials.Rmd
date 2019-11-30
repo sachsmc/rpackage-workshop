@@ -29,15 +29,22 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Thursday Morning
 
-1. Lesson: Object oriented programming([.Rmd](DayTwo/OOP.Rmd) / [.html](DayTwo/OOP.html))
+1. Lesson: Object oriented programming ([.Rmd](DayTwo/OOP.Rmd) / [.html](DayTwo/OOP.html))
 2. Lesson: Functional Programming ([.Rmd](DayTwo/functional.Rmd) / [.html](DayTwo/functional.html))
-3. Lecture: R package ecosystem overview
+3. Lecture: R package ecosystem overview ([Slides](DayTwo/Ecology.html))
 
 ## Lunch
 
 ## Thursday Afternoon
 
-1. Debugging 
+1. Debugging ([.Rmd](DayTwo/Debugging.Rmd) / [.html](DayTwo/Debugging.html))
 2. Approaches to software development ([Slides](DayTwo/software-dev-lecture.pdf))
-3. Testing and CRAN checks
+3. Testing and CRAN checks ([.Rmd](DayTwo/testing.Rmd) / [.html](DayTwo/testing.html))
+
+## Friday Morning
+
+1. Designing a package ([Slides](DayThree/design.html))
+2. Working with other packages ([Slides](DayThree/PlayingNice.html))
+3. Publishing and promoting your package ([Slides](DayThree/publishing.html))
+
 
