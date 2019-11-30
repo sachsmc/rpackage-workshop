@@ -6,7 +6,7 @@ title: "Materials"
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Example
+## Nested Case Control Sampling Example
 
 - [html](nestedCC/exNestedCC.html)
 - [Rmd](nestedCC/exNestedCC.Rmd)
@@ -44,7 +44,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Friday Morning
 
 1. Designing a package ([Slides](DayThree/design.html))
-2. Working with other packages ([Slides](DayThree/PlayingNice.html))
+2. Working with other packages ([Slides](DayThree/PlayingNIce.html))
 3. Publishing and promoting your package ([Slides](DayThree/publishing.html))
 
 
