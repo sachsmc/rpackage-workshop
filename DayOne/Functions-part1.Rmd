@@ -191,10 +191,10 @@ f01("a")
 
 The code in the function body does things with the objects, how does R find things, and in which environments does it look? This is the concept of lexical scoping. When a function is called, R follows simple rules to find things: 
 
-1. Look in the current function environment first. 
-2. If not found, look in the environment where the function was called. 
-3. If not found, look in the global environment. 
-4. Finally, look in the loaded packages.
+1. Look in the current function environment first, that is the environment where the function was _defined_. 
+2. If not found, look in the parent environment. 
+3. Repeat 2 until there are no more parents. 
+4. If not found, throw an error.
 
 
 What do the following functions return? 

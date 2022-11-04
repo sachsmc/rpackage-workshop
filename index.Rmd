@@ -17,28 +17,8 @@ Before the course starts, please make sure that you have the most up to date ver
 
 https://support.rstudio.com/hc/en-us/articles/200486498-Package-Development-Prerequisites
 
-## Time
+## Time and Place
 
-#### Wednesday 27th November to Friday 29th November 2019 
+TBD
 
-![](schedule.png)
-
-
-## Location
-
-#### Nobels väg 12A, Campus Solna, Room North 3
-
-```{r}
-library(leaflet)
-leaflet() %>%
-  addTiles %>% # Add default OpenStreetMap map tiles
-  setView(lng = 18.02504, lat = 59.34832, zoom = 16) %>%
-    addPopups(lng = 18.02504, lat = 59.34832, "Workshop location (MEB)")
-```
-
-
-## Contact Information: 
-
-- Michael Sachs (e-mail: michael.sachs@ki.se), Department of Medicine, Solna, Clinical Epidemiology Unit (KEP), Karolinska Institutet
-- Alexander Ploner (e-mail: alexander.ploner@ki.se), Department of Medical Epidemology and Biostatistics (MEB), Karolinska Institutet
 
