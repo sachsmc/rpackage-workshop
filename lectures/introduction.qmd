@@ -1,5 +1,5 @@
 ---
-title: "Introduction and Overview"
+title: "01-Introduction and Overview"
 author: "Michael C Sachs"
 format: 
     revealjs:
@@ -127,7 +127,7 @@ BugReports: https://pkgname.bugtracker.url
 
 **Failing to include a license implicity declares a copyright without explaining if or how others can use your code**
 
-I prefer the MIT license, it is short and understandable to lay people
+I prefer the MIT license, it is short and understandable
 
 https://opensource.org/licenses/alphabetical
 

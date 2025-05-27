@@ -1,0 +1,6 @@
+---
+title: "Approaches to software development"
+format: html
+---
+
+[PDF slides](../data/software-dev-lecture.pdf)
