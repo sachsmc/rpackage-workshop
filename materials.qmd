@@ -1,0 +1,7 @@
+---
+title: "Course Materials"
+listing:
+    contents: lectures
+    fields: [title]
+    type: table
+---

@@ -1,0 +1,30 @@
+---
+title: "Getting Started"
+---
+
+
+## Development environment
+
+- Latest version of R
+- Rtools (Windows) or compilers
+- Rstudio (optional) or vscode or anything else you like
+
+<https://support.posit.co/hc/en-us/articles/200486498-Package-Development-Prerequisites>
+
+## Necessary packages
+
+- Install `devtools`
+- Install `usethis`
+- `roxygen2`
+- `testthat`
+
+## The process
+
+1. `create_package()` or click "New project" and follow the prompts
+2. `use_mit_license()` to create a license file
+3. `use_r()` to create a new R file
+4. `load_all()` to test things out
+5. `document()` to build the documentation
+6. `check()` to run the cran checks
+7. `install()` to install the package
+

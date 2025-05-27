@@ -1,0 +1,210 @@
+---
+title: "git and github"
+author: "Michael C Sachs"
+date: "2025-05-27"
+format: 
+    revealjs:
+      scrollable: true
+execute:
+  echo: true
+---
+
+
+# git
+
+> Your closest collaborator is you six months ago, but you don't reply to emails.
+
+-Paul Wilson
+
+## `git` and Github
+
+- `git` and http://github.com make version control and collaboration easier
+- Package development requires iteration and maybe input from multiple sources
+- *Ad hoc* approaches suffer and can have disastrous consequences
+- Here are some examples
+
+## Example 1: Reverting changes
+
+- In an attempt to speed up computation time, I tried reimplementing a MLE function. 
+- Turns out it broke the method entirely and didn't end up speeding things up.
+- How to go back to what it was originally?
+
+## Example 2: Incorporating feature requests or edits
+
+- A package gets popular on github, and I occasionally get feature requests or contributions
+- How to keep track of the requests?
+- How to keep track of contributions from other people?
+
+
+## Example 3: Sharing content
+
+Once a paper gets published, occasionally people want to use or extend the method. 
+
+<div class = "blue2 center">
+"I would be very grateful if you are able to help me implement this tool in my dataset as well."
+
+"Could you please send me your code so that I can try to apply it to my example? "
+ 
+"Would you please kindly e-mail me your article and other works in that field promptly.?"
+
+</div>
+
+
+**Email is an ineffective tool for sharing code, data, documents**
+
+
+## What is it?
+
+`git`
+
+- "The stupid content tracker", developed to manage Linux source code
+    + Files organized into **repositories**
+    + Users **commit** changes, additions, deletions
+    + Entire history of **commits** saved
+    + Only successive **diffs** are saved, not full copies
+
+[Github](http://github.com)
+
+- A web interface and host for repositories
+    + Explore repositories
+    + View code, documents, etc. 
+    + Interact with collaborators
+    
+    
+## Why use it? 
+
+- Add structure to the iterative process of package development
+    + are you sensing a trend? 
+- Creates a record of all the steps you took
+- Gives structure to collaboration, with benefits for asynchronous work
+- Github adds the benefit of creating a web-presence
+    + Not everyone agrees that this is a benefit
+    
+### Open up Rstudio
+
+## How often should I commit? 
+
+**git is not dropbox!**
+
+Each commit should be _minimally complete_
+
+__Minimal__
+
+- Relates to a single problem
+- Makes it easier to describe and understand
+- Reduces risk of conflicts (if collaborating)
+
+__Complete__
+
+- Solves the problem in the code
+- Is documented
+- Has tests
+
+
+## Common problems
+
+### Oops I forgot to document
+
+- use "Amend previous commit" before pushing to github
+
+### I broke someting
+
+- do a "hard reset" back to the previous commit (Discard all in Rstudio)
+
+### A collaborator is working on something else at the same time
+
+- use branches and merge later
+
+
+
+## Writing good commit messages
+
+- The diff shows you exactly what changed
+- The commit message should communicate the context
+
+### Basic guidelines
+
+1. Write a concise subject heading (about 50 characters)
+    - Complete the following sentence: "If applied, this commit will ..." 
+2. _If_ more explanation needed, write a body to explain _why_ and _how_
+3. Reference any relevant issue tracking ids, or links
+
+
+## Examples
+
+Bad | Better 
+-----|------
+Fix bug | Ensure that sampling function works for small datasets
+changing documentation | Improve documentation with a vignette tutorial
+typo | Add a comma to README
+
+- Use the imperative tense (like you're telling someone what to do)
+- Be concise, but detailed enough to trigger your memory
+
+# Collaborating with Github
+
+## The lifecycle of a paper
+
+- I'm working on a paper with my friend Sue 
+- Statistical analysis + simulation studies + discussion 
+- I decide to take the lead and create an initial repository
+- Add a draft `.tex` file, some analyses in `.R` with data and output
+- Commit at appropriate stopping points
+
+## Branching and merging
+
+<div class="green">Main branch is called *master*</div>
+
+<div class="blue">Sue creates a new branch called *sues-working*. Adding, editing, commiting</div> 
+
+Commits do not affect the other branch
+
+![branch](img/branch1.png)
+
+Push all of her changes to github, then **submit a pull request**. 
+
+## Pull request
+
+![pull](img/pull-req.png)
+
+<div class="notes">
+A **pull request** is a request to incorporate changes from one branch into another. It doesn't merge them automatically, but rather opens a discussion about possible changes. The repo owner can review the changes, make comments, and suggest edits before merging. Here we can fully harness the power of `git` and `diff`. You can see that every addition, deletion, and change is highlighted in the window. You can make general comments on the request, add comments to specific lines of code, and create **issues**. You can see that **conflicts** are highlighted in yellow. Conflicts arise when the same line is edited in different ways. To resolve a conflict, the file must be edited on one of the branches and committed. Changes that can be merged without conflict are in green. 
+</div>
+
+## Changes
+
+![pull2](img/diff.png)
+
+<div class="notes">
+The github desktop application will prompt you to resolve any merge conflicts. It will open up a text editor, showing each conflicting line. You can remove the conflict by choosing from the two options or combining the two in some way. Commit all the changes and the branches can be merged. Again, the entire commit history is saved along with any discussion of issues!
+
+See <https://help.github.com/articles/resolving-merge-conflicts> for more information about conflicts. 
+</div>
+
+![merge](img/merge.png)
+
+## Smaller contributions
+
+![propose](img/filechange.png)
+
+## Issues
+
+<div class="notes">
+More expansive or general suggestions can be submitted as **issues**. Many options exist for issues. You can label them, drag and drop images as support, assign specific collaborators to resolve them, and more. **Milestones** are a way to schedule and track big steps, such as journal submission. Once you create a milestone with a due date, you can attach specific issues that need to be achieved to reach that milestone. 
+</div>
+
+![issue](img/issue.png)
+
+## Summary 
+
+- `git` is a structured approach to tracking content
+    + Small committment to learn and use
+    + But benefits are enormous
+    + ... especially if using plain text files
+- [github](http://github.com) is a web interface and repository host
+    + Adds value to `git`
+    + It's not Dropbox, formal and structure commits + discussion
+    + Everything is public
+    + Alternatives: [bitbucket](http://bitbucket.org), gitlab, self-hosting, local-only
+    
+

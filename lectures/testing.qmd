@@ -1,0 +1,174 @@
+---
+title: "Testing"
+author: "Michael C Sachs"
+date: "2025-05-27"
+format: 
+    revealjs:
+      scrollable: true
+execute:
+  echo: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+## Bugs!
+
+1. Crash: function call exits with error
+
+2. Incorrect behavior
+
+3. Unexpected behavior
+
+
+```{r, error = TRUE}
+library(MASS)
+data(Pima.te)
+
+## Crash
+subset( head(Pima.te), npreg > a )
+
+## Incorrect behavior
+subset( head(Pima.te), type = "yes" & npreg > 2 )
+
+## Unexpected behavior
+subset( head(Pima.te), type == "yes" & npreg > 2 )
+```
+
+## Tools
+
+`traceback` to find where error occurred: 
+
+```{r, eval = FALSE}
+library(MASS)
+data(Pima.te)
+subset(Pima.te, npreg > a)
+traceback()
+```
+
+ `debug` to execute code line by line:
+ 
+* `debug(<function-name>)` to start debugging
+* At debug-prompt:
+
+    - `n` or Enter to execute current line, continue to next
+    - `c` to run function from the current line to end
+    - `Q` to quit
+    - any variable, expression is evaluated in the current environment 
+ 
+ * `undebug(<function-name>)` to retore normal behavior
+
+`browser` to set stop points when running code:
+
+* Add `browser()` command to code at strategic locations
+* Function will execute to browser and open debugger as above 
+
+Rstudio `Debug` menu: similar fucntionality, but can only be started for R scripts
+
+## Example
+
+```{r}
+f1 = function(x, y, flag = TRUE, n = 1000) 
+{
+  if ( missing(y) ) 
+  {
+    if (flag | (x > 0)) y = abs(x)
+  }
+  g = function(z) z + x
+  acc = 0
+  ## What happened to ?cumsum 
+  for (i in 1:1000) acc = acc + runif(1) 
+  g(y)
+}
+```
+
+Run tests:
+
+```{r, eval = FALSE}
+f1(1)
+f1(-1)
+f1(1, flag = FALSE)
+f1(-1, flag = FALSE)
+```
+
+1. Run `traceback` (not very useful)
+
+2. Use `debug` to run the critical case line-by-line as far as practical 
+
+3. Note how the focus jumps between editor and console; editor has some decent `Debug` menu items, but inspection of local vars (e.g. `ls()`) is in the console
+
+4. Add a `browser()` statement that allows you to pass over the loop (or use the menu item)
+
+3. Fix the function, remove the `browser` if necessary & `undebug`
+
+
+## Minimal replicable example
+
+Simplify any example that generates an error
+
+Smallest self-contained set of data & code that generates the error reliably
+
+- Often finds the problem
+- Easier to read & understand on Stackoverflow etc.
+- Shows respect for other people's time
+
+
+# Automated testing at build
+
+Up until now, your workflow probably looks like this:
+
+1. Write a function.
+2. Load it with or `devtools::load_all()`.
+3. Experiment with it in the console to see if it works.
+4. Go back to 1.
+
+While this is testing, sometimes a more formal approach is better. 
+
+Let's start by setting up our package to use the `testthat`: `usethis::use_testthat()`. 
+
+# Unit tests
+
+Advantages: 
+
+1. Better code, you are explicit about how the code behaves
+2. Better structure, many small components working together
+3. Easier to start up, all your tests are documented in a script
+4. Fearless development, don't have to worry about unknowingly breaking something
+
+Unit tests with `testthat` are defined in terms of expectations. The package provides a suite for functions that have the `expect_` prefix that compare the values of different objects: 
+
+
+```{r, error = TRUE}
+library(testthat)
+expect_equal(1, 1 + 1)
+expect_lt(1, 1 + 1)
+
+```
+
+General principles: 
+
+1. When you are tempted to write a "print" statement, write a test instead. 
+2. Write tests for complex code with lots of interdependencies
+3. Write a test when you discover a bug.
+
+# Example
+
+- What bug did we discover in the sampling function? 
+- What is the expected behavior in this case and how does it fail?
+- Let's write a test!
+
+
+# Organizing tests
+
+# Alternatives
+
+- You don't have to use `testthat`
+
+# `devtools::check()`
+
+- CRAN automatically runs the code in the `tests` subdirectory
+- If they fail, you will be notified. 
+- CRAN does other things as part of check! Let's review them. 
+
+

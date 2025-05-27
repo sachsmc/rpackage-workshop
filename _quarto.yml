@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - data/*
+  render:
+    - "*.qmd"
+    - "!data/"
+
+format:
+  html:
+    theme: default
+    css: styles.css
+    linkcolor: "#e2007a"
+
+site:
+  title: "R Package Development"
+  navbar:
+    background: "#004080"
+    text-color: "white"
+    right:
+      - text: "Resources"
+        href: resources.qmd
+      - text: "Course materials"
+        href: materials.qmd
+  page-footer:
+      background: "#004080"
+      left:
+        - text: "Contact course director"
+          href: "mailto:michael.sachs@sund.ku.dk"
+      right:
+        - text: ""

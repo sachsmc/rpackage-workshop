@@ -1,0 +1,943 @@
+---
+title: "Functions"
+author: "Michael C Sachs"
+format:
+  live-revealjs:
+    theme: default
+    scrollable: true
+execute:
+  echo: true
+webr:
+  cell-options:
+    autorun: true
+    echo: true
+    fig-width: 11
+    fig-height: 5
+editor_options: 
+  chunk_output_type: console
+---
+
+# Using functions
+
+## A function and its components
+
+Almost everything you do in R involves functions. You call a function by typing its name with its arguments (inputs) inside the parentheses: 
+
+```{webr}
+sample(x = 1:5, size = 2)
+```
+
+The function takes the arguments you provide, does something, and then returns an object. To see what a function does, you can type its name without parentheses to see the source: 
+```{r}
+sample
+```
+
+The source shows you the arguments, their default values, and the expression defining the function. You can also look at the help file for the documentation: 
+
+```{r, eval = FALSE}
+help("sample")
+# or
+?sample
+```
+
+
+## Using functions -- arguments
+
+Functions can have 0 or more arguments, with or without defaults. 
+
+The arguments can be given in order, or by name
+```{webr}
+set.seed(100)
+sample(1:5, 2, FALSE)
+## same as
+set.seed(100)
+sample(size = 2, replace = FALSE, x = 1:5)
+```
+
+Names can be partially matched, which can be confusing: 
+```{webr}
+set.seed(100)
+sample(si = 2, re = FALSE, x = 1:5)
+```
+
+
+## The ellipsis argument
+
+Some functions take `...` as an argument, e.g., `paste`, `list`, also the `apply` family. 
+
+There are 2 reasons for this: 
+
+1. There could be varying numbers of arguments
+```{webr}
+c(1, 2, 3)
+##
+c(1, 2)
+```
+
+
+2. To pass optional arguments to other functions involved
+```{webr}
+library(palmerpenguins)
+with(penguins, 
+     by(body_mass_g, species, mean)
+     )
+## na.rm gets passed to "mean"
+with(penguins, 
+     by(body_mass_g, species, mean, 
+        na.rm = TRUE)
+     )
+```
+
+
+## Using functions -- composition
+
+Often we want to use the result of one function as the argument to another function. There are many ways to do this: 
+
+1. Intermediate variables
+```{webr}
+set.seed(100)
+x <- rgamma(100, shape = 1, rate = 2)
+logx <- log(x)
+stdlogx <- scale(logx)
+quantile(stdlogx, c(.25, .75))
+```
+
+2. Nested function calls
+```{webr}
+quantile(scale(log(x)), c(.25, .75))
+```
+
+
+3. The pipe operator `|>` (available in R 4.0.1)
+```{webr}
+x |> log() |> scale() |> quantile(c(.25, .75))
+  
+```
+
+## Using functions -- the apply family
+
+Some functions will take other functions as arguments. An example is the `apply` family of functions, which applies a function over an index or iterator. See `help(apply)`
+
+`apply` repeated applies a function over the dimensions of an array. `MARGIN` indicates which dimension, and then for each index in that dimension, it applies `FUN` to the sub-array
+```{webr}
+M1 <- matrix(rnorm(1000), nrow = 100, ncol = 10)
+colnames(M1) <- paste0("X", 1:10)
+apply(M1, MARGIN = 2, FUN = median)
+```
+
+## Apply continued
+
+`tapply` is commonly used with data. It subsets the data `X` based on the `INDEX` argument, then applies a function to each subset: 
+```{webr}
+library(palmerpenguins)
+tapply(X = penguins$bill_depth_mm, INDEX = penguins$species, 
+       FUN = mean)
+
+```
+
+## `lapply`
+
+`lapply` is more general, in that it can take any index and apply any function that takes the index as an argument. It always returns a list. `sapply` does the same, but simplifies the result to an array, if possible.
+```{webr}
+lapply(split(penguins$bill_depth_mm, penguins$species), 
+       FUN = mean)
+
+sapply(split(penguins$bill_depth_mm, penguins$species), 
+       FUN = mean)
+
+```
+
+## `mapply`
+
+This is the multivariate version of `sapply` that allows vector arguments. 
+
+```{webr}
+mapply(rep, times = 1:4, x = 4:1)
+```
+
+See also the `purrr` package
+
+
+## Notes on speed and flexibility
+
+The apply family of functions is computationally equivalent to a loop (with pre-allocation)
+
+Using apply instead of a for loop will not be faster computationally
+
+It may be faster to write, but it may also be harder to understand
+
+You can do whatever you want inside a for loop, how would you do something more complex with `lapply`?
+
+# Writing your own functions
+
+
+## A simple function
+
+```{webr}
+hello <- function() {
+  
+  "Hello"
+  
+}
+
+hello()
+```
+
+## A function with arguments
+
+
+```{webr}
+hello <- function(name) {
+  
+  paste("Hello", name)
+  
+}
+hello("Jim")
+lapply(c("Jim", "Heather", "Bob"), hello)
+```
+
+
+## Local variables and scoping
+
+```{webr}
+#| error: true
+hello <- function(name) {
+  
+  name2 <- "Mike"
+  paste("Hello", name, "meet", name2)
+  
+}
+hello("Jim")
+name2
+``` 
+
+`name2` is a local variable. It exists only inside the function.
+
+```{webr}
+name2 <- "Billie"
+hello("Jim")
+```
+
+Modifying local variables outside the function has no effect. But be careful: 
+
+```{webr}
+hello2 <- function(name) {
+  
+  paste("Hello", name, "meet", name2)
+  
+}
+hello2("Jim")
+```
+
+
+## Arguments passed by value
+
+Likewise, arguments modified inside the function do not change the object outside the function. 
+
+```{webr}
+HELLO <- function(name) {
+  
+  name <- toupper(name)
+  paste("HELLO", name)
+  
+}
+name <- "mark"
+HELLO(name)
+name
+```
+
+
+## Lexical scoping
+
+This is called _lexical scoping_: it defines how R looks for objects when they are referred to by name 
+
+If R sees a variable it needs to use inside a function, and it is not an argument or local variable, then it follows these rules to find the object with that name: 
+
+1. Look in the environment where the function was defined.
+2. If not found, look in the parent environment of 1
+3. If not found continue going down into parents until there are no more.
+
+Note the specification sees a variable _and needs to use it_. This is called _lazy evaluation_: R does not evaluate anything until it needs to use it
+
+
+## Lexical scoping example
+
+This can be used to your advantage, e.g., 
+
+```{webr}
+least_squares_constructor <- function(dataY, dataX) {
+  
+  function(beta) {
+    sum((dataY - (beta[1] + beta[2] * dataX))^2, na.rm  =TRUE)
+  }
+    
+}
+
+model_penguin <- least_squares_constructor(penguins$flipper_length_mm, 
+                                        penguins$body_mass_g)
+model_penguin
+ls(environment(model_penguin))
+
+optim(par = c(0,0), fn = model_penguin)
+```
+
+## Lazy evaluation example
+
+```{webr}
+h01 <- function(x) {
+    
+    "Hello world!"
+    
+}
+h01()
+h01(stop("Error"))
+```
+
+One way to manually check for arguments is with `missing`: 
+
+```{webr}
+h02 <- function(x) {
+    
+    if(missing(x)) {
+        return("Missing x!")
+    }
+    "Hello world!"
+    
+}
+
+h02()
+h02(1)
+```
+
+
+## Using `match.arg`
+
+Look at the help file for `t.test`, and specifically the `alternative` argument. It is a vector with 3 elements, but only one is used. Also, it can be partially matched, e.g., 
+
+```{webr}
+t.test(1:10, y = c(7:20), alternative = "gr") 
+```
+
+How does that work? Using `match.arg` inside the function:  
+
+```{webr}
+mysummary <- function(x, type = c("mean", "median")) {
+  type <- match.arg(type) 
+  switch(type, 
+         mean = mean(x), 
+         median = median(x))
+}
+
+mysummary(c(1, 2, 5))
+```
+
+
+
+## Anonymous functions
+
+Your own functions do not need to be saved and assigned names. If a function does not have a name it is `anonymous`, I use these often with the apply family: 
+
+```{webr}
+bootmeans <- sapply(1:1000, function(i) {
+  
+  sample(penguins$body_mass_g, replace = TRUE) |>
+    mean(na.rm = TRUE)
+
+})
+summary(bootmeans)
+```
+
+Since R 4.0.1, `\()` can be used as shorthand for `function()`: 
+```{webr}
+bootmeans <- sapply(1:1000, \(i) {
+  
+   sample(penguins$body_mass_g, replace = TRUE) |>
+    mean(na.rm = TRUE)
+  
+})
+summary(bootmeans)
+```
+
+
+## Operators
+
+Operators are symbols like `+`, `<-`, `%*%`, `[`. 
+
+These are functions! To treat them like functions instead of operators, use backticks:
+```{webr}
+2 + 2
+`+`(2, 2)
+```
+
+You can then treat operators as you would any other function, using them in apply or otherwise
+
+You can also define your own operators: 
+
+```{webr}
+`% %` <- function(a, b) {
+    
+    paste(a, b)
+    
+}
+
+"my" % % "name"
+"my" % % "name" % % "is" % % "Mike"
+```
+
+
+Assignment operators have a special syntax: 
+
+```{webr}
+`second<-` <- function(x, value){
+    
+    x[2] <- value
+    x
+    
+}
+
+x <- 1:10
+second(x) <- 11
+x
+```
+
+
+
+## Generic methods/functions
+
+Look at the function `print`
+
+```{r}
+print
+```
+
+It is a _generic function_. `UseMethod` says depending on the _class_ of argument `object`, R will call a suitable _method_ (a function) that does something designed for whatever `object` is.
+
+You can find all the special methods by running `methods("print")` (try it now). 
+
+The class of the object is a simple attribute and the method is defined by appending the class name after the function name separated by a dot. This is called the __S3 class system__: 
+
+```{webr}
+x <- 1:4
+class(x)
+class(x) <- "myclass"
+
+inherits(x, "myclass")
+
+print.myclass <- function(x, ...) {
+  
+  cat(x, sep = "\n")
+  
+}
+
+x
+```
+
+
+## Summary
+
+In R, everything that happens is due to a function, and everything that exists is an object. Functions themselves are objects.
+
+How do functions work together? We can classify functions according to their inputs and outputs: 
+
+Input/Output | Data             | Function 
+-------------|------------------|-----------------
+Data         | Regular function | Function factory
+Function     | Functional       | Function operator
+
+
+These concepts are loosely defined, because functions can take both data and function arguments and return data and function results.
+
+## Designing functions
+
+When should you write a function? How should it be designed?
+
+1. The DRY principle: don't repeat yourself
+2. Consider the audience
+  + Don't write a function unless you expect somebody to use it
+  + Consider the most likely use cases, and remember you can't make everyone happy
+3. Balance ease-of-use with understandability
+  + Break down the task into a series of smaller tasks, and abstract them away into functions
+  + Reuse or build? Dependencies (using functions from other packages) may change in unpredictable ways
+  + Default arguments and error checking -- you can't prevent all errors, ultimately it is the users' responsibility to use the tools correctly
+
+
+## Recap from the morning
+
+Everything is done via (different types of) functions (see _functional programming_ tomorrow):
+
+* data, parameters go in as _arguments_
+* results are returned as _value_ of the function
+* both are R objects
+
+Functions have
+
+* arguments: `args(lm)` or `formals(lm)`
+* a body of code: `body(lm)`
+* an evironment: `environment(lm)`
+
+An argument 
+
+* is evaluated lazily (when **and** if required)
+* can be checked for presence via `missing` (if necessary)
+* can be an ellipsis \ldots
+
+Fun fact - you can overwrite body, arguments (via `formals`) and environment in an assignment:
+
+```{r}
+set.seed(313)
+x = rnorm(10); y = 2 + 3* x + rnorm(10)/4
+coef( lm(y~x) )     ## Show coefficients only
+body(lm) = "No linear regression for you!"
+lm(y~x) 
+lm
+```
+
+Because the original `lm` is defined in a package, changes are done to a local copy in the current environment. At the command line, this is the global environment:
+
+```{r}
+find("lm")
+coef( stats::lm(y~x) )   ## Still works 
+rm(lm)                   ## Delete local copy
+coef( lm(y~x) )          ## Works again
+```
+
+Lessons learned: 
+
+1. We can have functions with the same name in the search path - someone keeps (magically?) track of them. 
+
+2. There are differences between functions living in a package and in the global environment (e.g. generated via a script). 
+
+# Getting {stuff} out of functions 
+
+## Returning results
+
+By default, an R function returns the value of the last statement in the body:
+
+```{r}
+boxcox = function(x, exp) {
+  
+  if (exp == 0) {
+    ret = log(x)
+  } else {
+    ret = x^exp
+  }
+ 
+  ret 
+}
+```
+
+A function can return any value at any point in the code by using the `return` function:
+
+```{r}
+boxcox = function(x, exp) {
+  
+  if (exp == 0) {
+    return( log(x) )
+  } else {
+    return( x^exp )
+  }
+ 
+}
+```
+I think this makes programs harder to read and generally avoid using `return`; opinions on this differ.
+
+`invisible` works like `return`, but the resulting value will not be printed:
+```{r}
+invisible_square = function(x)
+{
+  invisible(x * x)
+}
+invisible_square(2)
+x = invisible_square(2)
+x
+```
+
+## Complex return values
+
+Often, a vector, matrix or data frame is the obvious return value (e.g. `boxcox`).
+
+Sometimes, a matrix or data frame is not the most obvious, but still the most useful return value (e.g. `broom::tidy`).
+
+And sometimes, you just get lots of different objects that you need to stick together, which is when you can use a list:
+
+```{r}
+lm_min = lm(1 ~ 1)    ## World's smallest linear model?! No, but close
+is.list(lm_min)
+sapply(lm_min, typeof)
+```
+
+
+## Designing return values
+
+Return the same type of result every time (if possible). Unlike this:
+
+```{r}
+DNase[1:5, ]
+DNase[1:5, 3]  ## use drop=FALSE to make safe
+```
+
+Consider tidy return values: does it make sense to return a rectangular data matrix?
+
+```{r}
+tab  = with(survival::veteran, table(celltype, status))
+ttab = reshape2::melt(tab,  value.name= "Freq")
+tab   ## NOT tidy
+ttab  ## tidy
+glm(Freq ~ celltype + status, data = ttab)  ## Statistics, yay
+```
+
+Avoid fancy printing and plotting, unless this is the only thing your function does. Many older functions do this: 
+
+```{r, fig.keep = "none"}
+hist(DNase$density)                    ## plot, invisible result
+hist(DNase$density, plot = FALSE)      ## no plot - visible result
+hh = hist(DNase$density, plot = FALSE) ## save object
+plot(hh)                               ## ... and plot it
+```
+Compare this to `ggplot2`, which has a clean separation between defining and displaying a plot.
+
+Function `effx` in package `Epi` produces fancy-ish text output, but returns nothing, _nothing at all_:
+```{r}
+data(births, package = "Epi")
+out = Epi::effx(bweight,exposure=hyp,data=births)
+out
+```
+Don't do that. 
+
+
+## Communicating with the user
+
+Functions should avoid elaborate print output unless this is the only thing they do: see above, object-oriented programming. 
+
+Instead, functions should put construct an object with all the relevant information, and either trust the R printing methods, or hide the ugly using `invisible`. 
+
+However, there are situations where it makes sense to contact the user from within the function:
+
+1. Progress: for a slow process, use `cat` (not `print`) to indicate progress; offer an argument to suppress the progress report. 
+
+    (Alt. use package `progress` - however, does not work on terminal R)
+
+2. Side effects: if the function does something that will have side effects outside itself, the user needs to be informed. This should be done via `message` and `warning`, not print-ing or cat-ing.
+
+3. Problems: if the function runs into a situation it cannot handle, it can either try a best-guess fix, or just give up; `warning` informs, but continues execution, `stop` terminates execution and returns an error.
+
+```{r, eval = FALSE}
+log(-1)      ## Warning, moves on with NaN
+log("a")     ## Error
+```
+
+Useful:
+
+* `stopifnot` for tough-love argument checking
+* `options(warn=2)` to turn warnings into errors
+
+# Functions of functions
+
+## Functions as return values
+
+Functions as arguments are common: `lapply` etc.
+
+Functions can also be return values. E.g. we can define our own logarithms for different bases:
+
+```{r}
+log_general = function(base) 
+{
+  function(x) log(x, base)
+}
+log2 = log_general(2)
+log2(4)
+```
+
+This `log2` is a function defined in `log_general`. When `log_general` was called with `base=2`, this was saved in the _execution environment_ of `log_general`, which `log2` has inherited:
+
+```{r}
+environment(log2)
+ls( environment(log2) )
+get( "base", environment(log2) ) 
+```
+
+This is a reasonably advanced, but powerful technique. This combination of a function and data (in the environment) is generally known as a _closure_, though the term has a narrower technical meaning in R. See Advanced R 2nd ed, Section 10.4, for use cases.
+
+## Function wrappers
+
+A different, more conventional way of defining our own binary logarithm:
+
+```{r}
+other_log2 = function(x) log(x, base = 2)
+other_log2(4)
+environment(other_log2)
+```
+
+Nothing wrong with that as one off, though ultimately less flexible. 
+
+## Managing complaints
+
+Other people's functions may also cause messages, warnings or errors. 
+
+Use `suppressMessages` or `suppressWarnings` to keep it silent:
+
+```{r}
+suppressWarnings( log(-1) )
+library(dplyr)
+library(MASS) 
+detach("package:MASS")
+suppressMessages( library(MASS) )
+```
+
+Errors can be caught using the function `try`:
+
+```{r, eval = FALSE}
+try( log("a"), silent = TRUE )  ## Not an error, but what happened?!
+## Convert error to warning, use NaN as value
+ret = try( log("a"), silent = TRUE )
+if ( !is.numeric (ret) ) {
+  warning(ret)
+  ret = NaN
+}
+```
+
+`tryCatch` offers a more flexible way of defining error handlers.
+
+# Exercises
+
+1. What do these functions return?
+
+```{r}
+ex1_a = function() 7
+ex1_b = function() x=7
+ex1_c = function() {x=7}
+ex1_d = function() {y=1; x=7}
+ex1_e = function() y=1; x=7
+```
+
+2. Write a function `hasPlotArg` that takes a function as argument and checks whether the function has `plot` as an argument. 
+
+    Find all functions in the search path that have `plot` in their name, and check which ones have a `plot`-argument.
+
+    If we also want to know about the default value for argument `plot`, should we add an optional argument to `hasPlotArg`, or is there a better way to design this? Implement your idea. 
+    
+3. Have a look how the function `read.table` handles unexpected situations: when does it give up, and when does it continue reading with a message/warning?
+
+
+
+
+# Some more advanced topics
+
+## `get` and `assign`
+
+Recall that we can retrieve a variable from a data frame by using a character string, e.g., `penguins[["species"]]`. 
+
+We can use a character string to get or assign any other object using these functions. For example, this returns the function called mean
+```{webr}
+get("mean")
+```
+
+which we can use like a function
+```{webr}
+get("mean")(penguins$body_mass_g, na.rm = TRUE)
+```
+
+Likewise, an object can be created with `assign`
+```{webr}
+assign("mean.body.mass", mean(penguins$body_mass_g, na.rm = TRUE))
+mean.body.mass
+```
+
+## Uses of `get` and `assign`
+
+Example, iterating over functions by name:
+```{webr}
+summary_funcs <- c("mean", "sd", "median")
+for(fn in summary_funcs) {
+  cat(fn, "body mass: ")
+  cat(get(fn)(penguins$body_mass_g, na.rm = TRUE), "\n")
+}
+```
+
+Example, retrieving a function programmatically, 
+```{webr}
+converter <- get(paste0("as.", class(penguins$flipper_length_mm)))
+converter(mean(penguins$flipper_length_mm, na.rm = TRUE))
+```
+
+Example, programmatically creating new variables, 
+```{webr}
+numeric_cols <- names(penguins)[sapply(penguins, is.numeric)]
+for(col in numeric_cols){
+  assign(paste0(col, ".scaled"), 
+         scale(penguins[[col]]))
+}
+```
+
+
+
+## `do.call` 
+
+A variant on `get` is `do.call`. This takes a function as the first argument, then a list containing the arguments for the function, `do.call(<function>, <list of arguments to function>)`. 
+
+A common use for this is with functions that take a variable number of arguments, e.g., `cbind`, `paste`, where the arguments are created programmatically.
+
+simple example, 
+```{webr}
+do.call("paste", list("A", "B", sep = "."))
+```
+
+
+arranging a list into a matrix 
+```{webr}
+mean.sd.by.species <- lapply(split(penguins$flipper_length_mm, penguins$species), 
+                             function(x) c(mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE)))
+do.call("rbind", mean.sd.by.species)
+```
+
+## Global assigment operator
+
+There is the `<<-` operator, which is used in functions and does (re)assignment __outside the function__. It searches the parent environments and reassigns where found, if not found it assigns in the global environment. 
+
+This is generally considered to be a bad idea, but now you know about it. 
+
+```{webr}
+name2 <- "Billie"
+name2
+hello <- function(name) {
+  
+  name2 <<- "Mike"
+  paste("Hello", name, "meet", name2)
+  
+}
+hello("Jim")
+name2
+```
+
+
+## Functionals
+
+Functionals invoke functions over some data structure to create an output that corresponds to that data structure. We've already used one functional: `lapply`. Here is a simpler one:
+
+```{r}
+random_stat <- function(fun) {
+    fun(runif(100))
+}
+
+random_stat(mean)
+
+```
+
+The data structure here is a single variable (`runif(100)`). Functionals are useful for iterating over more complex data structures as well. 
+
+`lapply` iterates over a list, applying the same function to each element. How can you achieve the same result using a `for` loop?
+
+```{r}
+random_stats <- function(fun) {
+    
+    lapply(list(uniform = runif(100), normal = rnorm(100), 
+                t = rt(100, 4), exponential = rexp(100)), fun)
+    
+}
+
+random_stats(mean)
+random_stats(sd)
+
+lapply(list(mean = mean, sd = sd), random_stats)
+```
+
+`mapply` iterates over a series of lists. Same question? 
+
+All of these iteration problems can be solved with loops. What are the advantages/disadvantages of using loops? 
+
+## Function operators
+
+Function operators take functions as input and return functions as output, generally modifying the behaviour of the function. 
+
+Let's see if we can implement an error capture adverb. 
+
+```{r}
+#' Modify a function to fail without stopping
+#' 
+#' @param f A function
+
+capture_errors <- function(f) {
+    
+    function(...) {
+        tryCatch(f(...), 
+                 error = function(e) as.character(e))    
+        
+    }
+}
+
+geometric_mean <- function(x) {
+    
+    exp(mean(log(x)))
+    
+}
+
+safe_geom_mean <- capture_errors(geometric_mean)
+#lapply(iris, geometric_mean)
+lapply(iris, safe_geom_mean)
+```
+
+
+## Function factories and closures
+
+Function factories take data as input and return functions:
+
+```{r}
+power1 <- function(exp) {
+  function(x) {
+    x ^ exp
+  }
+}
+
+square <- power1(2)
+cube <- power1(3)
+```
+
+Function factories are useful in statistics. Let's do some regression!
+
+```{r}
+x <- rnorm(50)
+y <- 1 + 1.5 * x + rnorm(50, sd = 1)
+
+mse_loss <- function(xmat, outcome) {
+    
+    function(beta) {
+        
+        linpred <- xmat %*% beta
+        mean((linpred - outcome)^2)
+        
+    }
+    
+}
+
+
+mse_loss(cbind(1, x), y)(c(0, 0))
+
+optim(par = c(0, 0), mse_loss(cbind(1, x), y))
+```
+
+What are some ways we could make this function more general? Multivariate, different loss functions? 
+
+## Recursive functions
+
+Recursive functions are functions that call themselves. It is critical that they have an exit condition. The basic example is computing the Fibonacci numbers: 
+
+```{r}
+fibonacci <- function(n) {
+    
+    if(n < 2){
+        
+        return(1)
+        
+    } else {
+        
+        fibonacci(n - 1) + fibonacci(n - 2)
+    }
+    
+}
+
+fibonacci(9)
+```
+
+
+This seems like a useless novelty, but they are actually quite useful in dealing with DAGs and nested data structures.
+

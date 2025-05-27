@@ -1,0 +1,54 @@
+---
+title: "Course Information"
+---
+
+# R Package Development
+
+## Module Summary
+
+R is a free, open-source statistical computing environment that is the language of choice for correct and reproducible analysis. R packages are the fundamental unit of reproducible R code for analysis and reporting. A good R package can have a big impact in scientific research, whether it is an implementation of a novel statistical method or an interface to existing analytic approaches. Researchers in the fields of molecular, genetic, and clinical epidemiology would benefit from more and better implementations of statistical and epidemiological methods in R. 
+
+Aside from the mechanics of packaging R code and basic principles of software development, this module will focus on principles for development of high quality packages and maximizing their impact. Through a series of examples from existing R packages, participants will learn about different strategies for designing and implementing interfaces to statistical and epidemiological methods. Then, we will summarize the steps one can take to maximize the impact of the R package and to obtain academic credit for one’s efforts.
+
+## Prerequisites
+- Basic to intermediate skills in R programming: using and writing functions, loops, conditional execution
+- Familiarity with Rstudio and R management: installing packages, managing workspaces and directories. 
+- It is beneficial, but not necessary, if participants have at least a general idea for an R package that they wish to create or a method that they think should be implemented or improved.
+
+## Module Content
+
+- The mechanics of packaging R code using devtools
+- Modularity and the DRY principle, testing and documentation, version control
+- Interfaces, covering functions, operators, S3 classes and overloading operators, the pipe operator, and other types of classes (S4, RC, R6).
+- Releasing R packages, covering Github, web pages, CRAN, Bioconductor, and publishing clinical or software papers describing the package.
+
+## Required Software
+- R version >= 4.4.0
+- R package build tools. See <https://support.posit.co/hc/en-us/articles/200486498-Package-Development-Prerequisites>
+- R packages: devtools, usethis, roxygen2, testthat
+- Rstudio
+
+
+## Teachers
+
+### Michael Sachs, Associate Professor, Section of Biostatistics, University of Copenhagen
+
+Michael Sachs is an Associate Professor at the Section of Biostatistics at the University of Copenhagen, and has an affiliation at the Karolinska Institute. He has a PhD degree in biostatistics from the University of Washington, Seattle, WA. He has worked as an applied statistician in a variety of medical areas including, cancer treatment and diagnosis, inflammatory diseases, Alzheimer’s disease, and nephrology. He is an avid R user and developer, with a passion for open science, data visualization, and reproducible research. He is the author and maintainer of the R packages causaloptim, plotROC (a ggplot2 extension), eventglm, stdReg2, and more. His personal research interests are the development and evaluation of risk prediction models and biomarkers, assay development and validation, statistical computing, causal inference in observational studies, and tools for reproducible research.
+
+
+::: {.grid}
+
+
+::: {.g-col-6}
+[Course materials](materials.html){.linkcard}
+:::
+
+
+
+::: {.g-col-6}
+[Learning resources](resources.html){.linkcard}
+:::
+
+
+:::
+

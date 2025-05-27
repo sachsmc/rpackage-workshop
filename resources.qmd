@@ -1,0 +1,25 @@
+---
+title: "Resources"
+---
+
+# Cheatsheets
+
+- [Base R](data/base-r.pdf)
+- [Advanced R](data/advancedR.pdf)
+- [Package dev](data/package-development.pdf)
+- [Rstudio IDE](data/rstudio-ide.pdf)
+- [git](data/git-cheat-sheet-education.pdf)
+
+# Books
+
+- [R packages](http://r-pkgs.had.co.nz/), by Hadley Wickham. 
+- [Advanced R](http://adv-r.had.co.nz/), by Hadley Wickham.
+- [Happy Git and GitHub for the UseR](https://happygitwithr.com/index.html), by Jennifer Bryan and Jim Hester. 
+
+# Manuscripts
+
+- [Excuse me, do you have a moment to talk about version control?](data/happy-with-git.pdf), Jennifer Bryan, 2017. PeerJ Preprints. 
+- [Opinionated Analysis Development](data/opinionated-analysis-dev.pdf), Hilary Parker, 2017. PeerJ Preprints. 
+- [Extending R with C++: A Brief Introduction to Rcpp](data/Rcpp.pdf), Dirk Eddelbuettel and James Joseph Balamuta, 2017. PeerJ Preprints. 
+
+

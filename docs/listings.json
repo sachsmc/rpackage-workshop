@@ -1,0 +1,17 @@
+[
+  {
+    "listing": "/materials.html",
+    "items": [
+      "/lectures/design.html",
+      "/lectures/documentation.html",
+      "/lectures/flow-and-loops.html",
+      "/lectures/functions.html",
+      "/lectures/introduction.html",
+      "/lectures/oop.html",
+      "/lectures/reviewing-publishing.html",
+      "/lectures/testing.html",
+      "/lectures/ecosystem.html",
+      "/lectures/git.html"
+    ]
+  }
+]

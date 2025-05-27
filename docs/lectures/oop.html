@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.40">
+
+  <title>R Package Development – Object-oriented programming</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Object-oriented programming</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="object-oriented-programming" class="slide level2">
+<h2>Object-oriented programming</h2>
+<h3 id="basic-idea">Basic idea</h3>
+<ul>
+<li><p>Hide complexity behind abstraction</p></li>
+<li><p>Model concrete entities as software entities (<em>“objects”</em>)</p></li>
+<li><p>Define relationships between software entities that mimick those between concrete entities</p></li>
+<li><p>A way of thinking about problems and software</p></li>
+<li><p>Many, many different implementations</p></li>
+</ul>
+<h3 id="concepts">Concepts</h3>
+<p><strong>Class:</strong> a general definition of a data format</p>
+<p>Ex.: a person class with name, personal ID number, email address etc.</p>
+<p><strong>Object:</strong> a specific instance of a class</p>
+<p>Ex.: an object relating to Marie</p>
+<p><strong>Method:</strong> a procedure / function acting on objects from a class</p>
+<p>Ex.: we can send emails to persons, including Marie</p>
+<p><strong>Inheritance:</strong> classes can form a hierarchy with shared data, methods</p>
+<p>Ex. class <em>employee</em> inherits name, ID number etc. from class <em>person</em>, but also has information on contract, length of employment; we can send emails to employees, because they are persons.</p>
+</section>
+<section id="the-classic-class-system-s3" class="slide level2 scrollable">
+<h2>The classic class system: S3</h2>
+<h3 id="how-come-a-demonstration">How come…? A demonstration</h3>
+<p>Let’s say we have run a linear model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">set.seed</span>(<span class="dv">313</span>)</span>
+<span id="cb1-2"><a></a>x <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10</span>); y <span class="ot">=</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)<span class="sc">/</span><span class="dv">4</span></span>
+<span id="cb1-3"><a></a>lm1 <span class="ot">=</span> <span class="fu">lm</span>(y<span class="sc">~</span>x) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>So we can use look at the regression table:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.35985 -0.13888 -0.00807  0.13181  0.44398 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.96291    0.08037   24.42 8.43e-09 ***
+x            2.98959    0.11895   25.13 6.72e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.2471 on 8 degrees of freedom
+Multiple R-squared:  0.9875,    Adjusted R-squared:  0.9859 
+F-statistic: 631.6 on 1 and 8 DF,  p-value: 6.725e-09</code></pre>
+</div>
+</div>
+<p>But we can also use <code>summary</code> for a data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">summary</span>(sleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     extra        group        ID   
+ Min.   :-1.600   1:10   1      :2  
+ 1st Qu.:-0.025   2:10   2      :2  
+ Median : 0.950          3      :2  
+ Mean   : 1.540          4      :2  
+ 3rd Qu.: 3.400          5      :2  
+ Max.   : 5.500          6      :2  
+                         (Other):8  </code></pre>
+</div>
+</div>
+<p>Is <code>summary</code> a long &amp; complex function that does both things?</p>
+<h3 id="generic-functions-methods-and-classes">Generic functions, methods and classes</h3>
+<p>Not exactly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (object, ...) 
+UseMethod("summary")
+&lt;bytecode: 0x5ec4a44883c8&gt;
+&lt;environment: namespace:base&gt;</code></pre>
+</div>
+</div>
+<p><code>summary</code> is a <em>generic function</em>, as seen by the call to <code>UseMethod</code>: depending on the <em>class</em> of argument <code>object</code>, R will call a suitable <em>method</em> (a function) that gives a meaningful summary for whatever <code>object</code> is: one thing for a linear model, another thing for a data frame.</p>
+<p>Calling the correct method for an object is called <em>method dispatch</em>. In S3, method dispatch is based on the generic function called (what the user wants to do) and the class of the first argument (what object the user wants to do something to). The corresponding method is found by its name:</p>
+<pre><code>&lt;name of generic&gt;.&lt;name of argument class&gt;</code></pre>
+<p>For our example, we check the class of our object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">class</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "lm"</code></pre>
+</div>
+</div>
+<p>so the name of the method dispatched is <code>summary.lm</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">findFunction</span>(<span class="st">"summary.lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+&lt;environment: package:stats&gt;
+attr(,"name")
+[1] "package:stats"
+attr(,"path")
+[1] "/usr/lib/R/library/stats"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">args</span>(summary.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (object, correlation = FALSE, symbolic.cor = FALSE, 
+    ...) 
+NULL</code></pre>
+</div>
+</div>
+<p>Three standard generics are widely used for different classes:</p>
+<ol type="1">
+<li><p><code>print</code> is used to display an expression (implicitly or implicitly)</p></li>
+<li><p><code>summary</code> generates a compressed summary of its argument</p></li>
+<li><p><code>plot</code> provides a graphical display</p></li>
+</ol>
+<p>Let’s look for functions that could be methods for generic <code>print</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">apropos</span>(<span class="st">"^print</span><span class="sc">\\</span><span class="st">."</span>, <span class="at">ignore.case =</span> <span class="cn">FALSE</span>, <span class="at">mode =</span> <span class="st">"function"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "print.AsIs"                  "print.by"                   
+ [3] "print.condition"             "print.connection"           
+ [5] "print.data.frame"            "print.Date"                 
+ [7] "print.default"               "print.difftime"             
+ [9] "print.Dlist"                 "print.DLLInfo"              
+[11] "print.DLLInfoList"           "print.DLLRegisteredRoutines"
+[13] "print.eigen"                 "print.factor"               
+[15] "print.function"              "print.hexmode"              
+[17] "print.libraryIQR"            "print.listof"               
+[19] "print.NativeRoutineList"     "print.noquote"              
+[21] "print.numeric_version"       "print.octmode"              
+[23] "print.packageInfo"           "print.POSIXct"              
+[25] "print.POSIXlt"               "print.proc_time"            
+[27] "print.restart"               "print.rle"                  
+[29] "print.simple.list"           "print.srcfile"              
+[31] "print.srcref"                "print.summary.table"        
+[33] "print.summary.warnings"      "print.summaryDefault"       
+[35] "print.table"                 "print.warnings"             </code></pre>
+</div>
+</div>
+<p>Note that this <em>does</em> hide complexity: user does not have to know what class an object has, but can (try to) print, summarize or plot it anyway.</p>
+<p>(<code>.S3methods(print)</code> actually provides a more complete list of print methods.)</p>
+<h3 id="default-methods">Default methods</h3>
+<p>Many functions seem to have <code>.default</code> at the end:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">apropos</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">.default$"</span>, <span class="at">ignore.case =</span> <span class="cn">FALSE</span>, <span class="at">mode =</span> <span class="st">"function"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "all.equal.default"       "anyDuplicated.default"  
+ [3] "aperm.default"           "as.array.default"       
+ [5] "as.character.default"    "as.data.frame.default"  
+ [7] "as.Date.default"         "as.expression.default"  
+ [9] "as.function.default"     "as.list.default"        
+[11] "as.matrix.default"       "as.null.default"        
+[13] "as.POSIXct.default"      "as.POSIXlt.default"     
+[15] "as.single.default"       "as.table.default"       
+[17] "barplot.default"         "boxplot.default"        
+[19] "by.default"              "chol.default"           
+[21] "chooseOpsMethod.default" "confint.default"        
+[23] "contour.default"         "cut.default"            
+[25] "density.default"         "diff.default"           
+[27] "duplicated.default"      "format.default"         
+[29] "hist.default"            "image.default"          
+[31] "is.na&lt;-.default"         "kappa.default"          
+[33] "labels.default"          "levels.default"         
+[35] "lines.default"           "mean.default"           
+[37] "median.default"          "merge.default"          
+[39] "model.frame.default"     "model.matrix.default"   
+[41] "mtfrm.default"           "nameOfClass.default"    
+[43] "pairs.default"           "plot.default"           
+[45] "points.default"          "pretty.default"         
+[47] "print.default"           "qr.default"             
+[49] "range.default"           "rev.default"            
+[51] "row.names.default"       "row.names&lt;-.default"    
+[53] "rowsum.default"          "scale.default"          
+[55] "seq.default"             "sequence.default"       
+[57] "solve.default"           "sort_by.default"        
+[59] "sort.default"            "split.default"          
+[61] "split&lt;-.default"         "subset.default"         
+[63] "summary.default"         "t.default"              
+[65] "text.default"            "toString.default"       
+[67] "transform.default"       "unique.default"         
+[69] "update.default"          "with.default"           
+[71] "xtfrm.default"          </code></pre>
+</div>
+</div>
+<p>These are not for a mystical <code>default</code>-class, but the fall-back functions used when the generic function can’t find a matching method.</p>
+<p>E.g. <code>mean</code> is a generic function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (x, ...) 
+UseMethod("mean")
+&lt;bytecode: 0x5ec4a29625b0&gt;
+&lt;environment: namespace:base&gt;</code></pre>
+</div>
+</div>
+<p>The default method deals with non-numeric data, removes <code>NA</code> and trims the tails, if required, and then calls an internal function which does the actual work:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>mean.default</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (x, trim = 0, na.rm = FALSE, ...) 
+{
+    if (!is.numeric(x) &amp;&amp; !is.complex(x) &amp;&amp; !is.logical(x)) {
+        warning("argument is not numeric or logical: returning NA")
+        return(NA_real_)
+    }
+    if (isTRUE(na.rm)) 
+        x &lt;- x[!is.na(x)]
+    if (!is.numeric(trim) || length(trim) != 1L) 
+        stop("'trim' must be numeric of length one")
+    n &lt;- length(x)
+    if (trim &gt; 0 &amp;&amp; n) {
+        if (is.complex(x)) 
+            stop("trimmed means are not defined for complex data")
+        if (anyNA(x)) 
+            return(NA_real_)
+        if (trim &gt;= 0.5) 
+            return(stats::median(x, na.rm = FALSE))
+        lo &lt;- floor(n * trim) + 1
+        hi &lt;- n + 1 - lo
+        x &lt;- sort.int(x, partial = unique(c(lo, hi)))[lo:hi]
+    }
+    .Internal(mean(x))
+}
+&lt;bytecode: 0x5ec4a44b16f0&gt;
+&lt;environment: namespace:base&gt;</code></pre>
+</div>
+</div>
+<h3 id="inheritance">Inheritance</h3>
+<p>The package <code>data.table</code> provides a rectangular (tidy) data format with powerful and efficient processing procedures.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">library</span>(data.table)</span>
+<span id="cb23-2"><a></a>dt <span class="ot">=</span> <span class="fu">data.table</span>(mtcars)</span>
+<span id="cb23-3"><a></a><span class="fu">class</span>(dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.table" "data.frame"</code></pre>
+</div>
+</div>
+<p>All data table objects (like <code>dt</code> here) have two classes: (1) <code>data.table</code> and (2) <code>data.frame</code>.</p>
+<p>This means that class <code>data.table</code> <em>inherits</em> from class <code>data.frame</code>, or equivalently, class <code>data.table</code> <em>extends</em> class <code>data.frame</code>; object <code>dt</code> is both a data table and data frame, and all methods for both classes can be used:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">inherits</span>(dt, <span class="st">"data.frame"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>However, the generic will dispatch along the <code>class</code>-vector, starting at the beginning: by default, the <code>data.table</code> methods will be called.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="do">## Implicitly, dispatch to head.data.table on class(dt)[1] </span></span>
+<span id="cb27-2"><a></a><span class="fu">head</span>(dt)                          </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+   &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;
+1:  21.0     6   160   110  3.90 2.620 16.46     0     1     4     4
+2:  21.0     6   160   110  3.90 2.875 17.02     0     1     4     4
+3:  22.8     4   108    93  3.85 2.320 18.61     1     1     4     1
+4:  21.4     6   258   110  3.08 3.215 19.44     1     0     3     1
+5:  18.7     8   360   175  3.15 3.440 17.02     0     0     3     2
+6:  18.1     6   225   105  2.76 3.460 20.22     1     0     3     1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="do">## Explicitly, direct call</span></span>
+<span id="cb29-2"><a></a>data.table<span class="sc">:::</span><span class="fu">head.data.table</span>(dt)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+   &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;
+1:  21.0     6   160   110  3.90 2.620 16.46     0     1     4     4
+2:  21.0     6   160   110  3.90 2.875 17.02     0     1     4     4
+3:  22.8     4   108    93  3.85 2.320 18.61     1     1     4     1
+4:  21.4     6   258   110  3.08 3.215 19.44     1     0     3     1
+5:  18.7     8   360   175  3.15 3.440 17.02     0     0     3     2
+6:  18.1     6   225   105  2.76 3.460 20.22     1     0     3     1</code></pre>
+</div>
+</div>
+<p>If no method for a class is defined, the dispatch moves to the next class element, and tries to find a fitting methods for that class.</p>
+<p>E.g. <code>data.table</code> has no proper summary-method, and falls back on <code>summary.data.frame</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>test <span class="ot">&lt;-</span> <span class="fu">try</span>( <span class="fu">getS3method</span>(<span class="at">f =</span> <span class="st">"summary"</span>, <span class="at">class =</span> <span class="st">"data.table"</span>), <span class="at">silent =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-2"><a></a><span class="fu">cat</span>( test )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in getS3method(f = "summary", class = "data.table") : 
+  S3 method 'summary.data.table' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">summary</span>( dt )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      mpg             cyl             disp             hp       
+ Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
+ 1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
+ Median :19.20   Median :6.000   Median :196.3   Median :123.0  
+ Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
+ 3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
+ Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
+      drat             wt             qsec             vs        
+ Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  
+ 1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  
+ Median :3.695   Median :3.325   Median :17.71   Median :0.0000  
+ Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
+ 3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
+ Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
+       am              gear            carb      
+ Min.   :0.0000   Min.   :3.000   Min.   :1.000  
+ 1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  
+ Median :0.0000   Median :4.000   Median :2.000  
+ Mean   :0.4062   Mean   :3.688   Mean   :2.812  
+ 3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
+ Max.   :1.0000   Max.   :5.000   Max.   :8.000  </code></pre>
+</div>
+</div>
+<h3 id="making-it-classy">Making it classy</h3>
+<p>To create an object of class <code>foo</code>, simply set the <code>class</code> attribute to <code>foo</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb35-2"><a></a><span class="fu">class</span>(x) <span class="ot">&lt;-</span> <span class="st">"foo"</span></span>
+<span id="cb35-3"><a></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10
+attr(,"class")
+[1] "foo"</code></pre>
+</div>
+</div>
+<p>You can remove the class attribute using <code>unclass</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">unclass</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+</div>
+<p>You can hand-build an object of a certain class:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>x <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb39-2"><a></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">levels</span>(x) <span class="ot">=</span> <span class="fu">as.character</span>(x)</span>
+<span id="cb41-2"><a></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10
+attr(,"levels")
+ [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">class</span>(x) <span class="ot">=</span> <span class="st">"factor"</span></span>
+<span id="cb43-2"><a></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1  2  3  4  5  6  7  8  9  10
+Levels: 1 2 3 4 5 6 7 8 9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">is.factor</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Generally, classes have a <em>constructor function</em> which builds an object of the desiresd class from user input; often, the name of the function is the same as the class - e.g.&nbsp;<code>lm</code> to create <code>lm</code>, or here</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>x <span class="ot">=</span> <span class="fu">factor</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb47-2"><a></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1  2  3  4  5  6  7  8  9  10
+Levels: 1 2 3 4 5 6 7 8 9 10</code></pre>
+</div>
+</div>
+<h3 id="rolling-your-own">Rolling your own</h3>
+<p><strong>Writing a new method:</strong> both the class and the generic function exist already</p>
+<p>When the class already has that method, this means that you <em>override</em> the existing method: this is risky and messy and should not be done lightly; see Exercise 2.</p>
+<p>When the class does <em>not</em> have that method, you basically generate a new method for the existing class. E.g. there is no <code>coef</code>-method for base type <code>numeric</code> defined, and the default method cannot handle numeric vectors:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb49-2"><a></a>test <span class="ot">&lt;-</span> <span class="fu">try</span>( <span class="fu">coef</span>(x), <span class="at">silent =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb49-3"><a></a><span class="fu">cat</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in object$coefficients : $ operator is invalid for atomic vectors</code></pre>
+</div>
+</div>
+<p>Say we want to have a method that returns the coefficient of variation (standard deviation divided by mean) for numeric vectors, we can do this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>coef.numeric <span class="ot">&lt;-</span> <span class="cf">function</span>(object, ...) <span class="fu">sd</span>(object)<span class="sc">/</span><span class="fu">mean</span>(object)</span>
+<span id="cb51-2"><a></a><span class="fu">coef</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.668404</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><p>While legal, this is a bad idea, as this method really does something completely different from what <code>coef</code> is supposed to do, which is extracting model coefficients from a fitted model.</p></li>
+<li><p>Your method should generally have the same arguments (name and order) as the generic function, in this case <code>coef</code>.</p></li>
+</ol>
+<p><strong>Writing a new generic:</strong> this really only makes sense if you also write a corresponding method, otherwise there is nothing to do.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>blurp <span class="ot">=</span> <span class="cf">function</span>(x, ...) <span class="fu">UseMethod</span>(<span class="st">"blurp"</span>)</span>
+<span id="cb53-2"><a></a>test <span class="ot">=</span> <span class="fu">try</span>( <span class="fu">blurp</span>(<span class="dv">1</span>), <span class="at">silent =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-3"><a></a><span class="fu">cat</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in UseMethod("blurp") : 
+  no applicable method for 'blurp' applied to an object of class "c('double', 'numeric')"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a>blurp.default <span class="ot">=</span> <span class="cf">function</span>(x, ...) <span class="st">"BLUUUURP!"</span></span>
+<span id="cb55-2"><a></a><span class="fu">blurp</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "BLUUUURP!"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a><span class="fu">blurp</span>(<span class="st">"a"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "BLUUUURP!"</code></pre>
+</div>
+</div>
+<p>This should be some kind of activity that you is relevant across a range of different classes. This means you should probably write several methods for your generic, or offer something else to make this extra abstraction worthwhile.</p>
+<p>You should also probably check the existing generics:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a>.knownS3Generics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Math            Ops        Summary        Complex      matrixOps 
+        "base"         "base"         "base"         "base"         "base" 
+  as.character  as.data.frame as.environment      as.matrix      as.vector 
+        "base"         "base"         "base"         "base"         "base" 
+         cbind         labels          print          rbind            rep 
+        "base"         "base"         "base"         "base"         "base" 
+           seq        seq.int           plot       sequence          solve 
+        "base"         "base"         "base"         "base"         "base" 
+       summary              t           edit            str        contour 
+        "base"         "base"        "utils"        "utils"     "graphics" 
+          hist       identify          image          lines          pairs 
+    "graphics"     "graphics"     "graphics"     "graphics"     "graphics" 
+        points           text           add1            AIC          anova 
+    "graphics"     "graphics"        "stats"        "stats"        "stats" 
+        biplot           coef        confint       deviance    df.residual 
+       "stats"        "stats"        "stats"        "stats"        "stats" 
+         drop1     extractAIC         fitted        formula         logLik 
+       "stats"        "stats"        "stats"        "stats"        "stats" 
+   model.frame   model.matrix        predict        profile         qqnorm 
+       "stats"        "stats"        "stats"        "stats"        "stats" 
+     residuals    se.contrast          terms         update           vcov 
+       "stats"        "stats"        "stats"        "stats"        "stats" </code></pre>
+</div>
+</div>
+<p>(For a more complete list, use <code>utils:::getKnownS3generics()</code>,)</p>
+<p><strong>Writing your own class:</strong> This is surprisingly easy - you only have to set the <code>class</code> attribute of an object; all generic functions will dispatch on the new class, though only to the default method, as you have not defined any methods yet.</p>
+<p>You generally want a constructor function that returns an object of the new class.</p>
+<p>This is the most common and easiest use case: you have a new thing that is a bit more complex, so make it a class, and write a print-method, maybe a summary and plot, too.</p>
+<h3 id="documentation">Documentation</h3>
+<p><em>S3 generic functions</em> are functions: use Roxygen</p>
+<p><em>S3 classes</em> have no formal definition, so document the constructor function(s) that generates class objects:</p>
+<ul>
+<li><p>Works well for class <code>lm</code>, which has essentially one constructor (<code>lm</code>, the function)</p></li>
+<li><p>Does not work well for class <code>htest</code>, which has many, many constructors: see Value description in <code>?t.test.default</code>, <code>?prob.test</code>, <code>?wilcox.test</code></p></li>
+</ul>
+<p><em>S3 methods</em> are functions, and should be documented using Roxygen (unless they are really simple).</p>
+</section>
+<section id="other-class-systems-in-r" class="slide level2">
+<h2>Other class systems in R</h2>
+<h3 id="s4">S4</h3>
+<p>A more formal version of S3:</p>
+<ul>
+<li><p>explicit class definitions (using <code>\@</code> for slots)</p></li>
+<li><p>helper functions for defining generic functions &amp; methods</p></li>
+<li><p>multiple dispatch: methods for combinations of arguments</p></li>
+<li><p>implemented in package <code>methods</code></p></li>
+</ul>
+<p>Example: <code>mle</code> in package <code>stats4</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a><span class="do">## From example(mle)</span></span>
+<span id="cb61-2"><a></a><span class="fu">library</span>(stats4)</span>
+<span id="cb61-3"><a></a></span>
+<span id="cb61-4"><a></a><span class="do">## Define data</span></span>
+<span id="cb61-5"><a></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb61-6"><a></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">26</span>, <span class="dv">17</span>, <span class="dv">13</span>, <span class="dv">12</span>, <span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">8</span>)</span>
+<span id="cb61-7"><a></a></span>
+<span id="cb61-8"><a></a><span class="do">## Define a Poisson -log(likelihood)</span></span>
+<span id="cb61-9"><a></a>nLL <span class="ot">&lt;-</span> <span class="cf">function</span>(lambda) <span class="sc">-</span><span class="fu">sum</span>(stats<span class="sc">::</span><span class="fu">dpois</span>(y, lambda, <span class="at">log =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb61-10"><a></a></span>
+<span id="cb61-11"><a></a><span class="do">## Fit the model</span></span>
+<span id="cb61-12"><a></a>fit1 <span class="ot">&lt;-</span> <span class="fu">mle</span>(nLL, <span class="at">start =</span> <span class="fu">list</span>(<span class="at">lambda =</span> <span class="dv">5</span>), <span class="at">nobs =</span> <span class="fu">length</span>(y),</span>
+<span id="cb61-13"><a></a>            <span class="at">method =</span> <span class="st">"Brent"</span>, <span class="at">lower =</span> <span class="dv">1</span>, <span class="at">upper =</span> <span class="dv">20</span>)</span>
+<span id="cb61-14"><a></a>fit1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+mle(minuslogl = nLL, start = list(lambda = 5), method = "Brent", 
+    nobs = length(y), lower = 1, upper = 20)
+
+Coefficients:
+  lambda 
+11.54545 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a></a><span class="do">## This is an S4 object</span></span>
+<span id="cb63-2"><a></a><span class="fu">isS4</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a><span class="fu">str</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Formal class 'mle' [package "stats4"] with 10 slots
+  ..@ call     : language mle(minuslogl = nLL, start = list(lambda = 5), method = "Brent", nobs = length(y),      lower = 1, upper = 20)
+  ..@ coef     : num 11.5
+  ..@ fullcoef : Named num 11.5
+  .. ..- attr(*, "names")= chr "lambda"
+  ..@ fixed    : Named num NA
+  .. ..- attr(*, "names")= chr "lambda"
+  ..@ vcov     : num [1, 1] 1.05
+  ..@ min      : num 42.7
+  ..@ details  :List of 6
+  .. ..$ par        : num 11.5
+  .. ..$ value      : num 42.7
+  .. ..$ counts     : Named logi [1:2] NA NA
+  .. .. ..- attr(*, "names")= chr [1:2] "function" "gradient"
+  .. ..$ convergence: int 0
+  .. ..$ message    : NULL
+  .. ..$ hessian    : num [1, 1] 0.953
+  ..@ minuslogl:function (lambda)  
+  ..@ nobs     : int 11
+  ..@ method   : chr "Brent"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a></a><span class="do">## Methods work as before</span></span>
+<span id="cb67-2"><a></a><span class="fu">summary</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Maximum likelihood estimation
+
+Call:
+mle(minuslogl = nLL, start = list(lambda = 5), method = "Brent", 
+    nobs = length(y), lower = 1, upper = 20)
+
+Coefficients:
+     Estimate Std. Error
+[1,] 11.54545   1.024493
+
+-2 log L: 85.45356 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a><span class="fu">AIC</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 87.45356</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a></a>AIC</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>standardGeneric for "AIC" defined from package "stats"
+
+function (object, ..., k = 2) 
+standardGeneric("AIC")
+&lt;environment: 0x5ec4a2bdbc88&gt;
+Methods may be defined for arguments: object, k
+Use  showMethods(AIC)  for currently available ones.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a></a><span class="do">## Get rid of stats4</span></span>
+<span id="cb73-2"><a></a><span class="fu">detach</span>(<span class="st">"package:stats4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<h3 id="rc">RC</h3>
+<p><em>“Reference Classes”</em>:</p>
+<ul>
+<li><p>More conventional class-system, where methods are part of the class definition (<em>“message passing OO”</em>)</p></li>
+<li><p>Objects are <em>mutable</em> (implicit copies carry changes forward)</p></li>
+<li><p>Based on environments</p></li>
+</ul>
+</section>
+<section id="exercises" class="slide level2 scrollable">
+<h2>Exercises</h2>
+<ol type="1">
+<li><p>We have used <code>lm(1~1)</code> as a small artificial test example for linear models.</p>
+<ol type="a">
+<li>Looking at the standard methods for <code>lm</code>-objects, find evidence that there is an even smaller valid linear model in R.</li>
+<li>Specify this model.</li>
+</ol></li>
+<li><p>An annoying feature of large data frames is that printing shows lots of useless information on the console. A <code>tibble</code> as promoted by HW only shows the top of the data, together with the dimension of the <code>tibble</code>, and lists extra columns at the bottom.</p>
+<ol type="a">
+<li>Write a replacement method for <code>print.data.frame</code> that does something similar: start with a simple prototype that only shows the first few rows of the data, then add printing the dimension of the data frame on top.</li>
+<li>Study the <code>tibble</code>-package: which print method is dispatched for showing a <code>tibble</code>? Which function does the hard work? If it is a method, show the corresponding generic.</li>
+</ol></li>
+</ol>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

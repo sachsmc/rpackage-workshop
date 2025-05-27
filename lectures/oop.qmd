@@ -1,0 +1,345 @@
+---
+title: "Object-oriented programming"
+format: 
+    revealjs:
+      scrollable: true
+execute:
+  echo: true
+---
+
+
+## Object-oriented programming 
+
+### Basic idea
+
+* Hide complexity behind abstraction 
+
+* Model concrete entities as software entities (_"objects"_)
+
+* Define relationships between software entities that mimick those between concrete entities
+
+* A way of thinking about problems and software
+
+* Many, many different implementations
+
+
+### Concepts 
+
+__Class:__ a general definition of a data format 
+
+Ex.: a person class with name, personal ID number, email address etc.
+
+__Object:__ a specific instance of a class 
+
+Ex.: an object relating to Marie
+
+__Method:__ a procedure / function acting on objects from a class 
+
+Ex.: we can send emails to persons, including Marie
+
+__Inheritance:__ classes can form a hierarchy with shared data, methods 
+
+Ex. class _employee_ inherits name, ID number etc. from class _person_, but also has information on contract, length of employment; we can send emails to employees, because they are persons.
+
+## The classic class system: S3
+
+### How come...? A demonstration
+
+Let's say we have run a linear model:
+
+```{r}
+set.seed(313)
+x = rnorm(10); y = 2 + 3* x + rnorm(10)/4
+lm1 = lm(y~x) 
+```
+
+So we can use look at the regression table:
+
+```{r}
+summary(lm1)
+```
+
+But we can also use `summary` for a data frame:
+
+```{r}
+summary(sleep)
+```
+
+Is `summary` a long & complex function that does both things?
+
+### Generic functions, methods and classes
+
+Not exactly:
+
+```{r}
+summary
+```
+
+`summary` is a _generic function_, as seen by the call to `UseMethod`: depending on the _class_ of argument `object`, R will call a suitable _method_ (a function) that gives a meaningful summary for whatever `object` is: one thing for a linear model, another thing for a data frame. 
+
+Calling the correct method for an object is called _method dispatch_. In S3, method dispatch is based on the generic function called (what the user wants to do) and the class of the first argument (what object the user wants to do something to). The corresponding method is found by its name:
+
+```
+<name of generic>.<name of argument class>
+```
+
+For our example, we check the class of our object:
+
+```{r}
+class(lm1)
+```
+
+so the name of the method dispatched is `summary.lm`:
+
+```{r}
+findFunction("summary.lm")
+args(summary.lm)
+```
+
+Three standard generics are widely used for different classes:
+
+1. `print` is used to display an expression (implicitly or implicitly)
+
+2. `summary` generates a compressed summary of its argument
+
+3. `plot` provides a graphical display
+
+Let's look for functions that could be methods for generic `print`:
+
+```{r}
+apropos("^print\\.", ignore.case = FALSE, mode = "function")
+```
+
+Note that this _does_ hide complexity: user does not have to know what class an object has, but can (try to) print, summarize or plot it anyway. 
+
+(`.S3methods(print)` actually provides a more complete list of print methods.)
+
+
+### Default methods
+
+Many functions seem to have `.default` at the end:
+
+```{r}
+apropos("\\.default$", ignore.case = FALSE, mode = "function")
+```
+
+These are not for a mystical `default`-class, but the fall-back functions used when the generic function can't find a matching method. 
+
+E.g. `mean` is a generic function:
+
+```{r}
+mean
+```
+
+The default method deals with non-numeric data, removes `NA` and trims the tails, if required, and then calls an internal function which does the actual work:
+
+```{r}
+mean.default
+```
+
+### Inheritance
+
+The package `data.table` provides a rectangular (tidy) data format with powerful and efficient processing procedures. 
+
+```{r}
+library(data.table)
+dt = data.table(mtcars)
+class(dt)
+```
+
+All data table objects (like `dt` here) have two classes: (1) `data.table` and (2) `data.frame`. 
+
+This means that class `data.table` _inherits_ from class `data.frame`, or equivalently, class `data.table` _extends_ class `data.frame`; object `dt` is both a data table and data frame, and all methods for both classes can be used:
+
+```{r}
+inherits(dt, "data.frame")
+```
+
+However, the generic will dispatch along the `class`-vector, starting at the beginning: by default, the `data.table` methods will be called.
+
+```{r}
+## Implicitly, dispatch to head.data.table on class(dt)[1] 
+head(dt)                          
+
+## Explicitly, direct call
+data.table:::head.data.table(dt)  
+```
+
+If no method for a class is defined, the dispatch moves to the next class element, and tries to find a fitting methods for that class. 
+
+E.g. `data.table` has no proper summary-method, and falls back on `summary.data.frame`: 
+
+```{r}
+test <- try( getS3method(f = "summary", class = "data.table"), silent = TRUE)
+cat( test )
+summary( dt )
+```
+
+### Making it classy
+
+To create an object of class `foo`, simply set the `class` attribute to `foo`:
+
+```{r}
+x <- 1:10
+class(x) <- "foo"
+x
+```
+
+You can remove the class attribute using `unclass`:
+
+```{r}
+unclass(x)
+```
+
+You can hand-build an object of a certain class:
+
+```{r}
+x = 1:10
+x
+levels(x) = as.character(x)
+x
+class(x) = "factor"
+x
+is.factor(x)
+```
+
+Generally, classes have a _constructor function_ which builds an object of the desiresd class from user input; often, the name of the function is the same as the class - e.g. `lm` to create `lm`, or here
+
+```{r}
+x = factor(1:10)
+x
+```
+
+### Rolling your own
+
+__Writing a new method:__ both the class and the generic function exist already
+
+When the class already has that method, this means that you _override_ the existing method: this is risky and messy and should not be done lightly; see Exercise 2.
+
+When the class does _not_ have that method, you basically generate a new method for the existing class. E.g. there is no `coef`-method for base type `numeric` defined, and the default method cannot handle numeric vectors:
+
+```{r}
+x <- rnorm(10)
+test <- try( coef(x), silent = TRUE )
+cat(test)
+```
+
+Say we want to have a method that returns the coefficient of variation (standard deviation divided by mean) for numeric vectors, we can do this:
+
+```{r}
+coef.numeric <- function(object, ...) sd(object)/mean(object)
+coef(x)
+```
+
+1. While legal, this is a bad idea, as this method really does something completely different from what `coef` is supposed to do, which is extracting model coefficients from a fitted model.
+
+2. Your method should generally have the same arguments (name and order) as the generic function, in this case `coef`.
+
+__Writing a new generic:__ this really only makes sense if you also write a corresponding method, otherwise there is nothing to do. 
+
+```{r}
+blurp = function(x, ...) UseMethod("blurp")
+test = try( blurp(1), silent = TRUE)
+cat(test)
+blurp.default = function(x, ...) "BLUUUURP!"
+blurp(1)
+blurp("a")
+```
+
+This should be some kind of activity that you is relevant across a range of different classes. This means you should probably write several methods for your generic, or offer something else to make this extra abstraction worthwhile.
+
+You should also probably check the existing generics:
+
+```{r}
+.knownS3Generics
+```
+
+(For a more complete list, use `utils:::getKnownS3generics()`,)
+
+__Writing your own class:__ This is surprisingly easy - you only have to set the `class` attribute of an object; all generic functions will dispatch on the new class, though only to the default method, as you have not defined any methods yet. 
+
+You generally want a constructor function that returns an object of the new class.
+
+This is the most common and easiest use case: you have a new thing that is a bit more complex, so make it a class, and write a print-method, maybe a summary and plot, too. 
+
+### Documentation
+
+_S3 generic functions_ are functions: use Roxygen
+
+_S3 classes_ have no formal definition, so document the constructor function(s) that generates class objects:
+
+* Works well for class `lm`, which has essentially one constructor (`lm`, the function)
+
+* Does not work well for class `htest`, which has many, many constructors: see Value description in `?t.test.default`, `?prob.test`, `?wilcox.test`
+
+_S3 methods_ are functions, and should be documented using Roxygen (unless they are really simple).
+
+
+## Other class systems in R
+
+### S4
+
+A more formal version of S3: 
+
+* explicit class definitions (using `\@` for slots) 
+
+* helper functions for defining generic functions & methods
+
+* multiple dispatch: methods for combinations of arguments
+
+* implemented in package `methods`
+
+Example: `mle` in package `stats4`
+
+```{r}
+## From example(mle)
+library(stats4)
+
+## Define data
+x <- 0:10
+y <- c(26, 17, 13, 12, 20, 5, 9, 8, 5, 4, 8)
+
+## Define a Poisson -log(likelihood)
+nLL <- function(lambda) -sum(stats::dpois(y, lambda, log = TRUE))
+
+## Fit the model
+fit1 <- mle(nLL, start = list(lambda = 5), nobs = length(y),
+            method = "Brent", lower = 1, upper = 20)
+fit1
+
+## This is an S4 object
+isS4(fit1)
+str(fit1)
+
+## Methods work as before
+summary(fit1)
+AIC(fit1)
+AIC
+
+## Get rid of stats4
+detach("package:stats4")
+```
+
+### RC
+
+_"Reference Classes"_:
+
+* More conventional class-system, where methods are part of the class definition (_"message passing OO"_)
+
+* Objects are _mutable_ (implicit copies carry changes forward)
+
+* Based on environments
+
+
+## Exercises
+
+1. We have used `lm(1~1)` as a small artificial test example for linear models.
+
+    a. Looking at the standard methods for `lm`-objects, find evidence that there is an even smaller valid linear model in R.
+    b. Specify this model.
+    
+2. An annoying feature of large data frames is that printing shows lots of useless information on the console.  A `tibble` as promoted by HW only shows the top of the data, together with the dimension of the `tibble`, and lists extra columns at the bottom. 
+
+    a. Write a replacement method for `print.data.frame` that does something similar: start with a simple prototype that only shows the first few rows of the data, then add printing the dimension of the data frame on top.
+    b. Study the `tibble`-package: which print method is dispatched for showing a `tibble`? Which function does the hard work? If it is a method, show the corresponding generic.
+    

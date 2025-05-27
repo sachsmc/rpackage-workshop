@@ -1,0 +1,179 @@
+---
+title: "Introduction and Overview"
+author: "Michael C Sachs"
+format: 
+    revealjs:
+      scrollable: true
+execute:
+  echo: true
+---
+
+# Introduction
+
+## Goals
+
+At a bare minimum, we want code to be: 
+
+### Organized
+
+- Coherent structure of 
+    + folders, files, and functions
+
+### Transportable
+
+- Works on 
+    + my future computer
+    + other people's computers
+    
+
+### Understandable
+
+- Clearly specified dependencies
+- Readable code, sensible naming of things
+- Written documentation explaining what and how
+
+
+## Extras
+
+Nice to have, but not absolutely necessary
+
+### Provably correct
+
+Through automated testing
+
+- Pieces of code correctly do what they should
+- Code works together correctly
+- Valid statistical properties
+
+### Version controlled
+
+- History of development is tracked and documented
+
+### Discoverable
+
+- Multiple points of entry for users to find and understand
+
+## How to achieve these goals? 
+
+Building an R package is one way, with many distinct advantages
+
+### Documented structure and community-based conventions
+
+- Large community who know how to use packages
+- Smaller community who know the standards
+- Infrastructure to make the process easier and better
+
+[Building R extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
+
+- 195 pages of standards and instructions
+- Changes with every R release (every year in the Spring)
+
+## Infrastructure
+
+- [devtools](https://cran.r-project.org/package=devtools)
+- [usethis](https://cran.r-project.org/package=usethis)
+- [roxygen2](https://cran.r-project.org/package=roxygen2)
+- [testthat](https://cran.r-project.org/package=testthat)
+- [pkgdown](https://cran.r-project.org/package=pkgdown)
+- Countless blog posts, books, workshops, etc.
+
+# The Components of an R Package
+
+## What is an R package?
+
+- "A directory of files that extend R"
+- A package can be _installed_, which means
+    + the directory is copied to your _library_ which is your local directory of packages
+- It can be _built_, cleaned, documented, and source code compiled
+- It can be _checked_, tested for consistency and portability
+
+![](img/flying.jpg)
+
+Woody: Buzz, you're flying!
+
+Buzz Lightyear: This isn't flying, this is R coding with style.
+
+
+## Description
+
+The DESCRIPTION file contains basic information about the package in the following format:
+
+```
+Package: pkgname
+Version: 0.5-1
+Date: 2015-01-01
+Title: My First Collection of Functions
+Authors@R: c(person("Joe", "Developer", role = c("aut", "cre"),
+                     email = "Joe.Developer@some.domain.net"),
+              person("Pat", "Developer", role = "aut"),
+              person("A.", "User", role = "ctb",
+                     email = "A.User@whereever.net"))
+Author: Joe Developer [aut, cre],
+  Pat Developer [aut],
+  A. User [ctb]
+Maintainer: Joe Developer <Joe.Developer@some.domain.net>
+Depends: R (>= 3.1.0), nlme
+Suggests: MASS
+Description: A (one paragraph) description of what
+  the package does and why it may be useful.
+License: GPL (>= 2)
+URL: https://www.r-project.org, http://www.another.url
+BugReports: https://pkgname.bugtracker.url
+```
+
+## License
+
+### Pick a license, any license
+
+**Failing to include a license implicity declares a copyright without explaining if or how others can use your code**
+
+I prefer the MIT license, it is short and understandable to lay people
+
+https://opensource.org/licenses/alphabetical
+
+
+## R code
+
+### The R/ subdirectory contains your code
+
+- One or more .R source files
+- Defines objects that are part of your package, usually functions
+
+
+## Namespace
+
+### A text file that specifies the _directives_ of your package
+
+- __Imports__: which objects to include from other packages in yours
+- __Exports__: which objects to make available to users of your package
+
+
+## Documentation
+
+- The `man/` subdirectory contains documentation files in a specific format
+- The `vignettes/` subdirectory contains long form documentation in pdf or html format
+
+## Everything else
+
+### Files 
+
+- README, NEWS
+- configure, cleanup, INDEX
+
+### Subdirectories
+
+- tests, data, inst, src
+- exec, po, tools, demo
+
+
+# Overview of this workshop
+
+## Lessons
+
+- Work through a problem together, discuss issues and strategies
+- If you have a package you are working on, feel free to use that in the lessons instead of the toy examples
+
+## Lectures
+
+- Highlighting concepts, resources, tools
+

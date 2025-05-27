@@ -1,0 +1,99 @@
+---
+title: "Publishing and Promoting a Package"
+format: 
+    revealjs:
+      scrollable: true
+execute:
+  echo: true
+  eval: false
+---
+
+
+## Getting Academic Credit for Your Work
+
+Unfortunately you need to publish a paper not just a package to get credit, although times are changing! 
+
+One option is software journals:
+- The R Journal 
+- Journal of Statistical Software 
+- Journal of Computational and Graphical Statitics
+- Journal of Open Source Software
+
+These are all options, and they have different formats and requirements. 
+
+## The R Journal 
+
+The papers are basically a well-polished, extended vingette
+
+- worked through examples, data should be be included in the package 
+- give examples of all functions in the package and discuss options 
+- discuss details of implementation
+
+[pseval paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5774631/)
+
+## Journal of Statistical Software
+
+Actually has a pretty high impact factor! 
+
+- More academic than The R J
+- Interesting or well-written vignettes are perfect
+- More focus on the methodology
+
+[plotROC paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6347406/)
+
+## Journal of Computational and Graphical Statistics
+
+Old school stats journal
+
+- Part of the AMSTAT family
+- Focus is on the statistical/computational method
+- Having a R package is just a bonus
+
+## Journal of open source software
+
+New kid on the block
+
+- Focus is on the software, not the paper
+- Short vignettes, extended descriptions
+- Peer-review main focus is on the package itself, quality of documentation and code structure
+
+## The other option is a case study 
+
+- Write an application, practice or case study paper 
+- Using your package for a interesting dataset or scientific problem
+- Submit to a regular journal in your field
+
+Many of the epidemiology journals will gladly accept descriptions of statistical software
+
+## If all else fails
+
+Self-publish!
+
+```{r}
+usethis::use_pkgdown()
+```
+
+If you have a nice README.md, and vignettes as html files, it is trivial to turn it into a nice-looking webpage. 
+
+## CITATION file
+
+If you do publish, make sure users know how to cite you: 
+
+```{r}
+usethis::use_citation()
+```
+
+Then people can find the citation using
+
+```{r}
+citation("packagename")
+```
+
+
+## Software review
+
+<https://smartbiomed.github.io/software-review>
+
+
+# Thank you!
+

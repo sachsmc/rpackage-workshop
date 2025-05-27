@@ -1,0 +1,1136 @@
+[
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "Cheatsheets\n\nBase R\nAdvanced R\nPackage dev\nRstudio IDE\ngit\n\n\n\nBooks\n\nR packages, by Hadley Wickham.\nAdvanced R, by Hadley Wickham.\nHappy Git and GitHub for the UseR, by Jennifer Bryan and Jim Hester.\n\n\n\nManuscripts\n\nExcuse me, do you have a moment to talk about version control?, Jennifer Bryan, 2017. PeerJ Preprints.\nOpinionated Analysis Development, Hilary Parker, 2017. PeerJ Preprints.\nExtending R with C++: A Brief Introduction to Rcpp, Dirk Eddelbuettel and James Joseph Balamuta, 2017. PeerJ Preprints."
+  },
+  {
+    "objectID": "lessons/01-getting-started.html",
+    "href": "lessons/01-getting-started.html",
+    "title": "Getting Started",
+    "section": "",
+    "text": "Latest version of R\nRtools (Windows) or compilers\nRstudio (optional) or vscode or anything else you like\n\nhttps://support.posit.co/hc/en-us/articles/200486498-Package-Development-Prerequisites"
+  },
+  {
+    "objectID": "lessons/01-getting-started.html#development-environment",
+    "href": "lessons/01-getting-started.html#development-environment",
+    "title": "Getting Started",
+    "section": "",
+    "text": "Latest version of R\nRtools (Windows) or compilers\nRstudio (optional) or vscode or anything else you like\n\nhttps://support.posit.co/hc/en-us/articles/200486498-Package-Development-Prerequisites"
+  },
+  {
+    "objectID": "lessons/01-getting-started.html#necessary-packages",
+    "href": "lessons/01-getting-started.html#necessary-packages",
+    "title": "Getting Started",
+    "section": "Necessary packages",
+    "text": "Necessary packages\n\nInstall devtools\nInstall usethis\nroxygen2\ntestthat"
+  },
+  {
+    "objectID": "lessons/01-getting-started.html#the-process",
+    "href": "lessons/01-getting-started.html#the-process",
+    "title": "Getting Started",
+    "section": "The process",
+    "text": "The process\n\ncreate_package() or click “New project” and follow the prompts\nuse_mit_license() to create a license file\nuse_r() to create a new R file\nload_all() to test things out\ndocument() to build the documentation\ncheck() to run the cran checks\ninstall() to install the package"
+  },
+  {
+    "objectID": "lectures/reviewing-publishing.html#getting-academic-credit-for-your-work",
+    "href": "lectures/reviewing-publishing.html#getting-academic-credit-for-your-work",
+    "title": "Publishing and Promoting a Package",
+    "section": "Getting Academic Credit for Your Work",
+    "text": "Getting Academic Credit for Your Work\nUnfortunately you need to publish a paper not just a package to get credit, although times are changing!\nOne option is software journals: - The R Journal - Journal of Statistical Software - Journal of Computational and Graphical Statitics - Journal of Open Source Software\nThese are all options, and they have different formats and requirements."
+  },
+  {
+    "objectID": "lectures/reviewing-publishing.html#the-r-journal",
+    "href": "lectures/reviewing-publishing.html#the-r-journal",
+    "title": "Publishing and Promoting a Package",
+    "section": "The R Journal",
+    "text": "The R Journal\nThe papers are basically a well-polished, extended vingette\n\nworked through examples, data should be be included in the package\ngive examples of all functions in the package and discuss options\ndiscuss details of implementation\n\npseval paper"
+  },
+  {
+    "objectID": "lectures/reviewing-publishing.html#journal-of-statistical-software",
+    "href": "lectures/reviewing-publishing.html#journal-of-statistical-software",
+    "title": "Publishing and Promoting a Package",
+    "section": "Journal of Statistical Software",
+    "text": "Journal of Statistical Software\nActually has a pretty high impact factor!\n\nMore academic than The R J\nInteresting or well-written vignettes are perfect\nMore focus on the methodology\n\nplotROC paper"
+  },
+  {
+    "objectID": "lectures/reviewing-publishing.html#journal-of-computational-and-graphical-statistics",
+    "href": "lectures/reviewing-publishing.html#journal-of-computational-and-graphical-statistics",
+    "title": "Publishing and Promoting a Package",
+    "section": "Journal of Computational and Graphical Statistics",
+    "text": "Journal of Computational and Graphical Statistics\nOld school stats journal\n\nPart of the AMSTAT family\nFocus is on the statistical/computational method\nHaving a R package is just a bonus"
+  },
+  {
+    "objectID": "lectures/reviewing-publishing.html#journal-of-open-source-software",
+    "href": "lectures/reviewing-publishing.html#journal-of-open-source-software",
+    "title": "Publishing and Promoting a Package",
+    "section": "Journal of open source software",
+    "text": "Journal of open source software\nNew kid on the block\n\nFocus is on the software, not the paper\nShort vignettes, extended descriptions\nPeer-review main focus is on the package itself, quality of documentation and code structure"
+  },
+  {
+    "objectID": "lectures/reviewing-publishing.html#the-other-option-is-a-case-study",
+    "href": "lectures/reviewing-publishing.html#the-other-option-is-a-case-study",
+    "title": "Publishing and Promoting a Package",
+    "section": "The other option is a case study",
+    "text": "The other option is a case study\n\nWrite an application, practice or case study paper\nUsing your package for a interesting dataset or scientific problem\nSubmit to a regular journal in your field\n\nMany of the epidemiology journals will gladly accept descriptions of statistical software"
+  },
+  {
+    "objectID": "lectures/reviewing-publishing.html#if-all-else-fails",
+    "href": "lectures/reviewing-publishing.html#if-all-else-fails",
+    "title": "Publishing and Promoting a Package",
+    "section": "If all else fails",
+    "text": "If all else fails\nSelf-publish!\n\nusethis::use_pkgdown()\n\nIf you have a nice README.md, and vignettes as html files, it is trivial to turn it into a nice-looking webpage."
+  },
+  {
+    "objectID": "lectures/reviewing-publishing.html#citation-file",
+    "href": "lectures/reviewing-publishing.html#citation-file",
+    "title": "Publishing and Promoting a Package",
+    "section": "CITATION file",
+    "text": "CITATION file\nIf you do publish, make sure users know how to cite you:\n\nusethis::use_citation()\n\nThen people can find the citation using\n\ncitation(\"packagename\")"
+  },
+  {
+    "objectID": "lectures/reviewing-publishing.html#software-review",
+    "href": "lectures/reviewing-publishing.html#software-review",
+    "title": "Publishing and Promoting a Package",
+    "section": "Software review",
+    "text": "Software review\nhttps://smartbiomed.github.io/software-review"
+  },
+  {
+    "objectID": "lectures/introduction.html#goals",
+    "href": "lectures/introduction.html#goals",
+    "title": "Introduction and Overview",
+    "section": "Goals",
+    "text": "Goals\nAt a bare minimum, we want code to be:\nOrganized\n\nCoherent structure of\n\nfolders, files, and functions\n\n\nTransportable\n\nWorks on\n\nmy future computer\nother people’s computers\n\n\nUnderstandable\n\nClearly specified dependencies\nReadable code, sensible naming of things\nWritten documentation explaining what and how"
+  },
+  {
+    "objectID": "lectures/introduction.html#extras",
+    "href": "lectures/introduction.html#extras",
+    "title": "Introduction and Overview",
+    "section": "Extras",
+    "text": "Extras\nNice to have, but not absolutely necessary\nProvably correct\nThrough automated testing\n\nPieces of code correctly do what they should\nCode works together correctly\nValid statistical properties\n\nVersion controlled\n\nHistory of development is tracked and documented\n\nDiscoverable\n\nMultiple points of entry for users to find and understand"
+  },
+  {
+    "objectID": "lectures/introduction.html#how-to-achieve-these-goals",
+    "href": "lectures/introduction.html#how-to-achieve-these-goals",
+    "title": "Introduction and Overview",
+    "section": "How to achieve these goals?",
+    "text": "How to achieve these goals?\nBuilding an R package is one way, with many distinct advantages\nDocumented structure and community-based conventions\n\nLarge community who know how to use packages\nSmaller community who know the standards\nInfrastructure to make the process easier and better\n\nBuilding R extensions\n\n195 pages of standards and instructions\nChanges with every R release (every year in the Spring)"
+  },
+  {
+    "objectID": "lectures/introduction.html#infrastructure",
+    "href": "lectures/introduction.html#infrastructure",
+    "title": "Introduction and Overview",
+    "section": "Infrastructure",
+    "text": "Infrastructure\n\ndevtools\nusethis\nroxygen2\ntestthat\npkgdown\nCountless blog posts, books, workshops, etc."
+  },
+  {
+    "objectID": "lectures/introduction.html#what-is-an-r-package",
+    "href": "lectures/introduction.html#what-is-an-r-package",
+    "title": "Introduction and Overview",
+    "section": "What is an R package?",
+    "text": "What is an R package?\n\n“A directory of files that extend R”\nA package can be installed, which means\n\nthe directory is copied to your library which is your local directory of packages\n\nIt can be built, cleaned, documented, and source code compiled\nIt can be checked, tested for consistency and portability\n\n\nWoody: Buzz, you’re flying!\nBuzz Lightyear: This isn’t flying, this is R coding with style."
+  },
+  {
+    "objectID": "lectures/introduction.html#description",
+    "href": "lectures/introduction.html#description",
+    "title": "Introduction and Overview",
+    "section": "Description",
+    "text": "Description\nThe DESCRIPTION file contains basic information about the package in the following format:\nPackage: pkgname\nVersion: 0.5-1\nDate: 2015-01-01\nTitle: My First Collection of Functions\nAuthors@R: c(person(\"Joe\", \"Developer\", role = c(\"aut\", \"cre\"),\n                     email = \"Joe.Developer@some.domain.net\"),\n              person(\"Pat\", \"Developer\", role = \"aut\"),\n              person(\"A.\", \"User\", role = \"ctb\",\n                     email = \"A.User@whereever.net\"))\nAuthor: Joe Developer [aut, cre],\n  Pat Developer [aut],\n  A. User [ctb]\nMaintainer: Joe Developer &lt;Joe.Developer@some.domain.net&gt;\nDepends: R (&gt;= 3.1.0), nlme\nSuggests: MASS\nDescription: A (one paragraph) description of what\n  the package does and why it may be useful.\nLicense: GPL (&gt;= 2)\nURL: https://www.r-project.org, http://www.another.url\nBugReports: https://pkgname.bugtracker.url"
+  },
+  {
+    "objectID": "lectures/introduction.html#license",
+    "href": "lectures/introduction.html#license",
+    "title": "Introduction and Overview",
+    "section": "License",
+    "text": "License\nPick a license, any license\nFailing to include a license implicity declares a copyright without explaining if or how others can use your code\nI prefer the MIT license, it is short and understandable to lay people\nhttps://opensource.org/licenses/alphabetical"
+  },
+  {
+    "objectID": "lectures/introduction.html#r-code",
+    "href": "lectures/introduction.html#r-code",
+    "title": "Introduction and Overview",
+    "section": "R code",
+    "text": "R code\nThe R/ subdirectory contains your code\n\nOne or more .R source files\nDefines objects that are part of your package, usually functions"
+  },
+  {
+    "objectID": "lectures/introduction.html#namespace",
+    "href": "lectures/introduction.html#namespace",
+    "title": "Introduction and Overview",
+    "section": "Namespace",
+    "text": "Namespace\nA text file that specifies the directives of your package\n\nImports: which objects to include from other packages in yours\nExports: which objects to make available to users of your package"
+  },
+  {
+    "objectID": "lectures/introduction.html#documentation",
+    "href": "lectures/introduction.html#documentation",
+    "title": "Introduction and Overview",
+    "section": "Documentation",
+    "text": "Documentation\n\nThe man/ subdirectory contains documentation files in a specific format\nThe vignettes/ subdirectory contains long form documentation in pdf or html format"
+  },
+  {
+    "objectID": "lectures/introduction.html#everything-else",
+    "href": "lectures/introduction.html#everything-else",
+    "title": "Introduction and Overview",
+    "section": "Everything else",
+    "text": "Everything else\nFiles\n\nREADME, NEWS\nconfigure, cleanup, INDEX\n\nSubdirectories\n\ntests, data, inst, src\nexec, po, tools, demo"
+  },
+  {
+    "objectID": "lectures/introduction.html#lessons",
+    "href": "lectures/introduction.html#lessons",
+    "title": "Introduction and Overview",
+    "section": "Lessons",
+    "text": "Lessons\n\nWork through a problem together, discuss issues and strategies\nIf you have a package you are working on, feel free to use that in the lessons instead of the toy examples"
+  },
+  {
+    "objectID": "lectures/introduction.html#lectures",
+    "href": "lectures/introduction.html#lectures",
+    "title": "Introduction and Overview",
+    "section": "Lectures",
+    "text": "Lectures\n\nHighlighting concepts, resources, tools"
+  },
+  {
+    "objectID": "lectures/functions.html#a-function-and-its-components",
+    "href": "lectures/functions.html#a-function-and-its-components",
+    "title": "Functions",
+    "section": "A function and its components",
+    "text": "A function and its components\nAlmost everything you do in R involves functions. You call a function by typing its name with its arguments (inputs) inside the parentheses:\n\n\n\n\n\n\n\n\nThe function takes the arguments you provide, does something, and then returns an object. To see what a function does, you can type its name without parentheses to see the source:\n\nsample\n\nfunction (x, size, replace = FALSE, prob = NULL) \n{\n    if (length(x) == 1L && is.numeric(x) && is.finite(x) && x &gt;= \n        1) {\n        if (missing(size)) \n            size &lt;- x\n        sample.int(x, size, replace, prob)\n    }\n    else {\n        if (missing(size)) \n            size &lt;- length(x)\n        x[sample.int(length(x), size, replace, prob)]\n    }\n}\n&lt;bytecode: 0x5591f97b90a8&gt;\n&lt;environment: namespace:base&gt;\n\n\nThe source shows you the arguments, their default values, and the expression defining the function. You can also look at the help file for the documentation:\n\nhelp(\"sample\")\n# or\n?sample"
+  },
+  {
+    "objectID": "lectures/functions.html#using-functions-arguments",
+    "href": "lectures/functions.html#using-functions-arguments",
+    "title": "Functions",
+    "section": "Using functions – arguments",
+    "text": "Using functions – arguments\nFunctions can have 0 or more arguments, with or without defaults.\nThe arguments can be given in order, or by name\n\n\n\n\n\n\n\n\nNames can be partially matched, which can be confusing:"
+  },
+  {
+    "objectID": "lectures/functions.html#the-ellipsis-argument",
+    "href": "lectures/functions.html#the-ellipsis-argument",
+    "title": "Functions",
+    "section": "The ellipsis argument",
+    "text": "The ellipsis argument\nSome functions take ... as an argument, e.g., paste, list, also the apply family.\nThere are 2 reasons for this:\n\nThere could be varying numbers of arguments\n\n\n\n\n\n\n\n\n\n\nTo pass optional arguments to other functions involved"
+  },
+  {
+    "objectID": "lectures/functions.html#using-functions-composition",
+    "href": "lectures/functions.html#using-functions-composition",
+    "title": "Functions",
+    "section": "Using functions – composition",
+    "text": "Using functions – composition\nOften we want to use the result of one function as the argument to another function. There are many ways to do this:\n\nIntermediate variables\n\n\n\n\n\n\n\n\n\n\nNested function calls\n\n\n\n\n\n\n\n\n\n\nThe pipe operator |&gt; (available in R 4.0.1)"
+  },
+  {
+    "objectID": "lectures/functions.html#using-functions-the-apply-family",
+    "href": "lectures/functions.html#using-functions-the-apply-family",
+    "title": "Functions",
+    "section": "Using functions – the apply family",
+    "text": "Using functions – the apply family\nSome functions will take other functions as arguments. An example is the apply family of functions, which applies a function over an index or iterator. See help(apply)\napply repeated applies a function over the dimensions of an array. MARGIN indicates which dimension, and then for each index in that dimension, it applies FUN to the sub-array"
+  },
+  {
+    "objectID": "lectures/functions.html#apply-continued",
+    "href": "lectures/functions.html#apply-continued",
+    "title": "Functions",
+    "section": "Apply continued",
+    "text": "Apply continued\ntapply is commonly used with data. It subsets the data X based on the INDEX argument, then applies a function to each subset:"
+  },
+  {
+    "objectID": "lectures/functions.html#lapply",
+    "href": "lectures/functions.html#lapply",
+    "title": "Functions",
+    "section": "lapply",
+    "text": "lapply\nlapply is more general, in that it can take any index and apply any function that takes the index as an argument. It always returns a list. sapply does the same, but simplifies the result to an array, if possible."
+  },
+  {
+    "objectID": "lectures/functions.html#mapply",
+    "href": "lectures/functions.html#mapply",
+    "title": "Functions",
+    "section": "mapply",
+    "text": "mapply\nThis is the multivariate version of sapply that allows vector arguments.\n\n\n\n\n\n\n\n\nSee also the purrr package"
+  },
+  {
+    "objectID": "lectures/functions.html#notes-on-speed-and-flexibility",
+    "href": "lectures/functions.html#notes-on-speed-and-flexibility",
+    "title": "Functions",
+    "section": "Notes on speed and flexibility",
+    "text": "Notes on speed and flexibility\nThe apply family of functions is computationally equivalent to a loop (with pre-allocation)\nUsing apply instead of a for loop will not be faster computationally\nIt may be faster to write, but it may also be harder to understand\nYou can do whatever you want inside a for loop, how would you do something more complex with lapply?"
+  },
+  {
+    "objectID": "lectures/functions.html#a-simple-function",
+    "href": "lectures/functions.html#a-simple-function",
+    "title": "Functions",
+    "section": "A simple function",
+    "text": "A simple function"
+  },
+  {
+    "objectID": "lectures/functions.html#a-function-with-arguments",
+    "href": "lectures/functions.html#a-function-with-arguments",
+    "title": "Functions",
+    "section": "A function with arguments",
+    "text": "A function with arguments"
+  },
+  {
+    "objectID": "lectures/functions.html#local-variables-and-scoping",
+    "href": "lectures/functions.html#local-variables-and-scoping",
+    "title": "Functions",
+    "section": "Local variables and scoping",
+    "text": "Local variables and scoping\n\n\n\n\n\n\n\n\nname2 is a local variable. It exists only inside the function.\n\n\n\n\n\n\n\n\nModifying local variables outside the function has no effect. But be careful:"
+  },
+  {
+    "objectID": "lectures/functions.html#arguments-passed-by-value",
+    "href": "lectures/functions.html#arguments-passed-by-value",
+    "title": "Functions",
+    "section": "Arguments passed by value",
+    "text": "Arguments passed by value\nLikewise, arguments modified inside the function do not change the object outside the function."
+  },
+  {
+    "objectID": "lectures/functions.html#lexical-scoping",
+    "href": "lectures/functions.html#lexical-scoping",
+    "title": "Functions",
+    "section": "Lexical scoping",
+    "text": "Lexical scoping\nThis is called lexical scoping: it defines how R looks for objects when they are referred to by name\nIf R sees a variable it needs to use inside a function, and it is not an argument or local variable, then it follows these rules to find the object with that name:\n\nLook in the environment where the function was defined.\nIf not found, look in the parent environment of 1\nIf not found continue going down into parents until there are no more.\n\nNote the specification sees a variable and needs to use it. This is called lazy evaluation: R does not evaluate anything until it needs to use it"
+  },
+  {
+    "objectID": "lectures/functions.html#lexical-scoping-example",
+    "href": "lectures/functions.html#lexical-scoping-example",
+    "title": "Functions",
+    "section": "Lexical scoping example",
+    "text": "Lexical scoping example\nThis can be used to your advantage, e.g.,"
+  },
+  {
+    "objectID": "lectures/functions.html#lazy-evaluation-example",
+    "href": "lectures/functions.html#lazy-evaluation-example",
+    "title": "Functions",
+    "section": "Lazy evaluation example",
+    "text": "Lazy evaluation example\n\n\n\n\n\n\n\n\nOne way to manually check for arguments is with missing:"
+  },
+  {
+    "objectID": "lectures/functions.html#using-match.arg",
+    "href": "lectures/functions.html#using-match.arg",
+    "title": "Functions",
+    "section": "Using match.arg",
+    "text": "Using match.arg\nLook at the help file for t.test, and specifically the alternative argument. It is a vector with 3 elements, but only one is used. Also, it can be partially matched, e.g.,\n\n\n\n\n\n\n\n\nHow does that work? Using match.arg inside the function:"
+  },
+  {
+    "objectID": "lectures/functions.html#anonymous-functions",
+    "href": "lectures/functions.html#anonymous-functions",
+    "title": "Functions",
+    "section": "Anonymous functions",
+    "text": "Anonymous functions\nYour own functions do not need to be saved and assigned names. If a function does not have a name it is anonymous, I use these often with the apply family:\n\n\n\n\n\n\n\n\nSince R 4.0.1, \\() can be used as shorthand for function():"
+  },
+  {
+    "objectID": "lectures/functions.html#operators",
+    "href": "lectures/functions.html#operators",
+    "title": "Functions",
+    "section": "Operators",
+    "text": "Operators\nOperators are symbols like +, &lt;-, %*%, [.\nThese are functions! To treat them like functions instead of operators, use backticks:\n\n\n\n\n\n\n\n\nYou can then treat operators as you would any other function, using them in apply or otherwise\nYou can also define your own operators:\n\n\n\n\n\n\n\n\nAssignment operators have a special syntax:"
+  },
+  {
+    "objectID": "lectures/functions.html#generic-methodsfunctions",
+    "href": "lectures/functions.html#generic-methodsfunctions",
+    "title": "Functions",
+    "section": "Generic methods/functions",
+    "text": "Generic methods/functions\nLook at the function print\n\nprint\n\nfunction (x, ...) \nUseMethod(\"print\")\n&lt;bytecode: 0x5591f7118f88&gt;\n&lt;environment: namespace:base&gt;\n\n\nIt is a generic function. UseMethod says depending on the class of argument object, R will call a suitable method (a function) that does something designed for whatever object is.\nYou can find all the special methods by running methods(\"print\") (try it now).\nThe class of the object is a simple attribute and the method is defined by appending the class name after the function name separated by a dot. This is called the S3 class system:"
+  },
+  {
+    "objectID": "lectures/functions.html#summary",
+    "href": "lectures/functions.html#summary",
+    "title": "Functions",
+    "section": "Summary",
+    "text": "Summary\nIn R, everything that happens is due to a function, and everything that exists is an object. Functions themselves are objects.\nHow do functions work together? We can classify functions according to their inputs and outputs:\n\n\n\nInput/Output\nData\nFunction\n\n\n\n\nData\nRegular function\nFunction factory\n\n\nFunction\nFunctional\nFunction operator\n\n\n\nThese concepts are loosely defined, because functions can take both data and function arguments and return data and function results."
+  },
+  {
+    "objectID": "lectures/functions.html#designing-functions",
+    "href": "lectures/functions.html#designing-functions",
+    "title": "Functions",
+    "section": "Designing functions",
+    "text": "Designing functions\nWhen should you write a function? How should it be designed?\n\nThe DRY principle: don’t repeat yourself\nConsider the audience\n\n\nDon’t write a function unless you expect somebody to use it\nConsider the most likely use cases, and remember you can’t make everyone happy\n\n\nBalance ease-of-use with understandability\n\n\nBreak down the task into a series of smaller tasks, and abstract them away into functions\nReuse or build? Dependencies (using functions from other packages) may change in unpredictable ways\nDefault arguments and error checking – you can’t prevent all errors, ultimately it is the users’ responsibility to use the tools correctly"
+  },
+  {
+    "objectID": "lectures/functions.html#recap-from-the-morning",
+    "href": "lectures/functions.html#recap-from-the-morning",
+    "title": "Functions",
+    "section": "Recap from the morning",
+    "text": "Recap from the morning\nEverything is done via (different types of) functions (see functional programming tomorrow):\n\ndata, parameters go in as arguments\nresults are returned as value of the function\nboth are R objects\n\nFunctions have\n\narguments: args(lm) or formals(lm)\na body of code: body(lm)\nan evironment: environment(lm)\n\nAn argument\n\nis evaluated lazily (when and if required)\ncan be checked for presence via missing (if necessary)\ncan be an ellipsis \n\nFun fact - you can overwrite body, arguments (via formals) and environment in an assignment:\n\nset.seed(313)\nx = rnorm(10); y = 2 + 3* x + rnorm(10)/4\ncoef( lm(y~x) )     ## Show coefficients only\n\n(Intercept)           x \n   1.962911    2.989594 \n\nbody(lm) = \"No linear regression for you!\"\nlm(y~x) \n\n[1] \"No linear regression for you!\"\n\nlm\n\nfunction (formula, data, subset, weights, na.action, method = \"qr\", \n    model = TRUE, x = FALSE, y = FALSE, qr = TRUE, singular.ok = TRUE, \n    contrasts = NULL, offset, ...) \n\"No linear regression for you!\"\n&lt;environment: namespace:stats&gt;\n\n\nBecause the original lm is defined in a package, changes are done to a local copy in the current environment. At the command line, this is the global environment:\n\nfind(\"lm\")\n\n[1] \".GlobalEnv\"    \"package:stats\"\n\ncoef( stats::lm(y~x) )   ## Still works \n\n(Intercept)           x \n   1.962911    2.989594 \n\nrm(lm)                   ## Delete local copy\ncoef( lm(y~x) )          ## Works again\n\n(Intercept)           x \n   1.962911    2.989594 \n\n\nLessons learned:\n\nWe can have functions with the same name in the search path - someone keeps (magically?) track of them.\nThere are differences between functions living in a package and in the global environment (e.g. generated via a script)."
+  },
+  {
+    "objectID": "lectures/functions.html#returning-results",
+    "href": "lectures/functions.html#returning-results",
+    "title": "Functions",
+    "section": "Returning results",
+    "text": "Returning results\nBy default, an R function returns the value of the last statement in the body:\n\nboxcox = function(x, exp) {\n  \n  if (exp == 0) {\n    ret = log(x)\n  } else {\n    ret = x^exp\n  }\n \n  ret \n}\n\nA function can return any value at any point in the code by using the return function:\n\nboxcox = function(x, exp) {\n  \n  if (exp == 0) {\n    return( log(x) )\n  } else {\n    return( x^exp )\n  }\n \n}\n\nI think this makes programs harder to read and generally avoid using return; opinions on this differ.\ninvisible works like return, but the resulting value will not be printed:\n\ninvisible_square = function(x)\n{\n  invisible(x * x)\n}\ninvisible_square(2)\nx = invisible_square(2)\nx\n\n[1] 4"
+  },
+  {
+    "objectID": "lectures/functions.html#complex-return-values",
+    "href": "lectures/functions.html#complex-return-values",
+    "title": "Functions",
+    "section": "Complex return values",
+    "text": "Complex return values\nOften, a vector, matrix or data frame is the obvious return value (e.g. boxcox).\nSometimes, a matrix or data frame is not the most obvious, but still the most useful return value (e.g. broom::tidy).\nAnd sometimes, you just get lots of different objects that you need to stick together, which is when you can use a list:\n\nlm_min = lm(1 ~ 1)    ## World's smallest linear model?! No, but close\nis.list(lm_min)\n\n[1] TRUE\n\nsapply(lm_min, typeof)\n\n coefficients     residuals       effects          rank fitted.values \n     \"double\"      \"double\"      \"double\"     \"integer\"      \"double\" \n       assign            qr   df.residual          call         terms \n    \"integer\"        \"list\"     \"integer\"    \"language\"    \"language\" \n        model \n       \"list\""
+  },
+  {
+    "objectID": "lectures/functions.html#designing-return-values",
+    "href": "lectures/functions.html#designing-return-values",
+    "title": "Functions",
+    "section": "Designing return values",
+    "text": "Designing return values\nReturn the same type of result every time (if possible). Unlike this:\n\nDNase[1:5, ]\n\n  Run       conc density\n1   1 0.04882812   0.017\n2   1 0.04882812   0.018\n3   1 0.19531250   0.121\n4   1 0.19531250   0.124\n5   1 0.39062500   0.206\n\nDNase[1:5, 3]  ## use drop=FALSE to make safe\n\n[1] 0.017 0.018 0.121 0.124 0.206\n\n\nConsider tidy return values: does it make sense to return a rectangular data matrix?\n\ntab  = with(survival::veteran, table(celltype, status))\nttab = reshape2::melt(tab,  value.name= \"Freq\")\ntab   ## NOT tidy\n\n           status\ncelltype     0  1\n  squamous   4 31\n  smallcell  3 45\n  adeno      1 26\n  large      1 26\n\nttab  ## tidy\n\n   celltype status Freq\n1  squamous      0    4\n2 smallcell      0    3\n3     adeno      0    1\n4     large      0    1\n5  squamous      1   31\n6 smallcell      1   45\n7     adeno      1   26\n8     large      1   26\n\nglm(Freq ~ celltype + status, data = ttab)  ## Statistics, yay\n\n\nCall:  glm(formula = Freq ~ celltype + status, data = ttab)\n\nCoefficients:\n      (Intercept)  celltypesmallcell      celltypeadeno      celltypelarge  \n            2.625              6.500             -4.000             -4.000  \n           status  \n           29.750  \n\nDegrees of Freedom: 7 Total (i.e. Null);  3 Residual\nNull Deviance:      2019 \nResidual Deviance: 101.4    AIC: 55.02\n\n\nAvoid fancy printing and plotting, unless this is the only thing your function does. Many older functions do this:\n\nhist(DNase$density)                    ## plot, invisible result\nhist(DNase$density, plot = FALSE)      ## no plot - visible result\n\n$breaks\n [1] 0.0 0.2 0.4 0.6 0.8 1.0 1.2 1.4 1.6 1.8 2.0 2.2\n\n$counts\n [1] 45 31 12 22  4 18  8 13 18  4  1\n\n$density\n [1] 1.27840909 0.88068182 0.34090909 0.62500000 0.11363636 0.51136364\n [7] 0.22727273 0.36931818 0.51136364 0.11363636 0.02840909\n\n$mids\n [1] 0.1 0.3 0.5 0.7 0.9 1.1 1.3 1.5 1.7 1.9 2.1\n\n$xname\n[1] \"DNase$density\"\n\n$equidist\n[1] TRUE\n\nattr(,\"class\")\n[1] \"histogram\"\n\nhh = hist(DNase$density, plot = FALSE) ## save object\nplot(hh)                               ## ... and plot it\n\nCompare this to ggplot2, which has a clean separation between defining and displaying a plot.\nFunction effx in package Epi produces fancy-ish text output, but returns nothing, nothing at all:\n\ndata(births, package = \"Epi\")\nout = Epi::effx(bweight,exposure=hyp,data=births)\n\n--------------------------------------------------------------------------- \nresponse      :  bweight \ntype          :  metric \nexposure      :  hyp \n\nhyp is numeric \neffects are measured as differences in means \n--------------------------------------------------------------------------- \n\neffect of an increase of 1 unit in hyp on bweight \nnumber of observations  500 \n\nEffect   2.5%  97.5% \n  -431   -585   -276 \n\nTest for no effects of exposure on 1 df: p-value= 4.9e-08 \n\nout\n\nNULL\n\n\nDon’t do that."
+  },
+  {
+    "objectID": "lectures/functions.html#communicating-with-the-user",
+    "href": "lectures/functions.html#communicating-with-the-user",
+    "title": "Functions",
+    "section": "Communicating with the user",
+    "text": "Communicating with the user\nFunctions should avoid elaborate print output unless this is the only thing they do: see above, object-oriented programming.\nInstead, functions should put construct an object with all the relevant information, and either trust the R printing methods, or hide the ugly using invisible.\nHowever, there are situations where it makes sense to contact the user from within the function:\n\nProgress: for a slow process, use cat (not print) to indicate progress; offer an argument to suppress the progress report.\n(Alt. use package progress - however, does not work on terminal R)\nSide effects: if the function does something that will have side effects outside itself, the user needs to be informed. This should be done via message and warning, not print-ing or cat-ing.\nProblems: if the function runs into a situation it cannot handle, it can either try a best-guess fix, or just give up; warning informs, but continues execution, stop terminates execution and returns an error.\n\n\nlog(-1)      ## Warning, moves on with NaN\nlog(\"a\")     ## Error\n\nUseful:\n\nstopifnot for tough-love argument checking\noptions(warn=2) to turn warnings into errors"
+  },
+  {
+    "objectID": "lectures/functions.html#functions-as-return-values",
+    "href": "lectures/functions.html#functions-as-return-values",
+    "title": "Functions",
+    "section": "Functions as return values",
+    "text": "Functions as return values\nFunctions as arguments are common: lapply etc.\nFunctions can also be return values. E.g. we can define our own logarithms for different bases:\n\nlog_general = function(base) \n{\n  function(x) log(x, base)\n}\nlog2 = log_general(2)\nlog2(4)\n\n[1] 2\n\n\nThis log2 is a function defined in log_general. When log_general was called with base=2, this was saved in the execution environment of log_general, which log2 has inherited:\n\nenvironment(log2)\n\n&lt;environment: 0x55920081f028&gt;\n\nls( environment(log2) )\n\n[1] \"base\"\n\nget( \"base\", environment(log2) ) \n\n[1] 2\n\n\nThis is a reasonably advanced, but powerful technique. This combination of a function and data (in the environment) is generally known as a closure, though the term has a narrower technical meaning in R. See Advanced R 2nd ed, Section 10.4, for use cases."
+  },
+  {
+    "objectID": "lectures/functions.html#function-wrappers",
+    "href": "lectures/functions.html#function-wrappers",
+    "title": "Functions",
+    "section": "Function wrappers",
+    "text": "Function wrappers\nA different, more conventional way of defining our own binary logarithm:\n\nother_log2 = function(x) log(x, base = 2)\nother_log2(4)\n\n[1] 2\n\nenvironment(other_log2)\n\n&lt;environment: R_GlobalEnv&gt;\n\n\nNothing wrong with that as one off, though ultimately less flexible."
+  },
+  {
+    "objectID": "lectures/functions.html#managing-complaints",
+    "href": "lectures/functions.html#managing-complaints",
+    "title": "Functions",
+    "section": "Managing complaints",
+    "text": "Managing complaints\nOther people’s functions may also cause messages, warnings or errors.\nUse suppressMessages or suppressWarnings to keep it silent:\n\nsuppressWarnings( log(-1) )\n\n[1] NaN\n\nlibrary(dplyr)\nlibrary(MASS) \ndetach(\"package:MASS\")\nsuppressMessages( library(MASS) )\n\nErrors can be caught using the function try:\n\ntry( log(\"a\"), silent = TRUE )  ## Not an error, but what happened?!\n## Convert error to warning, use NaN as value\nret = try( log(\"a\"), silent = TRUE )\nif ( !is.numeric (ret) ) {\n  warning(ret)\n  ret = NaN\n}\n\ntryCatch offers a more flexible way of defining error handlers."
+  },
+  {
+    "objectID": "lectures/functions.html#get-and-assign",
+    "href": "lectures/functions.html#get-and-assign",
+    "title": "Functions",
+    "section": "get and assign",
+    "text": "get and assign\nRecall that we can retrieve a variable from a data frame by using a character string, e.g., penguins[[\"species\"]].\nWe can use a character string to get or assign any other object using these functions. For example, this returns the function called mean\n\n\n\n\n\n\n\n\nwhich we can use like a function\n\n\n\n\n\n\n\n\nLikewise, an object can be created with assign"
+  },
+  {
+    "objectID": "lectures/functions.html#uses-of-get-and-assign",
+    "href": "lectures/functions.html#uses-of-get-and-assign",
+    "title": "Functions",
+    "section": "Uses of get and assign",
+    "text": "Uses of get and assign\nExample, iterating over functions by name:\n\n\n\n\n\n\n\n\nExample, retrieving a function programmatically,\n\n\n\n\n\n\n\n\nExample, programmatically creating new variables,"
+  },
+  {
+    "objectID": "lectures/functions.html#do.call",
+    "href": "lectures/functions.html#do.call",
+    "title": "Functions",
+    "section": "do.call",
+    "text": "do.call\nA variant on get is do.call. This takes a function as the first argument, then a list containing the arguments for the function, do.call(&lt;function&gt;, &lt;list of arguments to function&gt;).\nA common use for this is with functions that take a variable number of arguments, e.g., cbind, paste, where the arguments are created programmatically.\nsimple example,\n\n\n\n\n\n\n\n\narranging a list into a matrix"
+  },
+  {
+    "objectID": "lectures/functions.html#global-assigment-operator",
+    "href": "lectures/functions.html#global-assigment-operator",
+    "title": "Functions",
+    "section": "Global assigment operator",
+    "text": "Global assigment operator\nThere is the &lt;&lt;- operator, which is used in functions and does (re)assignment outside the function. It searches the parent environments and reassigns where found, if not found it assigns in the global environment.\nThis is generally considered to be a bad idea, but now you know about it."
+  },
+  {
+    "objectID": "lectures/functions.html#functionals",
+    "href": "lectures/functions.html#functionals",
+    "title": "Functions",
+    "section": "Functionals",
+    "text": "Functionals\nFunctionals invoke functions over some data structure to create an output that corresponds to that data structure. We’ve already used one functional: lapply. Here is a simpler one:\n\nrandom_stat &lt;- function(fun) {\n    fun(runif(100))\n}\n\nrandom_stat(mean)\n\n[1] 0.5041757\n\n\nThe data structure here is a single variable (runif(100)). Functionals are useful for iterating over more complex data structures as well.\nlapply iterates over a list, applying the same function to each element. How can you achieve the same result using a for loop?\n\nrandom_stats &lt;- function(fun) {\n    \n    lapply(list(uniform = runif(100), normal = rnorm(100), \n                t = rt(100, 4), exponential = rexp(100)), fun)\n    \n}\n\nrandom_stats(mean)\n\n$uniform\n[1] 0.4998756\n\n$normal\n[1] 0.1167602\n\n$t\n[1] -0.008399415\n\n$exponential\n[1] 0.817919\n\nrandom_stats(sd)\n\n$uniform\n[1] 0.2825966\n\n$normal\n[1] 1.015672\n\n$t\n[1] 1.641905\n\n$exponential\n[1] 0.9946533\n\nlapply(list(mean = mean, sd = sd), random_stats)\n\n$mean\n$mean$uniform\n[1] 0.4918718\n\n$mean$normal\n[1] 0.1327262\n\n$mean$t\n[1] 0.1203086\n\n$mean$exponential\n[1] 1.093484\n\n\n$sd\n$sd$uniform\n[1] 0.2998995\n\n$sd$normal\n[1] 0.9078401\n\n$sd$t\n[1] 1.468887\n\n$sd$exponential\n[1] 0.8860794\n\n\nmapply iterates over a series of lists. Same question?\nAll of these iteration problems can be solved with loops. What are the advantages/disadvantages of using loops?"
+  },
+  {
+    "objectID": "lectures/functions.html#function-operators",
+    "href": "lectures/functions.html#function-operators",
+    "title": "Functions",
+    "section": "Function operators",
+    "text": "Function operators\nFunction operators take functions as input and return functions as output, generally modifying the behaviour of the function.\nLet’s see if we can implement an error capture adverb.\n\n#' Modify a function to fail without stopping\n#' \n#' @param f A function\n\ncapture_errors &lt;- function(f) {\n    \n    function(...) {\n        tryCatch(f(...), \n                 error = function(e) as.character(e))    \n        \n    }\n}\n\ngeometric_mean &lt;- function(x) {\n    \n    exp(mean(log(x)))\n    \n}\n\nsafe_geom_mean &lt;- capture_errors(geometric_mean)\n#lapply(iris, geometric_mean)\nlapply(iris, safe_geom_mean)\n\n$Sepal.Length\n[1] 5.78572\n\n$Sepal.Width\n[1] 3.026598\n\n$Petal.Length\n[1] 3.238267\n\n$Petal.Width\n[1] 0.8417075\n\n$Species\n[1] \"Error in Math.factor(x): 'log' not meaningful for factors\\n\""
+  },
+  {
+    "objectID": "lectures/functions.html#function-factories-and-closures",
+    "href": "lectures/functions.html#function-factories-and-closures",
+    "title": "Functions",
+    "section": "Function factories and closures",
+    "text": "Function factories and closures\nFunction factories take data as input and return functions:\n\npower1 &lt;- function(exp) {\n  function(x) {\n    x ^ exp\n  }\n}\n\nsquare &lt;- power1(2)\ncube &lt;- power1(3)\n\nFunction factories are useful in statistics. Let’s do some regression!\n\nx &lt;- rnorm(50)\ny &lt;- 1 + 1.5 * x + rnorm(50, sd = 1)\n\nmse_loss &lt;- function(xmat, outcome) {\n    \n    function(beta) {\n        \n        linpred &lt;- xmat %*% beta\n        mean((linpred - outcome)^2)\n        \n    }\n    \n}\n\n\nmse_loss(cbind(1, x), y)(c(0, 0))\n\n[1] 3.912841\n\noptim(par = c(0, 0), mse_loss(cbind(1, x), y))\n\n$par\n[1] 1.056706 1.552929\n\n$value\n[1] 0.7686793\n\n$counts\nfunction gradient \n      67       NA \n\n$convergence\n[1] 0\n\n$message\nNULL\n\n\nWhat are some ways we could make this function more general? Multivariate, different loss functions?"
+  },
+  {
+    "objectID": "lectures/functions.html#recursive-functions",
+    "href": "lectures/functions.html#recursive-functions",
+    "title": "Functions",
+    "section": "Recursive functions",
+    "text": "Recursive functions\nRecursive functions are functions that call themselves. It is critical that they have an exit condition. The basic example is computing the Fibonacci numbers:\n\nfibonacci &lt;- function(n) {\n    \n    if(n &lt; 2){\n        \n        return(1)\n        \n    } else {\n        \n        fibonacci(n - 1) + fibonacci(n - 2)\n    }\n    \n}\n\nfibonacci(9)\n\n[1] 55\n\n\nThis seems like a useless novelty, but they are actually quite useful in dealing with DAGs and nested data structures."
+  },
+  {
+    "objectID": "lectures/ecosystem.html#where-the-packages-live",
+    "href": "lectures/ecosystem.html#where-the-packages-live",
+    "title": "The R Ecosystem",
+    "section": "Where the packages live",
+    "text": "Where the packages live\n\n\n\n\n\nRepository\nCuration\nType\nVCS\nInstaller\n\n\n\n\nCRAN\ncurated\nDistr\nSVN\ninstall.packages\n\n\nGithub\nopen\nDevel\ngit\ndevtools::install_github\n\n\nBioconductor\ncurated\nBoth\ngit\nBiocManager::install\n\n\nR-forge\nopen?\nDevel?\nSVN\ninstall.packages with repo set"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#comprehensive-r-archive-network",
+    "href": "lectures/ecosystem.html#comprehensive-r-archive-network",
+    "title": "The R Ecosystem",
+    "section": "Comprehensive R Archive Network",
+    "text": "Comprehensive R Archive Network\n\nRead the Policy\nWrite the package\nTest the package\nSubmit for review / acceptance\n\nSubmission form\nSubmission checklist\n\nMaintain the package: re-submit"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#github",
+    "href": "lectures/ecosystem.html#github",
+    "title": "The R Ecosystem",
+    "section": "Github",
+    "text": "Github\n\nGet an account (Help)\nStart a repository\nSet up an R package (using devtools) and set origin\nDone"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#bioconductor-r-for-bioinformatics",
+    "href": "lectures/ecosystem.html#bioconductor-r-for-bioinformatics",
+    "title": "The R Ecosystem",
+    "section": "Bioconductor | R for bioinformatics",
+    "text": "Bioconductor | R for bioinformatics\n\nRead the Package guidelines and Coding style\nStart a repository on Github\nWrite & test your package\nSubmit your package repo to the Bioconductor Contributions repo (Submission process )\nMaintain:\n\nA development branch (master)\nCurrent release branch (RELEASE_x_y, currently 3.10)"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#r-forge",
+    "href": "lectures/ecosystem.html#r-forge",
+    "title": "The R Ecosystem",
+    "section": "R-forge",
+    "text": "R-forge\n\nRun by r-project.org\nInstallation via\n\ninstall.packages(\"mypackage\", repos = c(\"http://R-Forge.R-project.org\",\n\"http://your.nearest.CRAN.mirror.org\"), dependencies = TRUE)\n\nWorkflow: ?? Little info visible (without an account?)"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#working-with-other-packages",
+    "href": "lectures/ecosystem.html#working-with-other-packages",
+    "title": "The R Ecosystem",
+    "section": "Working with other packages",
+    "text": "Working with other packages\nCan mean:\n\nimporting functionality from installed packages\nadding code, modifications to existing packages which are not yours\nincluding code from other packages into your own\n\nTechnical, legal, social, philosophical implications\nGeneral advice:\n\nDon’t worry too much (DWTM)\nRapid prototyping, iterative improvement\n“Quality of life, quality of research (code)”"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#depends-imports-suggests-enhances-use-one",
+    "href": "lectures/ecosystem.html#depends-imports-suggests-enhances-use-one",
+    "title": "The R Ecosystem",
+    "section": "Depends, Imports, Suggests, Enhances: use one",
+    "text": "Depends, Imports, Suggests, Enhances: use one\nYour package uses another installed package to do something:\n\nYour package: mypkg\nOther package: otherpkg\n\nDepends:\n\notherpkg necessary for installing mypkg\nAfter library(mypkg), otherpkg will be in the search path for the user\nUse case: mypkg really only makes sense in the context of otherpkg, e.g. latticeExtra and lattice\nRecommend: use rarely\n\nImports:\n\notherpkg necessary for installing mypkg\nFunctions etc. in otherpkg will be used internally by mypkg\nDetails can be controlled in NAMESPACE\nRecommend: use this for necessary packages\n\nSuggests:\n\notherpkg NOT necessary for installing mypkg\nFor packages only used in examples, vignettes, tests\nTypical use case: example data from another package\n\nEnhances:\n\notherpkg NOT necessary for installing mypkg\nWhen mypkg adds functionality to otherpkg\nUse case: mypkg has extra methods for classes defined in otherpkg\n\nReference: Writing R Extensions, Section 1.1.3"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#namespace-specification",
+    "href": "lectures/ecosystem.html#namespace-specification",
+    "title": "The R Ecosystem",
+    "section": "NAMESPACE specification",
+    "text": "NAMESPACE specification\nReference: Writing R Extensions, Section 1.5\nExports\n\nOnly exported functions are visible after library(mypkg) or via mypkg::\nUnexported functions are available as mypkg:::\nSuggestion:\n\nstart with default (export all, exportPattern(\"^[^\\\\.]\")),\nadd @export-tags before release\ndon’t export hacks, functions you don’t document"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#imports",
+    "href": "lectures/ecosystem.html#imports",
+    "title": "The R Ecosystem",
+    "section": "Imports",
+    "text": "Imports\n\nimport(otherpkg) in NAMESPACE corresponds to library(otherpkg) in linear code\nQualified names otherpkg:: will work without import/importFrom\nSuggestion:\n\n@ìmport important packages at start (replace library)\nuse qualified names during development\nswitch to @import when you get tired of otherpkg::\nbefore release, check whether to replace @import with @importFrom\nuse qualified names when in doubt"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#contributing-to-other-packages",
+    "href": "lectures/ecosystem.html#contributing-to-other-packages",
+    "title": "The R Ecosystem",
+    "section": "Contributing to other packages",
+    "text": "Contributing to other packages\n\nReport issues: informatively, politely (minimal replicable example)\nAdd fixes via forking:\n\nestablish a private copy of a package (dead easy on Github)\nmake modifications\noffer modifications to package owner (pull request)\nAlt.: if the licence allows, go rogue with your own (forked) version\n\nNuclear option\nGive credit\nChange names, trademarks\n\n\nPlay nice: e.g. ggplot2 code of conduct\n\nRessources:\n\nForking on Wikepedia\nLegal aspects of forking on Github"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#using-material-from-other-packages-in-your-own",
+    "href": "lectures/ecosystem.html#using-material-from-other-packages-in-your-own",
+    "title": "The R Ecosystem",
+    "section": "Using material from other packages in your own",
+    "text": "Using material from other packages in your own\n\nLegal under open source licence under certain conditions\n\nE.g.: “viral” property of GPL\n\nFor legal & ethical reasons: give credit"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#we-have-to-talk-about-licenses",
+    "href": "lectures/ecosystem.html#we-have-to-talk-about-licenses",
+    "title": "The R Ecosystem",
+    "section": "We have to talk about licenses",
+    "text": "We have to talk about licenses\nSoftware licensing matters in research, same as data protection & citation rules.\nLicensing R: not a legal document, but\n\noverview of current practice\noverview of open source (vs proprietary) licenses"
+  },
+  {
+    "objectID": "lectures/ecosystem.html#do-i-have-to-share",
+    "href": "lectures/ecosystem.html#do-i-have-to-share",
+    "title": "The R Ecosystem",
+    "section": "Do I have to share?",
+    "text": "Do I have to share?\n\nNo.\nBut you should think about it:\n\nprivate vs public package: who to share with?\nopen vs proprietary licence\nopen access and open source"
+  },
+  {
+    "objectID": "lectures/design.html#using-code-from-other-packages",
+    "href": "lectures/design.html#using-code-from-other-packages",
+    "title": "Designing a package",
+    "section": "Using code from other packages",
+    "text": "Using code from other packages\nIn your code /R, you have these options:\n\nPrefix with the package name package::object\nImport the entire package @import package\nImport specific functions @importFrom package object\n\nYou absolutely cannot use library(package) or require(package) anywhere in /R.\nIt is OK to use library(package) in vignettes and tests"
+  },
+  {
+    "objectID": "lectures/design.html#imports-and-depends-in-description",
+    "href": "lectures/design.html#imports-and-depends-in-description",
+    "title": "Designing a package",
+    "section": "Imports and Depends in DESCRIPTION",
+    "text": "Imports and Depends in DESCRIPTION\nThese fields determine what happens at installation and library ing your package.\n\nIf a package appears in Imports: it will be installed along with your package (if needed).\nIf a package appears in Depends: it will be installed, and loaded into the namespace with library when your package is loaded.\n\nThus,\n\nIf you are using external functions in your code, but users will not need to call them directly, use Imports\nIf users will likely be calling functions from another package while using yours, use Depends"
+  },
+  {
+    "objectID": "lectures/design.html#outline",
+    "href": "lectures/design.html#outline",
+    "title": "Designing a package",
+    "section": "Outline",
+    "text": "Outline\n\nGeneral principles\nNaming things is hard\nDesigning user interfaces\nAppealing to users"
+  },
+  {
+    "objectID": "lectures/design.html#general-prinicples",
+    "href": "lectures/design.html#general-prinicples",
+    "title": "Designing a package",
+    "section": "General Prinicples",
+    "text": "General Prinicples\n\nConsider your audience\n\nYourself\nColleagues\nExperienced statisticians\n“General public”\n\nReduce cognitive burden (users and developers)\nBe internally consistent\nGet input early and often"
+  },
+  {
+    "objectID": "lectures/design.html#about-cognitive-burden",
+    "href": "lectures/design.html#about-cognitive-burden",
+    "title": "Designing a package",
+    "section": "About cognitive burden",
+    "text": "About cognitive burden\nIt is difficult to keep a large number of objects in working memory\n\nLarge number of arguments\nDifferent naming conventions\nVarying code patterns/data structures\nDistinct mental models\n\nAll contribute to the cognitive load"
+  },
+  {
+    "objectID": "lectures/design.html#examples",
+    "href": "lectures/design.html#examples",
+    "title": "Designing a package",
+    "section": "Examples",
+    "text": "Examples\n\nstats::t.test(mpg ~ vs, data = mtcars)\nstats::cor(mpg, hp, data = mtcars)\n\n\nnames; colnames\nrow.names; rownames\nrowSums; rowsum"
+  },
+  {
+    "objectID": "lectures/design.html#examples-1",
+    "href": "lectures/design.html#examples-1",
+    "title": "Designing a package",
+    "section": "Examples",
+    "text": "Examples\ncharlatan"
+  },
+  {
+    "objectID": "lectures/design.html#naming-things-is-hard",
+    "href": "lectures/design.html#naming-things-is-hard",
+    "title": "Designing a package",
+    "section": "Naming things is hard",
+    "text": "Naming things is hard\n\ncamelCase\nsnake_case\ndot.case\nlowercase\n\nTidyverse style guide"
+  },
+  {
+    "objectID": "lectures/design.html#function-and-object-names",
+    "href": "lectures/design.html#function-and-object-names",
+    "title": "Designing a package",
+    "section": "Function and object names",
+    "text": "Function and object names\n\nFunctions are generally verbs or adverbs\nTidyverse follow the object_verb convention for functions\nIf appropriate, functions and arguments should match standard mathematical notation\nAvoid using dots in object names (do as I say not as R does)"
+  },
+  {
+    "objectID": "lectures/design.html#file-names",
+    "href": "lectures/design.html#file-names",
+    "title": "Designing a package",
+    "section": "File names",
+    "text": "File names\n\nOrganize objects into different files\nFilenames should be descriptive, and machine readable\nReduce your own cognitive burden\n\nExample\nExample 2"
+  },
+  {
+    "objectID": "lectures/design.html#what-to-call-your-package",
+    "href": "lectures/design.html#what-to-call-your-package",
+    "title": "Designing a package",
+    "section": "What to call your package",
+    "text": "What to call your package\n\nThe mandatory ‘Package’ field gives the name of the package. This should contain only (ASCII) letters, numbers and dot, have at least two characters and start with a letter and not end in a dot.\n\nRecommendation:\n\nOne word, all lower case\nClever or memorable\nClear connection to the usage of the package\nUse abbreviations\nUse an R pun\n\n\nggplot2, foreign, Rcpp, plyr, knitr, tourr, tinytex"
+  },
+  {
+    "objectID": "lectures/design.html#semantic-versioning",
+    "href": "lectures/design.html#semantic-versioning",
+    "title": "Designing a package",
+    "section": "Semantic versioning",
+    "text": "Semantic versioning\nWhat to number your package? Package numbers conveys information about differences between versions. There are different systems, your should use one:\n\nmajor.minor.patch\napi-change.feature-addition.bugfixes\n\n\nOnly release major.minor versions to CRAN, and keep patches tracked on github.\nTwo digits are fine, e.g., 1.11.\n1.0.0 to me signifies maturity, I would not rely on a package until it reaches 1.0"
+  },
+  {
+    "objectID": "lectures/design.html#user-interfaces",
+    "href": "lectures/design.html#user-interfaces",
+    "title": "Designing a package",
+    "section": "User interfaces",
+    "text": "User interfaces\n\nDesign for the end-to-end user workflow\nVignette-driven development\nThe workflow should match the domain-specific application you aim to solve"
+  },
+  {
+    "objectID": "lectures/design.html#examples-2",
+    "href": "lectures/design.html#examples-2",
+    "title": "Designing a package",
+    "section": "Examples",
+    "text": "Examples\nPrincipal surrogate evaluation with pseval\n\nsurv.fit &lt;- psdesign(fakedata, Z = Z, Y = Surv(time.obs, event.obs), \n                     S = S.obs, BIP = BIP, CPV = CPV) + \n  integrate_semiparametric(formula.location = S.1 ~ BIP, \n                           formula.scale = S.1 ~ 1) + \n  risk_exponential(D = 10) + ps_estimate(method = \"BFGS\") +\n    ps_bootstrap(n.boots = 20)\nsurv.fit\nplot(surv.fit)\ncalc_risk(surv.fit, contrast = \"TE\")"
+  },
+  {
+    "objectID": "lectures/design.html#examples-3",
+    "href": "lectures/design.html#examples-3",
+    "title": "Designing a package",
+    "section": "Examples",
+    "text": "Examples\nSurrogate"
+  },
+  {
+    "objectID": "lectures/design.html#communicating-with-the-user",
+    "href": "lectures/design.html#communicating-with-the-user",
+    "title": "Designing a package",
+    "section": "Communicating with the user",
+    "text": "Communicating with the user\nBe consistent across multiple entry points\n\nCRAN homepage (Description)\nVignettes\nGithub homepage (Readme)\nPackage documentation"
+  },
+  {
+    "objectID": "lectures/design.html#communicating-in-functions",
+    "href": "lectures/design.html#communicating-in-functions",
+    "title": "Designing a package",
+    "section": "Communicating in functions",
+    "text": "Communicating in functions\n\nCatch errors early\nWrite helpful error messages\nAddress common errors via messages/documentation\nDesign out common errors if possible"
+  },
+  {
+    "objectID": "lectures/design.html#message",
+    "href": "lectures/design.html#message",
+    "title": "Designing a package",
+    "section": "Message",
+    "text": "Message\n\ndc"
+  },
+  {
+    "objectID": "lectures/design.html#design",
+    "href": "lectures/design.html#design",
+    "title": "Designing a package",
+    "section": "Design",
+    "text": "Design\n\nams"
+  },
+  {
+    "objectID": "lectures/design.html#dont-get-too-ambitious",
+    "href": "lectures/design.html#dont-get-too-ambitious",
+    "title": "Designing a package",
+    "section": "Don’t get too ambitious",
+    "text": "Don’t get too ambitious\n\nMake your package compatible with the workflow\n\nIf survival related, use Surv\nIf graph related, use igraph\n…\n\nFocus on creating sensible/tidy data output\n\nAllows you to farm out plotting, e.g."
+  },
+  {
+    "objectID": "lectures/design.html#the-inst-subdirectory",
+    "href": "lectures/design.html#the-inst-subdirectory",
+    "title": "Designing a package",
+    "section": "The /inst subdirectory",
+    "text": "The /inst subdirectory\nAnything in the /inst directory of your package will be copied as-is to the top level directory when the package is installed. It is useful for including things like\n\nShiny apps\nRmarkdown templates or other templates\nExternal code\n\nWithin R you refer to such files with\nsystem.file(\"path-to-file\", package = \"packagename\")"
+  },
+  {
+    "objectID": "lectures/design.html#criteria",
+    "href": "lectures/design.html#criteria",
+    "title": "Designing a package",
+    "section": "Criteria",
+    "text": "Criteria\nShould the package exist?\n\nDoes it solve a problem that other people have?\nIs it unique?\nIs it more useful/usable than alternatives?"
+  },
+  {
+    "objectID": "lectures/design.html#do-you-appear-trustworthy",
+    "href": "lectures/design.html#do-you-appear-trustworthy",
+    "title": "Designing a package",
+    "section": "Do you appear trustworthy?",
+    "text": "Do you appear trustworthy?\n\nHave a big peer network\nForced competence\nPeer review if possible\nDemonstrate competence through vignettes, tests, documentation, etc."
+  },
+  {
+    "objectID": "lectures/design.html#section",
+    "href": "lectures/design.html#section",
+    "title": "Designing a package",
+    "section": "",
+    "text": "Think about your target audience\nManage their/your cognitive burden through better code design\nRemember there are multiple points of entry/exposure for your package, ensure that they all lead to success."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Course Information",
+    "section": "",
+    "text": "R is a free, open-source statistical computing environment that is the language of choice for correct and reproducible analysis. R packages are the fundamental unit of reproducible R code for analysis and reporting. A good R package can have a big impact in scientific research, whether it is an implementation of a novel statistical method or an interface to existing analytic approaches. Researchers in the fields of molecular, genetic, and clinical epidemiology would benefit from more and better implementations of statistical and epidemiological methods in R.\nAside from the mechanics of packaging R code and basic principles of software development, this module will focus on principles for development of high quality packages and maximizing their impact. Through a series of examples from existing R packages, participants will learn about different strategies for designing and implementing interfaces to statistical and epidemiological methods. Then, we will summarize the steps one can take to maximize the impact of the R package and to obtain academic credit for one’s efforts.\n\n\n\n\nBasic to intermediate skills in R programming: using and writing functions, loops, conditional execution\nFamiliarity with Rstudio and R management: installing packages, managing workspaces and directories.\nIt is beneficial, but not necessary, if participants have at least a general idea for an R package that they wish to create or a method that they think should be implemented or improved.\n\n\n\n\n\nThe mechanics of packaging R code using devtools\nModularity and the DRY principle, testing and documentation, version control\nInterfaces, covering functions, operators, S3 classes and overloading operators, the pipe operator, and other types of classes (S4, RC, R6).\nReleasing R packages, covering Github, web pages, CRAN, Bioconductor, and publishing clinical or software papers describing the package.\n\n\n\n\n\nR version &gt;= 4.4.0\nR package build tools. See https://support.posit.co/hc/en-us/articles/200486498-Package-Development-Prerequisites\nR packages: devtools, usethis, roxygen2, testthat\nRstudio\n\n\n\n\n\n\nMichael Sachs is an Associate Professor at the Section of Biostatistics at the University of Copenhagen, and has an affiliation at the Karolinska Institute. He has a PhD degree in biostatistics from the University of Washington, Seattle, WA. He has worked as an applied statistician in a variety of medical areas including, cancer treatment and diagnosis, inflammatory diseases, Alzheimer’s disease, and nephrology. He is an avid R user and developer, with a passion for open science, data visualization, and reproducible research. He is the author and maintainer of the R packages causaloptim, plotROC (a ggplot2 extension), eventglm, stdReg2, and more. His personal research interests are the development and evaluation of risk prediction models and biomarkers, assay development and validation, statistical computing, causal inference in observational studies, and tools for reproducible research.\n\n\nCourse materials\n\n\nLearning resources"
+  },
+  {
+    "objectID": "index.html#module-summary",
+    "href": "index.html#module-summary",
+    "title": "Course Information",
+    "section": "",
+    "text": "R is a free, open-source statistical computing environment that is the language of choice for correct and reproducible analysis. R packages are the fundamental unit of reproducible R code for analysis and reporting. A good R package can have a big impact in scientific research, whether it is an implementation of a novel statistical method or an interface to existing analytic approaches. Researchers in the fields of molecular, genetic, and clinical epidemiology would benefit from more and better implementations of statistical and epidemiological methods in R.\nAside from the mechanics of packaging R code and basic principles of software development, this module will focus on principles for development of high quality packages and maximizing their impact. Through a series of examples from existing R packages, participants will learn about different strategies for designing and implementing interfaces to statistical and epidemiological methods. Then, we will summarize the steps one can take to maximize the impact of the R package and to obtain academic credit for one’s efforts."
+  },
+  {
+    "objectID": "index.html#prerequisites",
+    "href": "index.html#prerequisites",
+    "title": "Course Information",
+    "section": "",
+    "text": "Basic to intermediate skills in R programming: using and writing functions, loops, conditional execution\nFamiliarity with Rstudio and R management: installing packages, managing workspaces and directories.\nIt is beneficial, but not necessary, if participants have at least a general idea for an R package that they wish to create or a method that they think should be implemented or improved."
+  },
+  {
+    "objectID": "index.html#module-content",
+    "href": "index.html#module-content",
+    "title": "Course Information",
+    "section": "",
+    "text": "The mechanics of packaging R code using devtools\nModularity and the DRY principle, testing and documentation, version control\nInterfaces, covering functions, operators, S3 classes and overloading operators, the pipe operator, and other types of classes (S4, RC, R6).\nReleasing R packages, covering Github, web pages, CRAN, Bioconductor, and publishing clinical or software papers describing the package."
+  },
+  {
+    "objectID": "index.html#required-software",
+    "href": "index.html#required-software",
+    "title": "Course Information",
+    "section": "",
+    "text": "R version &gt;= 4.4.0\nR package build tools. See https://support.posit.co/hc/en-us/articles/200486498-Package-Development-Prerequisites\nR packages: devtools, usethis, roxygen2, testthat\nRstudio"
+  },
+  {
+    "objectID": "index.html#teachers",
+    "href": "index.html#teachers",
+    "title": "Course Information",
+    "section": "",
+    "text": "Michael Sachs is an Associate Professor at the Section of Biostatistics at the University of Copenhagen, and has an affiliation at the Karolinska Institute. He has a PhD degree in biostatistics from the University of Washington, Seattle, WA. He has worked as an applied statistician in a variety of medical areas including, cancer treatment and diagnosis, inflammatory diseases, Alzheimer’s disease, and nephrology. He is an avid R user and developer, with a passion for open science, data visualization, and reproducible research. He is the author and maintainer of the R packages causaloptim, plotROC (a ggplot2 extension), eventglm, stdReg2, and more. His personal research interests are the development and evaluation of risk prediction models and biomarkers, assay development and validation, statistical computing, causal inference in observational studies, and tools for reproducible research.\n\n\nCourse materials\n\n\nLearning resources"
+  },
+  {
+    "objectID": "lectures/documentation.html#first-line-support",
+    "href": "lectures/documentation.html#first-line-support",
+    "title": "Documentation",
+    "section": "First line support: ?",
+    "text": "First line support: ?\nA central difference between scripts and packages is structured documentation integrated into the R commandline.\nExample: ?abs or help(abs) gives a detailed description of two arithmetic functions, with a reference, links to related subjects, and examples (to be run as example(abs))\nWriting documentation is your responsibility. The standard format is the R documentation format. .Rd-files live in the man-folder of the source package. R builds boths interactive HTML and static PDF from the source.\nThis is what the .Rd file for abs looks like: MathFun.Rd\n.Rd-format uses markup similar to LaTeX to define fields (name, title) and sections (description); it allows lists, links and some formatting, see Hadley’s R package book."
+  },
+  {
+    "objectID": "lectures/documentation.html#building-help-from-.rd",
+    "href": "lectures/documentation.html#building-help-from-.rd",
+    "title": "Documentation",
+    "section": "Building help from .Rd",
+    "text": "Building help from .Rd\nLet’s start with a stupid function:\n\nsay_hello = function(name = \"my little friend\", punct = \".\")\n{\n  cat( paste0(\"Hello, \", name, punct), \"\\n\", sep=\"\")\n}\nsay_hello()\n\nHello, my little friend.\n\n\nLet’s build a simple package in the working directory:\n\nlibrary(devtools)\ncreate(\"say\")\nwd(\"say\")\ndump(\"say_hello\", file = \"R/say_hello.R\")\nrm(say_hello)  ## remove local copy\nload_all()     ## load the package\nsay_hello()    ## this is the package-version\n\nWe can use a standard R function to generate a template .Rd file:\n\ndir.create(\"man\")\nprompt(say_hello, filename = \"man/say_hello.Rd\")\n\nThis is what the template thus generated looks like: say_hello_template.Rd.\nWe can now edit the template to fit our needs. This is what the edited template could look like: say_hello.Rd.\nNote: while editing a .Rdfile in RStudio, the usual Compile report shortcut (Ctrl-Shift-K) will show a preview of the help page.\nOnce we are happy with the documentation (for now, at least), we can build the package again and check what it looks like:\n\nload_all()\n?say_hello\n\nNote: % is a comment character and can break the build. Here in the URL, the % is escaped by a backslash \\\nNote: links to other functions from the See Also section do not work when the package is only loaded for development - the links will work when the package is installed:\n\ninstall()\n?say_hello   ## link to paste should be active"
+  },
+  {
+    "objectID": "lectures/documentation.html#easier-building-help-with-roxygen2",
+    "href": "lectures/documentation.html#easier-building-help-with-roxygen2",
+    "title": "Documentation",
+    "section": "Easier: building help with roxygen2",
+    "text": "Easier: building help with roxygen2\nProblems with .Rd files:\n\nMarkup is heavy, ugly and not very intuitive\nDocumentation separate from code, hard to keep synchronized\n\nSolution: package roxygen2\n\nuse special comments + tags with \\@ directly in source .R file\nwrite documentation block right on top of function\nuse document() to translate to .Rd file(s) during building\n\nThis what our example could look like: say_hello.R\nroxygen2 support is built into devtools, so we simply update the documentation like this:\n\ndocument()\nload_all()\n?say_hello\n\nNote: text formatting, links, lists etc. work exactly as in .Rd\nThe @export tag\nroxygen2 solves the problem of having separate .Rd files for documentation.\nroxygen2 also solves the problem of having a separate NAMESPACE file:\n\nonly functions exported in NAMESPACE are directly avaiable when the package is loaded\nby default, all functions defined in the package are exported via a call to exportPattern\ndocument() will add all functions with the @export tag to NAMESPACE\nfunctions without the tag will stay private (accessable through :::)\n\nTips\nError messages like this are common when installing from devtools:\nError in fetch(key) : lazy-load database 'C:/Users/aleplo/Documents/R/R-3.6.1/library/say/help/say.rdb' is corrupt\nRestart R to get rid of them.\nA roxygen2-style documentation header is often useful for functions in scripts:\n\nStructured specification of what the function does\nEasy upgrade to package later"
+  },
+  {
+    "objectID": "lectures/documentation.html#writing-good-help",
+    "href": "lectures/documentation.html#writing-good-help",
+    "title": "Documentation",
+    "section": "Writing good help",
+    "text": "Writing good help\nFrequent recommendation for writing good documentation:\n\nMake the introduction short (1-5 lines).\nAvoid long argument descriptions move extra material to Details.\nDescribe the return value; make use of itemize/describe for structured return values (e.g. data frames).\nUse examples to demonstrate common use cases; examples should self-contained, using built-in datasets or simulated data.\nConsider vignettes for complex use cases.\n\nIf you find it very hard to document your function(s), you may want to re-think your function- or package design."
+  },
+  {
+    "objectID": "lectures/documentation.html#limitations-of-help",
+    "href": "lectures/documentation.html#limitations-of-help",
+    "title": "Documentation",
+    "section": "Limitations of help",
+    "text": "Limitations of help\nR documentation mixes reference and tutorial, but is closer to a reference. It is often awkward for describing\n\nbackground and motivation,\nmultiple or complex use cases,\nuse cases involving multiple functions.\n\nPackage-level documentation can help (see below), but these things are generally better in a vignette."
+  },
+  {
+    "objectID": "lectures/documentation.html#complement-to-help",
+    "href": "lectures/documentation.html#complement-to-help",
+    "title": "Documentation",
+    "section": "Complement to help",
+    "text": "Complement to help\nAny files in inst/doc in the source package will be copied to doc in the built/installed package: any format, any source.\nA package vignette is a PDF or HTML document in doc in the built package generated from plain text literate source files (.Rmd, .Rnw) folder vignettes in the source package.\nMultiple vignettes are possible, any content, but the main idea is tutorial or background rather than reference, e.g. browseVignettes(package = \"survival\").\nUnless a package is extremely simple (a one-function package), write a vignette."
+  },
+  {
+    "objectID": "lectures/documentation.html#how-to-vignette",
+    "href": "lectures/documentation.html#how-to-vignette",
+    "title": "Documentation",
+    "section": "How to vignette",
+    "text": "How to vignette\nGenerate a vignette template for our silly example:\n\nuse_vignette(\"SayingThings\")\n\nThis creates a new sub-directory in the package folder called vignettes and puts a template .Rmd file there.\nYou can edit this file as you see fit, though the current example may be a bit thin. This is what a an example could look like: SayingThings.Rmd\nVignettes are NOT built by default when using install, you need to insist:\n\ninstall(build_vignettes = TRUE)\nbrowseVignettes(package = \"say\")"
+  },
+  {
+    "objectID": "lectures/documentation.html#adding-package-level-help",
+    "href": "lectures/documentation.html#adding-package-level-help",
+    "title": "Documentation",
+    "section": "Adding package-level help",
+    "text": "Adding package-level help\nIt can be helpful to have a central help page for the package as a whole. E.g.\n\npackage?devtools\n\nroxygen can do this, too:\n\nWrite documentation block for object NULL\nAdd tags \\@docType package and \\@name &lt;pkgname&gt; to the block\n\nCommonly this header is put into a separate .R file called &lt;package-name&gt;.R., but any R file will do.\nThis is what a package documentation for our package could look like: say.R"
+  },
+  {
+    "objectID": "lectures/documentation.html#adding-documenting-data-sets",
+    "href": "lectures/documentation.html#adding-documenting-data-sets",
+    "title": "Documentation",
+    "section": "Adding & documenting data sets",
+    "text": "Adding & documenting data sets\nReady-made\nIf your package cannot use a standard data set, include your own.\nData sets live in directory data of the package. Technically, data can be stored as a text file, R code that will generate data, or an .rda file. The latter is most common, recommended and well supported by devtools:\n\nnames = c(\"Ronald\", \"Herbert\", \"Bill\", \"George\")\nuse_data( names )\n\ngenerates file data/names.rda with the single vector names. A local copy can be generated via\n\nrm( names )     ## delete local copy\nload_all()\ndata( names )\nnames\n\nData sets also need to be documented. This is again simple using roxygen, by including the data name with a roxygen header in one of the package .R files:\n#' First names\n#' \n#' A vector with four common English first names.\n#' \n#' @format A character vector of length four. \n#' @source Synthetic data set\n\"names\"\nDocumentation for data sets is built as before:\n\ndocument()\nload_all()\n?names\n\nComments:\n\nCommand from Hadley: Never @export a data set.\nYou can use @example, too.\n\nPre-processing files\nSometimes an external data set needs clean-up for inclusion in a package.\nYou can do this at the command line, and call use_data. However, for reasons of\n\ndocumentation,\nreplicability,\nmaintenance\n\nyou really should do it in an R script.\nYou could keep the script in data, in which case it will be run every time you load, build or install: that is probably overkill, and may be slow.\nHis Hadleyness recommends instead:\n\nAdd a directory data-raw to the source package with code and raw data\nExclude this directory from the build (.Rbuildignore)\nRun the code manually whenever the data needs updating\n\nThis is set up by calling use_data_raw:\n\nuse_data_raw(\"corenames\")\n\nwhich sets up the directory, puts a script template with the given name there, updates .Rbuildignore, milks the cows and fixes the tractor.\nYour job is to copy the data file into data-raw, write the pre-processing code, and run the script once to build the .rda file.\nThis is what data file and script could like here: corenames.txt corenames.R\nOf course, you still have to document the data, e.g. data.R."
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#what",
+    "href": "lectures/flow-and-loops.html#what",
+    "title": "Flow control and loops",
+    "section": "What?",
+    "text": "What?\n\nNormally the code gets run line by line, in order, top to bottom\nThere are special commands that allow you change that\nConditional execution, choose which code to run depending on logical conditions\n\nif(&lt;condition&gt;)\nelse if\nelse\n\nLoops, repeat a chunk of code several times\n\nrepeat\nfor\nwhile"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#if-then-else",
+    "href": "lectures/flow-and-loops.html#if-then-else",
+    "title": "Flow control and loops",
+    "section": "If then else",
+    "text": "If then else\n\nif(&lt;condition&gt;) {\n  \n  &lt;do something&gt;\n    \n} else {\n  \n  &lt;do something else&gt;\n  \n}\n\nIf the &lt;condition&gt; evaluates to TRUE, then something gets executed, otherwise something else gets executed.\n&lt;condition&gt; must be length one. No vectors allowed."
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#examples",
+    "href": "lectures/flow-and-loops.html#examples",
+    "title": "Flow control and loops",
+    "section": "Examples",
+    "text": "Examples\n\nnum_reps &lt;- if(TRUE) 5000 else 200\nnum_reps\n\n[1] 5000\n\n\nThis is more useful when the condition inside the if is a result of some other computation"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#examples-1",
+    "href": "lectures/flow-and-loops.html#examples-1",
+    "title": "Flow control and loops",
+    "section": "Examples",
+    "text": "Examples\n\nnonparametric &lt;- median(mtcars$mpg) &gt; (mean(mtcars$mpg) * sd(mtcars$mpg) / 2)\n\np_value &lt;- if(nonparametric) {\n  wilcox.test(mpg ~ vs, data = mtcars, exact = FALSE)$p.value\n} else {\n  t.test(mpg ~ vs, data = mtcars)$p.value\n}"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#examples-2",
+    "href": "lectures/flow-and-loops.html#examples-2",
+    "title": "Flow control and loops",
+    "section": "Examples",
+    "text": "Examples\nThere does not need to be anything returned from the expression, it could just modify data, make a figure, etc.\n\nif(log_transform) {\n  \n  data$Y &lt;- log(data$Y)\n  \n}"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#many-if-else",
+    "href": "lectures/flow-and-loops.html#many-if-else",
+    "title": "Flow control and loops",
+    "section": "Many if else",
+    "text": "Many if else\nThere is no limit to the amount of if else statements. This is equivalent to having if statements repeatedly nested.\n\nletter &lt;- \"three\"\nnumber &lt;- if(letter == \"one\") {\n  1\n} else if(letter == \"two\") {\n  2\n} else if(letter == \"three\") {\n  3\n} else {\n  stop(\"Number not found!\")\n}\nnumber\n\n[1] 3"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#related-functions",
+    "href": "lectures/flow-and-loops.html#related-functions",
+    "title": "Flow control and loops",
+    "section": "Related functions",
+    "text": "Related functions\n\nswitch: evaluates its first argument, and chooses one of the subsequent arguments by name (unnamed the “default”)\n\n\nswitch(letter, one = 1, two = 2, three = 3, stop(\"Number not found!\"))\n\n[1] 3\n\n\n\ncut: Divides a numeric vector into intervals and produces a factor.\n\n\n(x1 &lt;- rnorm(5))\n\n[1] -1.3184806 -0.3889981  0.1540735 -0.3659679 -0.1703466\n\ncut(x1, breaks = c(-Inf, -1, 0, 1, Inf), \n    labels = c(\"&lt;-1\", \"-1 to 0\", \"0 to 1\", \"&gt; 1\"))\n\n[1] &lt;-1     -1 to 0 0 to 1  -1 to 0 -1 to 0\nLevels: &lt;-1 -1 to 0 0 to 1 &gt; 1"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#logical-operators",
+    "href": "lectures/flow-and-loops.html#logical-operators",
+    "title": "Flow control and loops",
+    "section": "Logical operators",
+    "text": "Logical operators\n& (logical AND) and | (OR) have scalar counterparts, called “short-circuit” operators\n\n&& and || evaluate the first argument, and then the second one only if necessary.\n\n\nFALSE && stop(\"Error\")\n\n[1] FALSE\n\nTRUE || stop(\"Error\")\n\n[1] TRUE\n\n\nCommon use case:\n\np.value &lt;- exp(log(runif(1, -.1, .1)))\np.value &lt;- p.value[!is.na(p.value)]\np.char &lt;- if(length(p.value) &gt; 0 && p.value[[1]] &lt; .05) {\"&lt;0.05\"} else NULL\np.char\n\n[1] \"&lt;0.05\""
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#other-logical-operators",
+    "href": "lectures/flow-and-loops.html#other-logical-operators",
+    "title": "Flow control and loops",
+    "section": "Other logical operators",
+    "text": "Other logical operators\n\nxor Exclusive OR\nisTRUE and isFALSE\nany and all for converting logical vectors to a single value, also have na.rm option\n\n\nany(c(FALSE, TRUE, FALSE))\n\n[1] TRUE\n\nall(c(FALSE, TRUE))\n\n[1] FALSE"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#exception-handling",
+    "href": "lectures/flow-and-loops.html#exception-handling",
+    "title": "Flow control and loops",
+    "section": "Exception handling",
+    "text": "Exception handling\naka, how to not stop evaluation on an error. R has 3 types of exceptions: 1) Errors, 2) Warnings, 3) Messages. Errors stop the flow of execution, all three say something at the console.\nWarnings and Messages can be suppressed by wrapping the expressions in suppress(Warhings|Messages)\ntryCatch evaluates an expression and does something with the error that you decide.\n\ntryCatch({           # block of expressions to execute, until an error occurs\n        cat(\"a...\\n\")\n        stop(\"b!\")    # error – breaks the linear control flow\n        cat(\"c?\\n\")\n    },\n    error = function(e) {  # executed immediately on an error\n        cat(sprintf(\"[error] %s\\n\", e[[\"message\"]]))\n    },\n    finally = {  # always executed at the end, regardless of error occurrence\n        cat(\"d.\\n\")\n    }\n)\n\na...\n[error] b!\nd."
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#ifelse",
+    "href": "lectures/flow-and-loops.html#ifelse",
+    "title": "Flow control and loops",
+    "section": "ifelse",
+    "text": "ifelse\nThis is a function, not a statement like if and else.\nIt is vectorized and hence better suited for working with data.\nifelse(&lt;logical vector&gt;, &lt;yes vector&gt;, &lt;no vector&gt;). All three vectors should be the same length or recycling happens.\nIt returns a vector with elements from yes when TRUE, and elements from no when FALSE.\n\nrawdata &lt;- c(\"12.63\", \"62.45\", \"&lt;2\") ## lower limit of detection\nas.numeric(ifelse(rawdata == \"&lt;2\", 1, rawdata))\n\n[1] 12.63 62.45  1.00"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#basic-concepts",
+    "href": "lectures/flow-and-loops.html#basic-concepts",
+    "title": "Flow control and loops",
+    "section": "Basic concepts",
+    "text": "Basic concepts\nA loop repeatedly and sequentially evaluates an expression, i.e.,\n\n{\n  &lt;stuff contained inside curly brackets&gt;\n}\n\nA loop will continue forever unless you tell it to stop. You tell it to stop in different ways for different loop expressions"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#repeat",
+    "href": "lectures/flow-and-loops.html#repeat",
+    "title": "Flow control and loops",
+    "section": "Repeat",
+    "text": "Repeat\nThis is the simplest of loops, it will repeat an expression until it encounters break\nThis will run forever\n\nrepeat {\n  print(\"hello\")\n}\n\nThis will run exactly once\n\nrepeat {\n  print(\"hello\")\n  break\n}\n\n[1] \"hello\"\n\n\nModify the above to run 5 times\n\n\ni &lt;- 1\nrepeat {\n  print(\"hello\")\n  if(i == 5) break\n  i &lt;- i + 1\n}"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#while",
+    "href": "lectures/flow-and-loops.html#while",
+    "title": "Flow control and loops",
+    "section": "While",
+    "text": "While\nNotice the pattern, repeat an expression until a condition is met.\nThe condition usually depends on a variable that changes at each iteration, in this case i, the iterator\nwhile loops explicitly state the condition at the start:\n\ni &lt;- 1\nwhile(i &lt;= 5) {\n  print(\"hello\")\n  i &lt;- i + 1\n}\n\n[1] \"hello\"\n[1] \"hello\"\n[1] \"hello\"\n[1] \"hello\"\n[1] \"hello\""
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#for-loops",
+    "href": "lectures/flow-and-loops.html#for-loops",
+    "title": "Flow control and loops",
+    "section": "For loops",
+    "text": "For loops\nA for loop explicitly states the sequence of the iterator at the start. Then the “end condition” is that the loop has reached the end of the sequence.\n\nfor(i in 1:5) {\n  print(\"hello\")\n}\n\n[1] \"hello\"\n[1] \"hello\"\n[1] \"hello\"\n[1] \"hello\"\n[1] \"hello\"\n\n\nIn this case, it is the most concise. I personally use for loops more than any other loop.\nbreak can be used inside any loop to end it. next can be used to go to the next iteration.\n\nfor(i in 1:5) {\n  if(i == 2) next\n  print(paste(\"hello\", i))\n}\n\n[1] \"hello 1\"\n[1] \"hello 3\"\n[1] \"hello 4\"\n[1] \"hello 5\""
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#example---iterating-through-species",
+    "href": "lectures/flow-and-loops.html#example---iterating-through-species",
+    "title": "Flow control and loops",
+    "section": "Example - Iterating through species",
+    "text": "Example - Iterating through species\n\nlibrary(palmerpenguins)\n\nspecies_names &lt;- levels(penguins$species)\nmean_bill_length &lt;- numeric(length(species_names))\nnames(mean_bill_length) &lt;- species_names\n\nfor(i in species_names){  ## iterator is a character\n  \n  mean_bill_length[i] &lt;- ## indexing by name\n    mean(subset(penguins, species == i)$bill_length_mm, na.rm = TRUE)\n  \n}\n\nmean_bill_length\n\n   Adelie Chinstrap    Gentoo \n 38.79139  48.83382  47.50488"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#bootstrap",
+    "href": "lectures/flow-and-loops.html#bootstrap",
+    "title": "Flow control and loops",
+    "section": "Bootstrap",
+    "text": "Bootstrap\n\nmu.body_mass &lt;- mean(penguins$body_mass_g, na.rm = TRUE)\nbsmeans &lt;- vector(\"numeric\", length = 200)\nfor(i in 1:length(bsmeans)) {\n  resampled.body_mass &lt;- sample(penguins$body_mass_g, replace = TRUE)\n  bsmeans[i] &lt;- mean(resampled.body_mass, na.rm = TRUE)\n}\nhist(bsmeans)\nabline(v = mu.body_mass, col = \"red\")"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#nested-loops",
+    "href": "lectures/flow-and-loops.html#nested-loops",
+    "title": "Flow control and loops",
+    "section": "Nested loops",
+    "text": "Nested loops\nA loop can itself contain a loop, or multiple loops.\n\nspecies_names &lt;- levels(penguins$species)\nisland_names &lt;- levels(penguins$island)\nmean_bm_matrix &lt;- matrix(NA, nrow = length(species_names), \n                         ncol = length(island_names), \n                         dimnames = list(species_names, island_names))\n\nfor(i in species_names) {\n  for(j in island_names) {\n   \n    thisset &lt;- subset(penguins, species == i & \n                        island == j)\n    \n    if(nrow(thisset) == 0) next\n    \n    mean_bm_matrix[i, j] &lt;- mean(thisset$body_mass_g, na.rm = TRUE)\n     \n  }\n}\nmean_bm_matrix\n\n            Biscoe    Dream Torgersen\nAdelie    3709.659 3688.393  3706.373\nChinstrap       NA 3733.088        NA\nGentoo    5076.016       NA        NA"
+  },
+  {
+    "objectID": "lectures/flow-and-loops.html#note-on-speed",
+    "href": "lectures/flow-and-loops.html#note-on-speed",
+    "title": "Flow control and loops",
+    "section": "Note on speed",
+    "text": "Note on speed\nYou may see people warn you not to use for loops in R, “because they are slow”.\nThat is partially true, but speed is not the only thing, for loops can be much clearer and more understandable than the alternatives.\nBut, the slow thing in R is changing the size of an object, so you can avoid that by creating a vector/matrix/array of the correct size to hold the results of the loop:\n\nsystem.time({\nA1 &lt;- NULL\nfor(i in 1:100000) {\n  A1 &lt;- c(A1, rnorm(1))\n}\n})\n\n   user  system elapsed \n 13.146   0.165  13.392 \n\nsystem.time({\nA2 &lt;- numeric(100000)\nfor(i in 1:length(A2)) {\n  A2[i] &lt;- rnorm(1)\n}\n})\n\n   user  system elapsed \n  0.075   0.000   0.075"
+  },
+  {
+    "objectID": "lectures/git.html#git-and-github",
+    "href": "lectures/git.html#git-and-github",
+    "title": "git and github",
+    "section": "git and Github",
+    "text": "git and Github\n\ngit and http://github.com make version control and collaboration easier\nPackage development requires iteration and maybe input from multiple sources\nAd hoc approaches suffer and can have disastrous consequences\nHere are some examples"
+  },
+  {
+    "objectID": "lectures/git.html#example-1-reverting-changes",
+    "href": "lectures/git.html#example-1-reverting-changes",
+    "title": "git and github",
+    "section": "Example 1: Reverting changes",
+    "text": "Example 1: Reverting changes\n\nIn an attempt to speed up computation time, I tried reimplementing a MLE function.\nTurns out it broke the method entirely and didn’t end up speeding things up.\nHow to go back to what it was originally?"
+  },
+  {
+    "objectID": "lectures/git.html#example-2-incorporating-feature-requests-or-edits",
+    "href": "lectures/git.html#example-2-incorporating-feature-requests-or-edits",
+    "title": "git and github",
+    "section": "Example 2: Incorporating feature requests or edits",
+    "text": "Example 2: Incorporating feature requests or edits\n\nA package gets popular on github, and I occasionally get feature requests or contributions\nHow to keep track of the requests?\nHow to keep track of contributions from other people?"
+  },
+  {
+    "objectID": "lectures/git.html#example-3-sharing-content",
+    "href": "lectures/git.html#example-3-sharing-content",
+    "title": "git and github",
+    "section": "Example 3: Sharing content",
+    "text": "Example 3: Sharing content\nOnce a paper gets published, occasionally people want to use or extend the method.\n\n“I would be very grateful if you are able to help me implement this tool in my dataset as well.”\n“Could you please send me your code so that I can try to apply it to my example?”\n“Would you please kindly e-mail me your article and other works in that field promptly.?”\n\nEmail is an ineffective tool for sharing code, data, documents"
+  },
+  {
+    "objectID": "lectures/git.html#what-is-it",
+    "href": "lectures/git.html#what-is-it",
+    "title": "git and github",
+    "section": "What is it?",
+    "text": "What is it?\ngit\n\n“The stupid content tracker”, developed to manage Linux source code\n\nFiles organized into repositories\nUsers commit changes, additions, deletions\nEntire history of commits saved\nOnly successive diffs are saved, not full copies\n\n\nGithub\n\nA web interface and host for repositories\n\nExplore repositories\nView code, documents, etc.\nInteract with collaborators"
+  },
+  {
+    "objectID": "lectures/git.html#why-use-it",
+    "href": "lectures/git.html#why-use-it",
+    "title": "git and github",
+    "section": "Why use it?",
+    "text": "Why use it?\n\nAdd structure to the iterative process of package development\n\nare you sensing a trend?\n\nCreates a record of all the steps you took\nGives structure to collaboration, with benefits for asynchronous work\nGithub adds the benefit of creating a web-presence\n\nNot everyone agrees that this is a benefit\n\n\nOpen up Rstudio"
+  },
+  {
+    "objectID": "lectures/git.html#how-often-should-i-commit",
+    "href": "lectures/git.html#how-often-should-i-commit",
+    "title": "git and github",
+    "section": "How often should I commit?",
+    "text": "How often should I commit?\ngit is not dropbox!\nEach commit should be minimally complete\nMinimal\n\nRelates to a single problem\nMakes it easier to describe and understand\nReduces risk of conflicts (if collaborating)\n\nComplete\n\nSolves the problem in the code\nIs documented\nHas tests"
+  },
+  {
+    "objectID": "lectures/git.html#common-problems",
+    "href": "lectures/git.html#common-problems",
+    "title": "git and github",
+    "section": "Common problems",
+    "text": "Common problems\nOops I forgot to document\n\nuse “Amend previous commit” before pushing to github\n\nI broke someting\n\ndo a “hard reset” back to the previous commit (Discard all in Rstudio)\n\nA collaborator is working on something else at the same time\n\nuse branches and merge later"
+  },
+  {
+    "objectID": "lectures/git.html#writing-good-commit-messages",
+    "href": "lectures/git.html#writing-good-commit-messages",
+    "title": "git and github",
+    "section": "Writing good commit messages",
+    "text": "Writing good commit messages\n\nThe diff shows you exactly what changed\nThe commit message should communicate the context\n\nBasic guidelines\n\nWrite a concise subject heading (about 50 characters)\n\nComplete the following sentence: “If applied, this commit will …”\n\nIf more explanation needed, write a body to explain why and how\nReference any relevant issue tracking ids, or links"
+  },
+  {
+    "objectID": "lectures/git.html#examples",
+    "href": "lectures/git.html#examples",
+    "title": "git and github",
+    "section": "Examples",
+    "text": "Examples\n\n\n\n\n\n\n\nBad\nBetter\n\n\n\n\nFix bug\nEnsure that sampling function works for small datasets\n\n\nchanging documentation\nImprove documentation with a vignette tutorial\n\n\ntypo\nAdd a comma to README\n\n\n\n\nUse the imperative tense (like you’re telling someone what to do)\nBe concise, but detailed enough to trigger your memory"
+  },
+  {
+    "objectID": "lectures/git.html#the-lifecycle-of-a-paper",
+    "href": "lectures/git.html#the-lifecycle-of-a-paper",
+    "title": "git and github",
+    "section": "The lifecycle of a paper",
+    "text": "The lifecycle of a paper\n\nI’m working on a paper with my friend Sue\nStatistical analysis + simulation studies + discussion\nI decide to take the lead and create an initial repository\nAdd a draft .tex file, some analyses in .R with data and output\nCommit at appropriate stopping points"
+  },
+  {
+    "objectID": "lectures/git.html#branching-and-merging",
+    "href": "lectures/git.html#branching-and-merging",
+    "title": "git and github",
+    "section": "Branching and merging",
+    "text": "Branching and merging\n\nMain branch is called master\n\n\nSue creates a new branch called sues-working. Adding, editing, commiting\n\nCommits do not affect the other branch\n\nbranchPush all of her changes to github, then submit a pull request."
+  },
+  {
+    "objectID": "lectures/git.html#pull-request",
+    "href": "lectures/git.html#pull-request",
+    "title": "git and github",
+    "section": "Pull request",
+    "text": "Pull request\n\npull\nA pull request is a request to incorporate changes from one branch into another. It doesn’t merge them automatically, but rather opens a discussion about possible changes. The repo owner can review the changes, make comments, and suggest edits before merging. Here we can fully harness the power of git and diff. You can see that every addition, deletion, and change is highlighted in the window. You can make general comments on the request, add comments to specific lines of code, and create issues. You can see that conflicts are highlighted in yellow. Conflicts arise when the same line is edited in different ways. To resolve a conflict, the file must be edited on one of the branches and committed. Changes that can be merged without conflict are in green."
+  },
+  {
+    "objectID": "lectures/git.html#changes",
+    "href": "lectures/git.html#changes",
+    "title": "git and github",
+    "section": "Changes",
+    "text": "Changes\n\n\n\npull2\n\n\n\nThe github desktop application will prompt you to resolve any merge conflicts. It will open up a text editor, showing each conflicting line. You can remove the conflict by choosing from the two options or combining the two in some way. Commit all the changes and the branches can be merged. Again, the entire commit history is saved along with any discussion of issues!\nSee https://help.github.com/articles/resolving-merge-conflicts for more information about conflicts.\n\n\n\n\nmerge"
+  },
+  {
+    "objectID": "lectures/git.html#smaller-contributions",
+    "href": "lectures/git.html#smaller-contributions",
+    "title": "git and github",
+    "section": "Smaller contributions",
+    "text": "Smaller contributions\n\npropose"
+  },
+  {
+    "objectID": "lectures/git.html#issues",
+    "href": "lectures/git.html#issues",
+    "title": "git and github",
+    "section": "Issues",
+    "text": "Issues\n\nMore expansive or general suggestions can be submitted as issues. Many options exist for issues. You can label them, drag and drop images as support, assign specific collaborators to resolve them, and more. Milestones are a way to schedule and track big steps, such as journal submission. Once you create a milestone with a due date, you can attach specific issues that need to be achieved to reach that milestone.\n\n\nissue"
+  },
+  {
+    "objectID": "lectures/git.html#summary",
+    "href": "lectures/git.html#summary",
+    "title": "git and github",
+    "section": "Summary",
+    "text": "Summary\n\ngit is a structured approach to tracking content\n\nSmall committment to learn and use\nBut benefits are enormous\n… especially if using plain text files\n\ngithub is a web interface and repository host\n\nAdds value to git\nIt’s not Dropbox, formal and structure commits + discussion\nEverything is public\nAlternatives: bitbucket, gitlab, self-hosting, local-only"
+  },
+  {
+    "objectID": "lectures/oop.html#object-oriented-programming",
+    "href": "lectures/oop.html#object-oriented-programming",
+    "title": "Object-oriented programming",
+    "section": "Object-oriented programming",
+    "text": "Object-oriented programming\nBasic idea\n\nHide complexity behind abstraction\nModel concrete entities as software entities (“objects”)\nDefine relationships between software entities that mimick those between concrete entities\nA way of thinking about problems and software\nMany, many different implementations\n\nConcepts\nClass: a general definition of a data format\nEx.: a person class with name, personal ID number, email address etc.\nObject: a specific instance of a class\nEx.: an object relating to Marie\nMethod: a procedure / function acting on objects from a class\nEx.: we can send emails to persons, including Marie\nInheritance: classes can form a hierarchy with shared data, methods\nEx. class employee inherits name, ID number etc. from class person, but also has information on contract, length of employment; we can send emails to employees, because they are persons."
+  },
+  {
+    "objectID": "lectures/oop.html#the-classic-class-system-s3",
+    "href": "lectures/oop.html#the-classic-class-system-s3",
+    "title": "Object-oriented programming",
+    "section": "The classic class system: S3",
+    "text": "The classic class system: S3\nHow come…? A demonstration\nLet’s say we have run a linear model:\n\nset.seed(313)\nx = rnorm(10); y = 2 + 3* x + rnorm(10)/4\nlm1 = lm(y~x) \n\nSo we can use look at the regression table:\n\nsummary(lm1)\n\n\nCall:\nlm(formula = y ~ x)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-0.35985 -0.13888 -0.00807  0.13181  0.44398 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  1.96291    0.08037   24.42 8.43e-09 ***\nx            2.98959    0.11895   25.13 6.72e-09 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.2471 on 8 degrees of freedom\nMultiple R-squared:  0.9875,    Adjusted R-squared:  0.9859 \nF-statistic: 631.6 on 1 and 8 DF,  p-value: 6.725e-09\n\n\nBut we can also use summary for a data frame:\n\nsummary(sleep)\n\n     extra        group        ID   \n Min.   :-1.600   1:10   1      :2  \n 1st Qu.:-0.025   2:10   2      :2  \n Median : 0.950          3      :2  \n Mean   : 1.540          4      :2  \n 3rd Qu.: 3.400          5      :2  \n Max.   : 5.500          6      :2  \n                         (Other):8  \n\n\nIs summary a long & complex function that does both things?\nGeneric functions, methods and classes\nNot exactly:\n\nsummary\n\nfunction (object, ...) \nUseMethod(\"summary\")\n&lt;bytecode: 0x5ec4a44883c8&gt;\n&lt;environment: namespace:base&gt;\n\n\nsummary is a generic function, as seen by the call to UseMethod: depending on the class of argument object, R will call a suitable method (a function) that gives a meaningful summary for whatever object is: one thing for a linear model, another thing for a data frame.\nCalling the correct method for an object is called method dispatch. In S3, method dispatch is based on the generic function called (what the user wants to do) and the class of the first argument (what object the user wants to do something to). The corresponding method is found by its name:\n&lt;name of generic&gt;.&lt;name of argument class&gt;\nFor our example, we check the class of our object:\n\nclass(lm1)\n\n[1] \"lm\"\n\n\nso the name of the method dispatched is summary.lm:\n\nfindFunction(\"summary.lm\")\n\n[[1]]\n&lt;environment: package:stats&gt;\nattr(,\"name\")\n[1] \"package:stats\"\nattr(,\"path\")\n[1] \"/usr/lib/R/library/stats\"\n\nargs(summary.lm)\n\nfunction (object, correlation = FALSE, symbolic.cor = FALSE, \n    ...) \nNULL\n\n\nThree standard generics are widely used for different classes:\n\nprint is used to display an expression (implicitly or implicitly)\nsummary generates a compressed summary of its argument\nplot provides a graphical display\n\nLet’s look for functions that could be methods for generic print:\n\napropos(\"^print\\\\.\", ignore.case = FALSE, mode = \"function\")\n\n [1] \"print.AsIs\"                  \"print.by\"                   \n [3] \"print.condition\"             \"print.connection\"           \n [5] \"print.data.frame\"            \"print.Date\"                 \n [7] \"print.default\"               \"print.difftime\"             \n [9] \"print.Dlist\"                 \"print.DLLInfo\"              \n[11] \"print.DLLInfoList\"           \"print.DLLRegisteredRoutines\"\n[13] \"print.eigen\"                 \"print.factor\"               \n[15] \"print.function\"              \"print.hexmode\"              \n[17] \"print.libraryIQR\"            \"print.listof\"               \n[19] \"print.NativeRoutineList\"     \"print.noquote\"              \n[21] \"print.numeric_version\"       \"print.octmode\"              \n[23] \"print.packageInfo\"           \"print.POSIXct\"              \n[25] \"print.POSIXlt\"               \"print.proc_time\"            \n[27] \"print.restart\"               \"print.rle\"                  \n[29] \"print.simple.list\"           \"print.srcfile\"              \n[31] \"print.srcref\"                \"print.summary.table\"        \n[33] \"print.summary.warnings\"      \"print.summaryDefault\"       \n[35] \"print.table\"                 \"print.warnings\"             \n\n\nNote that this does hide complexity: user does not have to know what class an object has, but can (try to) print, summarize or plot it anyway.\n(.S3methods(print) actually provides a more complete list of print methods.)\nDefault methods\nMany functions seem to have .default at the end:\n\napropos(\"\\\\.default$\", ignore.case = FALSE, mode = \"function\")\n\n [1] \"all.equal.default\"       \"anyDuplicated.default\"  \n [3] \"aperm.default\"           \"as.array.default\"       \n [5] \"as.character.default\"    \"as.data.frame.default\"  \n [7] \"as.Date.default\"         \"as.expression.default\"  \n [9] \"as.function.default\"     \"as.list.default\"        \n[11] \"as.matrix.default\"       \"as.null.default\"        \n[13] \"as.POSIXct.default\"      \"as.POSIXlt.default\"     \n[15] \"as.single.default\"       \"as.table.default\"       \n[17] \"barplot.default\"         \"boxplot.default\"        \n[19] \"by.default\"              \"chol.default\"           \n[21] \"chooseOpsMethod.default\" \"confint.default\"        \n[23] \"contour.default\"         \"cut.default\"            \n[25] \"density.default\"         \"diff.default\"           \n[27] \"duplicated.default\"      \"format.default\"         \n[29] \"hist.default\"            \"image.default\"          \n[31] \"is.na&lt;-.default\"         \"kappa.default\"          \n[33] \"labels.default\"          \"levels.default\"         \n[35] \"lines.default\"           \"mean.default\"           \n[37] \"median.default\"          \"merge.default\"          \n[39] \"model.frame.default\"     \"model.matrix.default\"   \n[41] \"mtfrm.default\"           \"nameOfClass.default\"    \n[43] \"pairs.default\"           \"plot.default\"           \n[45] \"points.default\"          \"pretty.default\"         \n[47] \"print.default\"           \"qr.default\"             \n[49] \"range.default\"           \"rev.default\"            \n[51] \"row.names.default\"       \"row.names&lt;-.default\"    \n[53] \"rowsum.default\"          \"scale.default\"          \n[55] \"seq.default\"             \"sequence.default\"       \n[57] \"solve.default\"           \"sort_by.default\"        \n[59] \"sort.default\"            \"split.default\"          \n[61] \"split&lt;-.default\"         \"subset.default\"         \n[63] \"summary.default\"         \"t.default\"              \n[65] \"text.default\"            \"toString.default\"       \n[67] \"transform.default\"       \"unique.default\"         \n[69] \"update.default\"          \"with.default\"           \n[71] \"xtfrm.default\"          \n\n\nThese are not for a mystical default-class, but the fall-back functions used when the generic function can’t find a matching method.\nE.g. mean is a generic function:\n\nmean\n\nfunction (x, ...) \nUseMethod(\"mean\")\n&lt;bytecode: 0x5ec4a29625b0&gt;\n&lt;environment: namespace:base&gt;\n\n\nThe default method deals with non-numeric data, removes NA and trims the tails, if required, and then calls an internal function which does the actual work:\n\nmean.default\n\nfunction (x, trim = 0, na.rm = FALSE, ...) \n{\n    if (!is.numeric(x) && !is.complex(x) && !is.logical(x)) {\n        warning(\"argument is not numeric or logical: returning NA\")\n        return(NA_real_)\n    }\n    if (isTRUE(na.rm)) \n        x &lt;- x[!is.na(x)]\n    if (!is.numeric(trim) || length(trim) != 1L) \n        stop(\"'trim' must be numeric of length one\")\n    n &lt;- length(x)\n    if (trim &gt; 0 && n) {\n        if (is.complex(x)) \n            stop(\"trimmed means are not defined for complex data\")\n        if (anyNA(x)) \n            return(NA_real_)\n        if (trim &gt;= 0.5) \n            return(stats::median(x, na.rm = FALSE))\n        lo &lt;- floor(n * trim) + 1\n        hi &lt;- n + 1 - lo\n        x &lt;- sort.int(x, partial = unique(c(lo, hi)))[lo:hi]\n    }\n    .Internal(mean(x))\n}\n&lt;bytecode: 0x5ec4a44b16f0&gt;\n&lt;environment: namespace:base&gt;\n\n\nInheritance\nThe package data.table provides a rectangular (tidy) data format with powerful and efficient processing procedures.\n\nlibrary(data.table)\ndt = data.table(mtcars)\nclass(dt)\n\n[1] \"data.table\" \"data.frame\"\n\n\nAll data table objects (like dt here) have two classes: (1) data.table and (2) data.frame.\nThis means that class data.table inherits from class data.frame, or equivalently, class data.table extends class data.frame; object dt is both a data table and data frame, and all methods for both classes can be used:\n\ninherits(dt, \"data.frame\")\n\n[1] TRUE\n\n\nHowever, the generic will dispatch along the class-vector, starting at the beginning: by default, the data.table methods will be called.\n\n## Implicitly, dispatch to head.data.table on class(dt)[1] \nhead(dt)                          \n\n     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb\n   &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;\n1:  21.0     6   160   110  3.90 2.620 16.46     0     1     4     4\n2:  21.0     6   160   110  3.90 2.875 17.02     0     1     4     4\n3:  22.8     4   108    93  3.85 2.320 18.61     1     1     4     1\n4:  21.4     6   258   110  3.08 3.215 19.44     1     0     3     1\n5:  18.7     8   360   175  3.15 3.440 17.02     0     0     3     2\n6:  18.1     6   225   105  2.76 3.460 20.22     1     0     3     1\n\n## Explicitly, direct call\ndata.table:::head.data.table(dt)  \n\n     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb\n   &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;\n1:  21.0     6   160   110  3.90 2.620 16.46     0     1     4     4\n2:  21.0     6   160   110  3.90 2.875 17.02     0     1     4     4\n3:  22.8     4   108    93  3.85 2.320 18.61     1     1     4     1\n4:  21.4     6   258   110  3.08 3.215 19.44     1     0     3     1\n5:  18.7     8   360   175  3.15 3.440 17.02     0     0     3     2\n6:  18.1     6   225   105  2.76 3.460 20.22     1     0     3     1\n\n\nIf no method for a class is defined, the dispatch moves to the next class element, and tries to find a fitting methods for that class.\nE.g. data.table has no proper summary-method, and falls back on summary.data.frame:\n\ntest &lt;- try( getS3method(f = \"summary\", class = \"data.table\"), silent = TRUE)\ncat( test )\n\nError in getS3method(f = \"summary\", class = \"data.table\") : \n  S3 method 'summary.data.table' not found\n\nsummary( dt )\n\n      mpg             cyl             disp             hp       \n Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  \n 1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  \n Median :19.20   Median :6.000   Median :196.3   Median :123.0  \n Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  \n 3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  \n Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  \n      drat             wt             qsec             vs        \n Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  \n 1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  \n Median :3.695   Median :3.325   Median :17.71   Median :0.0000  \n Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  \n 3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  \n Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  \n       am              gear            carb      \n Min.   :0.0000   Min.   :3.000   Min.   :1.000  \n 1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  \n Median :0.0000   Median :4.000   Median :2.000  \n Mean   :0.4062   Mean   :3.688   Mean   :2.812  \n 3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  \n Max.   :1.0000   Max.   :5.000   Max.   :8.000  \n\n\nMaking it classy\nTo create an object of class foo, simply set the class attribute to foo:\n\nx &lt;- 1:10\nclass(x) &lt;- \"foo\"\nx\n\n [1]  1  2  3  4  5  6  7  8  9 10\nattr(,\"class\")\n[1] \"foo\"\n\n\nYou can remove the class attribute using unclass:\n\nunclass(x)\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n\nYou can hand-build an object of a certain class:\n\nx = 1:10\nx\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\nlevels(x) = as.character(x)\nx\n\n [1]  1  2  3  4  5  6  7  8  9 10\nattr(,\"levels\")\n [1] \"1\"  \"2\"  \"3\"  \"4\"  \"5\"  \"6\"  \"7\"  \"8\"  \"9\"  \"10\"\n\nclass(x) = \"factor\"\nx\n\n [1] 1  2  3  4  5  6  7  8  9  10\nLevels: 1 2 3 4 5 6 7 8 9 10\n\nis.factor(x)\n\n[1] TRUE\n\n\nGenerally, classes have a constructor function which builds an object of the desiresd class from user input; often, the name of the function is the same as the class - e.g. lm to create lm, or here\n\nx = factor(1:10)\nx\n\n [1] 1  2  3  4  5  6  7  8  9  10\nLevels: 1 2 3 4 5 6 7 8 9 10\n\n\nRolling your own\nWriting a new method: both the class and the generic function exist already\nWhen the class already has that method, this means that you override the existing method: this is risky and messy and should not be done lightly; see Exercise 2.\nWhen the class does not have that method, you basically generate a new method for the existing class. E.g. there is no coef-method for base type numeric defined, and the default method cannot handle numeric vectors:\n\nx &lt;- rnorm(10)\ntest &lt;- try( coef(x), silent = TRUE )\ncat(test)\n\nError in object$coefficients : $ operator is invalid for atomic vectors\n\n\nSay we want to have a method that returns the coefficient of variation (standard deviation divided by mean) for numeric vectors, we can do this:\n\ncoef.numeric &lt;- function(object, ...) sd(object)/mean(object)\ncoef(x)\n\n[1] -2.668404\n\n\n\nWhile legal, this is a bad idea, as this method really does something completely different from what coef is supposed to do, which is extracting model coefficients from a fitted model.\nYour method should generally have the same arguments (name and order) as the generic function, in this case coef.\n\nWriting a new generic: this really only makes sense if you also write a corresponding method, otherwise there is nothing to do.\n\nblurp = function(x, ...) UseMethod(\"blurp\")\ntest = try( blurp(1), silent = TRUE)\ncat(test)\n\nError in UseMethod(\"blurp\") : \n  no applicable method for 'blurp' applied to an object of class \"c('double', 'numeric')\"\n\nblurp.default = function(x, ...) \"BLUUUURP!\"\nblurp(1)\n\n[1] \"BLUUUURP!\"\n\nblurp(\"a\")\n\n[1] \"BLUUUURP!\"\n\n\nThis should be some kind of activity that you is relevant across a range of different classes. This means you should probably write several methods for your generic, or offer something else to make this extra abstraction worthwhile.\nYou should also probably check the existing generics:\n\n.knownS3Generics\n\n          Math            Ops        Summary        Complex      matrixOps \n        \"base\"         \"base\"         \"base\"         \"base\"         \"base\" \n  as.character  as.data.frame as.environment      as.matrix      as.vector \n        \"base\"         \"base\"         \"base\"         \"base\"         \"base\" \n         cbind         labels          print          rbind            rep \n        \"base\"         \"base\"         \"base\"         \"base\"         \"base\" \n           seq        seq.int           plot       sequence          solve \n        \"base\"         \"base\"         \"base\"         \"base\"         \"base\" \n       summary              t           edit            str        contour \n        \"base\"         \"base\"        \"utils\"        \"utils\"     \"graphics\" \n          hist       identify          image          lines          pairs \n    \"graphics\"     \"graphics\"     \"graphics\"     \"graphics\"     \"graphics\" \n        points           text           add1            AIC          anova \n    \"graphics\"     \"graphics\"        \"stats\"        \"stats\"        \"stats\" \n        biplot           coef        confint       deviance    df.residual \n       \"stats\"        \"stats\"        \"stats\"        \"stats\"        \"stats\" \n         drop1     extractAIC         fitted        formula         logLik \n       \"stats\"        \"stats\"        \"stats\"        \"stats\"        \"stats\" \n   model.frame   model.matrix        predict        profile         qqnorm \n       \"stats\"        \"stats\"        \"stats\"        \"stats\"        \"stats\" \n     residuals    se.contrast          terms         update           vcov \n       \"stats\"        \"stats\"        \"stats\"        \"stats\"        \"stats\" \n\n\n(For a more complete list, use utils:::getKnownS3generics(),)\nWriting your own class: This is surprisingly easy - you only have to set the class attribute of an object; all generic functions will dispatch on the new class, though only to the default method, as you have not defined any methods yet.\nYou generally want a constructor function that returns an object of the new class.\nThis is the most common and easiest use case: you have a new thing that is a bit more complex, so make it a class, and write a print-method, maybe a summary and plot, too.\nDocumentation\nS3 generic functions are functions: use Roxygen\nS3 classes have no formal definition, so document the constructor function(s) that generates class objects:\n\nWorks well for class lm, which has essentially one constructor (lm, the function)\nDoes not work well for class htest, which has many, many constructors: see Value description in ?t.test.default, ?prob.test, ?wilcox.test\n\nS3 methods are functions, and should be documented using Roxygen (unless they are really simple)."
+  },
+  {
+    "objectID": "lectures/oop.html#other-class-systems-in-r",
+    "href": "lectures/oop.html#other-class-systems-in-r",
+    "title": "Object-oriented programming",
+    "section": "Other class systems in R",
+    "text": "Other class systems in R\nS4\nA more formal version of S3:\n\nexplicit class definitions (using \\@ for slots)\nhelper functions for defining generic functions & methods\nmultiple dispatch: methods for combinations of arguments\nimplemented in package methods\n\nExample: mle in package stats4\n\n## From example(mle)\nlibrary(stats4)\n\n## Define data\nx &lt;- 0:10\ny &lt;- c(26, 17, 13, 12, 20, 5, 9, 8, 5, 4, 8)\n\n## Define a Poisson -log(likelihood)\nnLL &lt;- function(lambda) -sum(stats::dpois(y, lambda, log = TRUE))\n\n## Fit the model\nfit1 &lt;- mle(nLL, start = list(lambda = 5), nobs = length(y),\n            method = \"Brent\", lower = 1, upper = 20)\nfit1\n\n\nCall:\nmle(minuslogl = nLL, start = list(lambda = 5), method = \"Brent\", \n    nobs = length(y), lower = 1, upper = 20)\n\nCoefficients:\n  lambda \n11.54545 \n\n## This is an S4 object\nisS4(fit1)\n\n[1] TRUE\n\nstr(fit1)\n\nFormal class 'mle' [package \"stats4\"] with 10 slots\n  ..@ call     : language mle(minuslogl = nLL, start = list(lambda = 5), method = \"Brent\", nobs = length(y),      lower = 1, upper = 20)\n  ..@ coef     : num 11.5\n  ..@ fullcoef : Named num 11.5\n  .. ..- attr(*, \"names\")= chr \"lambda\"\n  ..@ fixed    : Named num NA\n  .. ..- attr(*, \"names\")= chr \"lambda\"\n  ..@ vcov     : num [1, 1] 1.05\n  ..@ min      : num 42.7\n  ..@ details  :List of 6\n  .. ..$ par        : num 11.5\n  .. ..$ value      : num 42.7\n  .. ..$ counts     : Named logi [1:2] NA NA\n  .. .. ..- attr(*, \"names\")= chr [1:2] \"function\" \"gradient\"\n  .. ..$ convergence: int 0\n  .. ..$ message    : NULL\n  .. ..$ hessian    : num [1, 1] 0.953\n  ..@ minuslogl:function (lambda)  \n  ..@ nobs     : int 11\n  ..@ method   : chr \"Brent\"\n\n## Methods work as before\nsummary(fit1)\n\nMaximum likelihood estimation\n\nCall:\nmle(minuslogl = nLL, start = list(lambda = 5), method = \"Brent\", \n    nobs = length(y), lower = 1, upper = 20)\n\nCoefficients:\n     Estimate Std. Error\n[1,] 11.54545   1.024493\n\n-2 log L: 85.45356 \n\nAIC(fit1)\n\n[1] 87.45356\n\nAIC\n\nstandardGeneric for \"AIC\" defined from package \"stats\"\n\nfunction (object, ..., k = 2) \nstandardGeneric(\"AIC\")\n&lt;environment: 0x5ec4a2bdbc88&gt;\nMethods may be defined for arguments: object, k\nUse  showMethods(AIC)  for currently available ones.\n\n## Get rid of stats4\ndetach(\"package:stats4\")\n\nRC\n“Reference Classes”:\n\nMore conventional class-system, where methods are part of the class definition (“message passing OO”)\nObjects are mutable (implicit copies carry changes forward)\nBased on environments"
+  },
+  {
+    "objectID": "lectures/oop.html#exercises",
+    "href": "lectures/oop.html#exercises",
+    "title": "Object-oriented programming",
+    "section": "Exercises",
+    "text": "Exercises\n\nWe have used lm(1~1) as a small artificial test example for linear models.\n\nLooking at the standard methods for lm-objects, find evidence that there is an even smaller valid linear model in R.\nSpecify this model.\n\nAn annoying feature of large data frames is that printing shows lots of useless information on the console. A tibble as promoted by HW only shows the top of the data, together with the dimension of the tibble, and lists extra columns at the bottom.\n\nWrite a replacement method for print.data.frame that does something similar: start with a simple prototype that only shows the first few rows of the data, then add printing the dimension of the data frame on top.\nStudy the tibble-package: which print method is dispatched for showing a tibble? Which function does the hard work? If it is a method, show the corresponding generic."
+  },
+  {
+    "objectID": "lectures/testing.html#bugs",
+    "href": "lectures/testing.html#bugs",
+    "title": "Testing",
+    "section": "Bugs!",
+    "text": "Bugs!\n\nCrash: function call exits with error\nIncorrect behavior\nUnexpected behavior\n\n\nlibrary(MASS)\ndata(Pima.te)\n\n## Crash\nsubset( head(Pima.te), npreg &gt; a )\n\nError in eval(e, x, parent.frame()): object 'a' not found\n\n## Incorrect behavior\nsubset( head(Pima.te), type = \"yes\" & npreg &gt; 2 )\n\n  npreg glu bp skin  bmi   ped age type\n1     6 148 72   35 33.6 0.627  50  Yes\n2     1  85 66   29 26.6 0.351  31   No\n3     1  89 66   23 28.1 0.167  21   No\n4     3  78 50   32 31.0 0.248  26  Yes\n5     2 197 70   45 30.5 0.158  53  Yes\n6     5 166 72   19 25.8 0.587  51  Yes\n\n## Unexpected behavior\nsubset( head(Pima.te), type == \"yes\" & npreg &gt; 2 )\n\n[1] npreg glu   bp    skin  bmi   ped   age   type \n&lt;0 rows&gt; (or 0-length row.names)"
+  },
+  {
+    "objectID": "lectures/testing.html#tools",
+    "href": "lectures/testing.html#tools",
+    "title": "Testing",
+    "section": "Tools",
+    "text": "Tools\ntraceback to find where error occurred:\n\nlibrary(MASS)\ndata(Pima.te)\nsubset(Pima.te, npreg &gt; a)\ntraceback()\n\ndebug to execute code line by line:\n\ndebug(&lt;function-name&gt;) to start debugging\nAt debug-prompt:\n\nn or Enter to execute current line, continue to next\nc to run function from the current line to end\nQ to quit\nany variable, expression is evaluated in the current environment\n\nundebug(&lt;function-name&gt;) to retore normal behavior\n\nbrowser to set stop points when running code:\n\nAdd browser() command to code at strategic locations\nFunction will execute to browser and open debugger as above\n\nRstudio Debug menu: similar fucntionality, but can only be started for R scripts"
+  },
+  {
+    "objectID": "lectures/testing.html#example",
+    "href": "lectures/testing.html#example",
+    "title": "Testing",
+    "section": "Example",
+    "text": "Example\n\nf1 = function(x, y, flag = TRUE, n = 1000) \n{\n  if ( missing(y) ) \n  {\n    if (flag | (x &gt; 0)) y = abs(x)\n  }\n  g = function(z) z + x\n  acc = 0\n  ## What happened to ?cumsum \n  for (i in 1:1000) acc = acc + runif(1) \n  g(y)\n}\n\nRun tests:\n\nf1(1)\nf1(-1)\nf1(1, flag = FALSE)\nf1(-1, flag = FALSE)\n\n\nRun traceback (not very useful)\nUse debug to run the critical case line-by-line as far as practical\nNote how the focus jumps between editor and console; editor has some decent Debug menu items, but inspection of local vars (e.g. ls()) is in the console\nAdd a browser() statement that allows you to pass over the loop (or use the menu item)\nFix the function, remove the browser if necessary & undebug"
+  },
+  {
+    "objectID": "lectures/testing.html#minimal-replicable-example",
+    "href": "lectures/testing.html#minimal-replicable-example",
+    "title": "Testing",
+    "section": "Minimal replicable example",
+    "text": "Minimal replicable example\nSimplify any example that generates an error\nSmallest self-contained set of data & code that generates the error reliably\n\nOften finds the problem\nEasier to read & understand on Stackoverflow etc.\nShows respect for other people’s time"
+  },
+  {
+    "objectID": "materials.html",
+    "href": "materials.html",
+    "title": "Course Materials",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nTitle\n\n\n\n\n\n\nDesigning a package\n\n\n\n\nDocumentation\n\n\n\n\nFlow control and loops\n\n\n\n\nFunctions\n\n\n\n\nIntroduction and Overview\n\n\n\n\nObject-oriented programming\n\n\n\n\nPublishing and Promoting a Package\n\n\n\n\nTesting\n\n\n\n\nThe R Ecosystem\n\n\n\n\ngit and github\n\n\n\n\n\nNo matching items"
+  }
+]

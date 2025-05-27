@@ -1,0 +1,51 @@
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.navbar {
+  background-color: #002546;
+  color: white;
+}
+
+.hero {
+  background-color: #6cbdcb;
+  padding: 1.25rem;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+div.g-col-6:has(a.linkcard):hover {
+  transition: .5s;
+  background-color: #6cbdcb;
+}
+div.g-col-6:has(a.linkcard) {
+  padding: 1rem;
+  background-color: #ddd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+div.g-col-6:has(a.linkcard):after {
+    transition: .2s;
+    width: 32px;
+    height: 32px;
+    border-radius: 30px;
+    color: #333;
+    text-align: center;
+    background: #fff;
+    padding: 10px;
+    content: "🔗";
+    z-index: 1;
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
